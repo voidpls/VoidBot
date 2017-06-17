@@ -13,17 +13,22 @@ var links = [
 ]
 
 var ids = [
-  '280788029575004160',
-  '241875461171445761',
-  '255549538167685120',
-  '299052998355714049',
-  '191386226442502145',
-  '204918388793802752',
-  '135721889828962305',
-  '315824677115396096',
-  '323992245781135360',
-  '299036445157621760',
-  '325313826352398350'
+//me
+'299036445157621760',
+//blma
+'325314346999611415',
+//bob
+'325625615761801217',
+//atdit
+'325313826352398350',
+//ben
+'135721889828962305',
+//bot
+'323992245781135360',
+//paxton
+'218327115140038658',
+//Hitler
+'191386226442502145'
 ]
 //descriptions:
 var heilInfo = '**..heil** | Posts a picture of hitler \n'
@@ -93,7 +98,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
   e.message.channel.sendMessage(links[i]);
 
 //level up
-  if (e.message.content.includes('leveled up!')){
+  if (e.message.content.includes('leveled up!' && e.message.author.id == '172002275412279296')){
   e.message.channel.sendMessage('***L-L-LEVEL UP!!!***');
   };
 
