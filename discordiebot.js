@@ -151,8 +151,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
   globalon_message('..nigger', 'http://www.voidpls.tk/files/nigger.jpg');
   globalon_message('..gas', ':star_of_david: **Gas the Kikes** :star_of_david:');
   globalon_message('..heil', 'http://www.voidpls.tk/files/hitler.png');
-  on_message('..remind2', '**--------------------------------\n<:swastika:325668829759930368>   Daily Reminder:   <:swastika:325668829759930368>\nHitler Did Nothing Wrong!\n--------------------------------**');
-  on_message('..remind', '**--------------------------------\n<:swastikaflaghitler:325352487148060672>   Daily Reminder:   <:swastikaflaghitler:325352487148060672>\nHitler Did Nothing Wrong!\n--------------------------------**');
+  on_message('..remind', '**--------------------------------\n<:swastika:325668829759930368>   Daily Reminder:   <:swastika:325668829759930368>\nHitler Did Nothing Wrong!\n--------------------------------**');
 
 //autodelete
   if (e.message.content.startsWith('..') && e.message.guild.id == '317978984119795712')
