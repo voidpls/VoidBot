@@ -32,7 +32,11 @@ var ids = [
 ]
 
 var niggers = [
-  
+  'http://www.voidpls.tk/niggers/1.jpg',
+  'http://www.voidpls.tk/niggers/2.jpg',
+  'http://www.voidpls.tk/niggers/3.jpg',
+  'http://www.voidpls.tk/niggers/4.jpg',
+  'http://www.voidpls.tk/niggers/5.jpg'
 ]
 //descriptions:
 var heilInfo = '**..heil** | Posts a picture of hitler \n'
@@ -96,11 +100,12 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
     e.message.addReaction('❎');
   };
 
-//diversity
-  var i = Math.floor(links.length * Math.random());
-  if (e.message.content == '..diversity')
-  e.message.channel.sendMessage(links[i]);
-
+//random on message
+function random_on_message(arg, list){
+  var i = Math.floor(list.length * Math.random());
+  if (e.message.content == arg)
+  e.message.channel.sendMessage(list[i]);
+}
 //level up
   if (e.message.content.includes('leveled up!' && e.message.author.id == '172002275412279296')){
   e.message.channel.sendMessage('***L-L-LEVEL UP!!!***');
@@ -158,11 +163,11 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
   on_message('..daily', 't!daily <@255549538167685120>');
   on_message('..on', '.on <@299052998355714049>');
   globalon_message('..morticia', 'http://www.voidpls.tk/files/morticia.jpg')
-  globalon_message('..nigger', 'http://www.voidpls.tk/files/nigger.jpg');
   globalon_message('..gas', ':star_of_david: **Gas the Kikes** :star_of_david:');
   globalon_message('..heil', 'http://www.voidpls.tk/files/hitler.png');
   on_message('..remind', '**--------------------------------\n<:swastika:325668829759930368>   Daily Reminder:   <:swastika:325668829759930368>\nHitler Did Nothing Wrong!\n--------------------------------**');
-
+  random_on_message('..diversity', links);
+  random_on_message('..nigger', niggers)
 //autodelete
   if (e.message.content.startsWith('..') && e.message.guild.id == '317978984119795712')
   e.message.delete();
