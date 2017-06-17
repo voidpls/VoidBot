@@ -39,11 +39,10 @@ var pingInfo = '**..ping** | Pong \n'
 var botid = ['323992245781135360']
 var everyone = heilInfo + gasInfo + pollInfo + diversityInfo + niggerInfo + morticiaInfo
 var mods = remindInfo + pingInfo
+var game = {name: "made by Void | ..help"};
 
-
+client.User.setStatus(null, game);
 //connect
-client.User.setGame('made by Void | ..help');
-
 client.connect({
   token: "MzIzOTkyMjQ1NzgxMTM1MzYw.DCLlRw.xs1GqfbDfpxjQ3RSGZR2FzSspCE"
 });
