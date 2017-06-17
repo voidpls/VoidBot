@@ -1,3 +1,5 @@
+//https://github.com/voidpls/selfbot.git
+
 var Discordie = require("discordie");
 var client = new Discordie({
   messageCacheLimit: 1000
@@ -107,7 +109,7 @@ function random_on_message(arg, list){
   e.message.channel.sendMessage(list[i]);
 }
 //level up
-  if (e.message.content.includes('leveled up!' && e.message.author.id == '172002275412279296')){
+  if (e.message.content.includes('leveled up!')){
   e.message.channel.sendMessage('***L-L-LEVEL UP!!!***');
   };
 
