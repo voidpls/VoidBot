@@ -42,10 +42,11 @@ var mods = remindInfo + pingInfo
 
 
 //connect
+client.User.setGame('made by Void | ..help');
+
 client.connect({
   token: "MzIzOTkyMjQ1NzgxMTM1MzYw.DCLlRw.xs1GqfbDfpxjQ3RSGZR2FzSspCE"
 });
-  client.User.setGame('made by Void | ..help');
 client.Dispatcher.on("GATEWAY_READY", e => {
   console.log("Connected as: " + client.User.username);
 });
