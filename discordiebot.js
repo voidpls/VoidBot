@@ -92,7 +92,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
   e.message.channel.sendMessage(links[i]);
 
 //level up
-  if (e.message.content.startsWith('leveled up!**')){
+  if (e.message.content.includes('leveled up!')){
   e.message.channel.sendMessage('***L-L-LEVEL UP!!!***');
   };
 
@@ -117,7 +117,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
 //help
   if (e.message.content == '..help' && e.message.guild.id == '325315599708454913'){
   client.Users.getMember('261841687784062977', '323992245781135360')
-  var user = client.Users.find(u => u.id == '323992245781135360');
+  var user = client.User;
   var username = user.username;
   var me = client.Users.find(u => u.id == '299052998355714049');
   var pfp = me.avatarURL;
@@ -136,7 +136,11 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
         text: "Made by Void, for the honor of Mein Fürher"
       }
     });
-  };
+  /*e.message.channel.fetchMessages(1).then(msg => {
+    msg.delete().catch(err => this.log.err(err))
+  }); */
+};
+
 
 //basic commands
   on_message('..ping', '**Pong!** :ping_pong:');
