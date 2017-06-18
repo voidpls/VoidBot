@@ -30,7 +30,9 @@ var ids = [
   //paxton
   '218327115140038658',
   //Hitler
-  '191386226442502145'
+  '191386226442502145',
+  //Void#9093
+  '325827542164439040'
 ]
 
 var niggers = [
@@ -58,10 +60,11 @@ var mods = remindInfo + pingInfo
 var game = {name: "made by Void | ..help"};
 
 client.User.setStatus(null, game);
-//connect
+connect
 client.connect({
   token: "MzIzOTkyMjQ1NzgxMTM1MzYw.DCLlRw.xs1GqfbDfpxjQ3RSGZR2FzSspCE"
 });
+
 client.Dispatcher.on("GATEWAY_READY", e => {
   console.log("Connected as: " + client.User.username);
 });
