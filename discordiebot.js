@@ -177,7 +177,7 @@ function random_on_message(arg, list){
   on_message('..ping', '**Pong!** :ping_pong:');
   on_message('..rep', 't!rep <@299052998355714049>');
   on_message('..daily', 't!daily <@255549538167685120>');
-  on_message('..on', '.on <@299052998355714049>');
+  on_message('..on', '.on <@325827542164439040>');
   globalon_message('..morticia', 'http://www.voidpls.tk/files/morticia.jpg');
   globalon_message('..bob', '`..bob`? I think you mean `..gay faggot`');
   globalon_message('..gay faggot', '`..gay faggot`? I think you mean `..bob`');
