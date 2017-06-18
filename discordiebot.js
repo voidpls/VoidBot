@@ -40,6 +40,7 @@ var niggers = [
   'http://www.voidpls.tk/niggers/4.jpg',
   'http://www.voidpls.tk/niggers/5.jpg'
 ]
+
 //descriptions:
 var heilInfo = '**..heil** | Posts a picture of hitler \n'
 var gasInfo = '**..gas** | Sends "Gas the Kikes" \n'
@@ -125,7 +126,7 @@ function random_on_message(arg, list){
 }
 //echo
   if (e.message.content.startsWith('..echo') &&
-      e.message.author.id == '299052998355714049')
+      e.message.author.id == '299036445157621760')
   e.message.channel.sendMessage(args.join(" ").substring(6));
   else if (e.message.content.startsWith('..echo') &&
       e.message.author.id != '299052998355714049')
