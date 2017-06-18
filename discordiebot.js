@@ -125,13 +125,10 @@ function random_on_message(arg, list){
 
 
 //reacts
-  if (e.message.author.id == '299052998355714049' && e.message.guild.id == '317978984119795712')
+  if (e.message.author.id == '325827542164439040' && e.message.guild.id == '317978984119795712')
   e.message.addReaction(':swastika:322900266959765506');
-  else if (e.message.author.id == '191386226442502145' && e.message.guild.id == '261841687784062977')
-  e.message.addReaction(':haseeb2:261847395632021504');
-  else if (e.message.author.id == '100422477963870208' && e.message.guild.id == '317978984119795712'){
-  e.message.addReaction('👨🏿');
-  e.message.addReaction('🔫');
+  else if (e.message.author.id == '196296279771316224' && e.message.guild.id == '317978984119795712'){
+  e.message.addReaction('🦊');
 }
 //echo
   if (e.message.content.startsWith('..echo') &&
