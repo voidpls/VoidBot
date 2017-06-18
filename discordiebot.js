@@ -166,6 +166,8 @@ function random_on_message(arg, list){
   on_message('..daily', 't!daily <@255549538167685120>');
   on_message('..on', '.on <@299052998355714049>');
   globalon_message('..morticia', 'http://www.voidpls.tk/files/morticia.jpg')
+  globalon_message('..bob', '..bob? I think you mean ..gay faggot')
+  globalon_message('..gay faggot', '..gay faggot? I think you mean ..bob')
   globalon_message('..gas', ':star_of_david: **Gas the Kikes** :star_of_david:');
   globalon_message('..heil', 'http://www.voidpls.tk/files/hitler.png');
   on_message('..remind', '**--------------------------------\n<:swastika:325668829759930368>   Daily Reminder:   <:swastika:325668829759930368>\nHitler Did Nothing Wrong!\n--------------------------------**');
