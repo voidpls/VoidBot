@@ -141,8 +141,9 @@ function random_on_message(arg, list){
       e.message.author.id != '299052998355714049')
       e.message.reply('nice try')
 //ur mom gay
-  if (urmomgay.includes(e.message.content.toLowerCase()))
-  e.message.reply('no u');
+  var content = e.message.content.toLowerCase()
+  if (content.startsWith('ur mom') || content.startsWith('ur mum') || content.startsWith('your mom') || content.startsWith('your mum') || content.startsWith('your mother'))
+  e.message.channel.sendMessage('no u');
 
 //help
   if (e.message.content == '..help' && e.message.guild.id == '325315599708454913'){
