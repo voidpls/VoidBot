@@ -60,7 +60,7 @@ var mods = remindInfo + pingInfo
 var game = {name: "made by Void | ..help"};
 
 client.User.setStatus(null, game);
-connect
+
 client.connect({
   token: "MzIzOTkyMjQ1NzgxMTM1MzYw.DCLlRw.xs1GqfbDfpxjQ3RSGZR2FzSspCE"
 });
