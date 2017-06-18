@@ -35,6 +35,13 @@ var ids = [
   '325827542164439040'
 ]
 
+var urmomgay = [
+  'ur mom',
+  'ur mum',
+  'your mom',
+  'your mum'
+]
+
 var niggers = [
   'http://www.voidpls.tk/niggers/1.jpg',
   'http://www.voidpls.tk/niggers/2.jpg',
@@ -60,9 +67,9 @@ var mods = remindInfo + pingInfo
 var game = {name: "made by Void | ..help"};
 
 client.User.setStatus(null, game);
-
+//"MzIzOTkyMjQ1NzgxMTM1MzYw.DCLlRw.xs1GqfbDfpxjQ3RSGZR2FzSspCE"
 client.connect({
-  token: "MzIzOTkyMjQ1NzgxMTM1MzYw.DCLlRw.xs1GqfbDfpxjQ3RSGZR2FzSspCE"
+  token: "mfa.uHO-2ortwQVqy9xNPXzcYiE0nyDjXuLyH49IlUW3PiZKu4ve1jfuKayS3Myt5ge0"
 });
 
 client.Dispatcher.on("GATEWAY_READY", e => {
@@ -134,6 +141,9 @@ function random_on_message(arg, list){
   else if (e.message.content.startsWith('..echo') &&
       e.message.author.id != '299052998355714049')
       e.message.reply('nice try')
+//ur mom gay
+  if (urmomgay.includes(e.message.content.toLowerCase()))
+  e.message.reply('no u');
 
 //help
   if (e.message.content == '..help' && e.message.guild.id == '325315599708454913'){
@@ -168,14 +178,14 @@ function random_on_message(arg, list){
   on_message('..rep', 't!rep <@299052998355714049>');
   on_message('..daily', 't!daily <@255549538167685120>');
   on_message('..on', '.on <@299052998355714049>');
-  globalon_message('..morticia', 'http://www.voidpls.tk/files/morticia.jpg')
-  globalon_message('..bob', '`..bob`? I think you mean `..gay faggot`')
-  globalon_message('..gay faggot', '`..gay faggot`? I think you mean `..bob`')
+  globalon_message('..morticia', 'http://www.voidpls.tk/files/morticia.jpg');
+  globalon_message('..bob', '`..bob`? I think you mean `..gay faggot`');
+  globalon_message('..gay faggot', '`..gay faggot`? I think you mean `..bob`');
   globalon_message('..gas', ':star_of_david: **Gas the Kikes** :star_of_david:');
   globalon_message('..heil', 'http://www.voidpls.tk/files/hitler.png');
   on_message('..remind', '**--------------------------------\n<:swastika:325668829759930368>   Daily Reminder:   <:swastika:325668829759930368>\nHitler Did Nothing Wrong!\n--------------------------------**');
   random_on_message('..diversity', links);
-  random_on_message('..nigger', niggers)
+  random_on_message('..nigger', niggers);
 //autodelete
 
 });
