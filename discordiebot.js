@@ -67,9 +67,8 @@ var mods = remindInfo + pingInfo
 var game = {name: "made by Void | ..help"};
 
 client.User.setStatus(null, game);
-//"MzIzOTkyMjQ1NzgxMTM1MzYw.DCLlRw.xs1GqfbDfpxjQ3RSGZR2FzSspCE"
 client.connect({
-  token: "mfa.uHO-2ortwQVqy9xNPXzcYiE0nyDjXuLyH49IlUW3PiZKu4ve1jfuKayS3Myt5ge0"
+  token: "MzIzOTkyMjQ1NzgxMTM1MzYw.DCLlRw.xs1GqfbDfpxjQ3RSGZR2FzSspCE"
 });
 
 client.Dispatcher.on("GATEWAY_READY", e => {
