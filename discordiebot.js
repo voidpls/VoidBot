@@ -174,6 +174,5 @@ function random_on_message(arg, list){
   random_on_message('..diversity', links);
   random_on_message('..nigger', niggers)
 //autodelete
-  if (e.message.content.startsWith('..') && e.message.guild.id == '317978984119795712')
-  e.message.delete();
+
 });
