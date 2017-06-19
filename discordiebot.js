@@ -4,7 +4,9 @@
 
 var Discordie = require("discordie");
 var client = new Discordie({
-  messageCacheLimit: 1000
+  messageCacheLimit: 1000,
+  autoReconnect: true,
+  delay: 1000
 });
 
 //variables
@@ -229,6 +231,5 @@ function random_on_message(arg, list){
   random_on_message('..diversity', links);
   random_on_message('..nigger', niggers);
   random_on_message('..redpill', redpill);
-//autodelete
 
 });
