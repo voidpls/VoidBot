@@ -5,8 +5,7 @@
 var Discordie = require("discordie");
 var client = new Discordie({
   messageCacheLimit: 1000,
-  autoReconnect: true,
-  delay: 1000
+  autoReconnect: true
 });
 
 //variables
@@ -117,6 +116,12 @@ client.Dispatcher.on("GATEWAY_READY", e => {
   console.log("Connected as: " + client.User.username);
 });
 
+client.Dispatcher.on("GUILD_MEMBER_ADD", e => {
+	if (e.guild.id === "190646276256169994") {
+    var channel = e.guild.channels('325648252810690570')
+		channel.sendMessage(`Welcome to Moon Central, ${e.member.username}!`);
+};
+});
 
 //commands
 client.Dispatcher.on("MESSAGE_CREATE", e => {
