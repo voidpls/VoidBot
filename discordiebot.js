@@ -1,5 +1,6 @@
 //https://github.com/voidpls/selfbot.git
-//ec2-54-91-219-104.compute-1.amazonaws.com
+//ssh -i "bot.pem" ec2-user@ec2-54-91-219-104.compute-1.amazonaws.com
+
 
 var Discordie = require("discordie");
 var client = new Discordie({
