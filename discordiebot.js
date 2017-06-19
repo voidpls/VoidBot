@@ -120,9 +120,8 @@ client.Dispatcher.on("GATEWAY_READY", e => {
 });
 
 client.Dispatcher.on("GUILD_MEMBER_ADD", e => {
-  var guild = client.Guilds.find(g => g.id == '325315599708454913');
-  var channel = e.guild.channels('325648252810690570')
 	if (e.guild.id === "190646276256169994") {
+    var channel = client.Channels.get('325648252810690570');
 		channel.sendMessage(`Welcome to Moon Central, ${e.member.username}!`);
 };
 });
