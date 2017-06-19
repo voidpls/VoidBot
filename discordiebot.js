@@ -90,6 +90,8 @@ var holocaust = [
   '10. The Holocaust is the only genocide which relies on Soviet sources (anybody who ever lived in the Soviet Union would tell you how the "truth" is determined over there).'
 ]
 
+var swastika = ':red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle:\n:red_circle::red_circle::red_circle::white_circle::white_circle::white_circle::black_circle::white_circle::white_circle::white_circle::red_circle::red_circle::red_circle:\n:red_circle::red_circle::white_circle::white_circle::white_circle::black_circle::white_circle::white_circle::white_circle::white_circle::white_circle::red_circle::red_circle:\n:red_circle::red_circle::white_circle::white_circle::black_circle::white_circle::white_circle::white_circle::black_circle::white_circle::white_circle::red_circle::red_circle:\n:red_circle::red_circle::white_circle::white_circle::white_circle::black_circle::white_circle::black_circle::white_circle::black_circle::white_circle::red_circle::red_circle:\n:red_circle::red_circle::black_circle::white_circle::white_circle::white_circle::black_circle::white_circle::white_circle::white_circle::black_circle::red_circle::red_circle:\n:red_circle::red_circle::white_circle::black_circle::white_circle::black_circle::white_circle::black_circle::white_circle::white_circle::white_circle::red_circle::red_circle:\n:red_circle::red_circle::white_circle::white_circle::black_circle::white_circle::white_circle::white_circle::black_circle::white_circle::white_circle::red_circle::red_circle:\n:red_circle::red_circle::white_circle::white_circle::white_circle::white_circle::white_circle::black_circle::white_circle::white_circle::white_circle::red_circle::red_circle:\n:red_circle::red_circle::red_circle::white_circle::white_circle::white_circle::black_circle::white_circle::white_circle::white_circle::red_circle::red_circle::red_circle:\n:red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle:'
+
 //descriptions:
 var heilInfo = '**..heil** | Posts a picture of hitler \n'
 var gasInfo = '**..gas** | Sends "Gas the Kikes" \n'
@@ -101,10 +103,11 @@ var remindInfo = '**..remind** | Hitler did nothing wrong \n'
 var pingInfo = '**..ping** | Pong \n'
 var holocaustInfo = '**..holocaust [1-10]** | Sends a statement debunking the Holocaust \n'
 var redpillInfo = '**..redpill** | Sends a random redpill (DM me to add your own) \n'
+var swastikaInfo = '**..swastika** | Creates a bigass swastika \n'
 
 var botid = ['323992245781135360']
 var everyone = heilInfo + gasInfo + pollInfo + diversityInfo + niggerInfo + morticiaInfo + redpillInfo + holocaustInfo
-var mods = remindInfo + pingInfo
+var mods = remindInfo + swastikaInfo + pingInfo
 var game = {name: "made by Void | ..help"};
 
 client.User.setStatus(null, game);
@@ -117,8 +120,8 @@ client.Dispatcher.on("GATEWAY_READY", e => {
 });
 
 client.Dispatcher.on("GUILD_MEMBER_ADD", e => {
+  var channel = e.guild.channels('325648252810690570')
 	if (e.guild.id === "190646276256169994") {
-    var channel = e.guild.channels('325648252810690570')
 		channel.sendMessage(`Welcome to Moon Central, ${e.member.username}!`);
 };
 });
@@ -232,6 +235,7 @@ function random_on_message(arg, list){
   on_message('..rep', 't!rep <@299052998355714049>');
   on_message('..daily', 't!daily <@255549538167685120>');
   on_message('..on', '.on <@325827542164439040>');
+  on_message('..swastika', swastika)
   globalon_message('..morticia', 'http://www.voidpls.tk/files/morticia.jpg');
   globalon_message('..bob', '`..bob`? I think you mean `..gay faggot`');
   globalon_message('..gay faggot', '`..gay faggot`? I think you mean `..bob`');
