@@ -176,8 +176,8 @@ function random_on_message(arg, list){
 
 //avatar
   if (e.message.content.startsWith('..avatar')) {
-  var me = client.Users.find(u => u.id == e.message.author.id);
-  var avatarurl = me.avatarURL.replace('.jpg', '.webp?size=1024');
+  var user = client.Users.find(u => u.id == e.message.author.id);
+  var avatarurl = user.avatarURL.replace('.jpg', '.webp?size=1024');
   e.message.channel.sendMessage(avatarurl);
 };
 //reacts
