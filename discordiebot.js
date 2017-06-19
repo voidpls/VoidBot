@@ -66,7 +66,7 @@ var redpill = [
   '97% of Black fathers who have children with White women are not active in their children’s lives. \nSource: http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2625893',
   'Race-mixers may give less parental support to their children because of greater genetic distance. \nSource: http://onlinelibrary.wiley.com/doi/10.1111/j.1095-8312.2008.01110.x/abstract',
   '97% of interracial (Black man, White women) children are born out of wedlock. Source: http://papers.ssrn.com/ White-Black couples have more partner violence than White couples and as much violence as Black couples. \nSource: http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3611980/',
-  ': White women who marry minorities tend to be poor and to “marry up” in socioeconomic status. \nSource: http://paa2008.princeton.edu/papers/80046#page=7',
+  'White women who marry minorities tend to be poor and to “marry up” in socioeconomic status. \nSource: http://paa2008.princeton.edu/papers/80046#page=7',
   'Better educated men and women are more likely to exclude blacks as romantic partners. \nSource: http://paa2008.princeton.edu/papers/80046#page=23',
   '90% of White women who have kids with black men are unemployed or earn less than 10K a year. \nSource: http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2625893',
   'It can be proven that whites are genetically superior in intelligence compared to their African counterparts. Whites have created vast empires from Rome to Britain and have lead the charge for scientific advancement for hundreds of years. ',
