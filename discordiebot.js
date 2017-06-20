@@ -205,6 +205,10 @@ function random_on_message(arg, list){
   if (content.startsWith('ur mom') || content.startsWith('ur mum') || content.startsWith('your mom') || content.startsWith('your mum') || content.startsWith('your mother'))
   e.message.channel.sendMessage('no u');
 
+//delete evidence xd
+  if (e.message.content == '.on <@325827542164439040>')
+  e.message.delete();
+
 //help
   if (e.message.content == '..help' && e.message.guild.id == '325315599708454913'){
   client.Users.getMember('261841687784062977', '323992245781135360')
