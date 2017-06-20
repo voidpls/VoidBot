@@ -122,7 +122,7 @@ client.Dispatcher.on("GATEWAY_READY", e => {
 
 client.Dispatcher.on("GUILD_MEMBER_ADD", e => {
   function send() {
-    channel.sendMessage(`Welcome to Moon Central, ${e.member.username}!`);
+    channel.sendMessage(`Welcome to Moon Central, ${e.member.mention}!`);
 };
   var channel = client.Channels.get('325648252810690570');
 	if (e.guild.id === "325315599708454913") {
