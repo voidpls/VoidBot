@@ -163,6 +163,17 @@ function random_on_message(arg, list){
   if (e.message.content == arg)
   e.message.channel.sendMessage(list[i]);
 }
+
+//spam
+  if (e.message.content.startsWith('..spam') && e.message.author.id == '325827542164439040') {
+  var text = args[1].replace('_', ' ');
+  var number = parseInt(args[2]);
+  while (number != 0){
+    e.message.channel.sendMessage(text);
+    number = number - 1
+  };
+};
+
 //level up
   if (e.message.content.includes('leveled up!')){
   e.message.channel.sendMessage('***L-L-LEVEL UP!!!***');
