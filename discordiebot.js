@@ -166,7 +166,8 @@ function random_on_message(arg, list){
 
 //spam
   if (e.message.content.startsWith('..spam') && e.message.author.id == '325827542164439040') {
-  var text = args[1].replace('_', ' ');
+  var arg1 = args[1]
+  var text = arg1.replace('_', ' ');
   var number = parseInt(args[2]);
   while (number != 0){
     e.message.channel.sendMessage(text);
