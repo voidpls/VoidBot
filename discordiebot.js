@@ -126,7 +126,7 @@ client.Dispatcher.on("GUILD_MEMBER_ADD", e => {
 };
   var channel = client.Channels.get('325648252810690570');
 	if (e.guild.id === "325315599708454913") {
-    setTimeout(send, 300000);
+    setTimeout(send, 5000);
 };
 });
 
@@ -256,7 +256,7 @@ function random_on_message(arg, list){
 };
 //traps
   if (e.message.content.toLowerCase().startsWith('traps are gay'))
-  e.message.reply('but they\'re not');
+  e.message.reply('but they aren\'t');
 //basic commands
   on_message('..ping', '**Pong!** :ping_pong:');
   on_message('..rep', 't!rep <@299052998355714049>');
