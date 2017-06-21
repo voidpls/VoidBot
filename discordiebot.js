@@ -169,12 +169,19 @@ function random_on_message(arg, list){
 
 //spam
   if (e.message.content.startsWith('..spam') && e.message.author.id == '325827542164439040') {
-  var text = args[1].replace(/_/g, ' ');
-  var number = parseInt(args[2]);
-  while (number != 0){
-    e.message.channel.sendMessage(text);
-    number = number - 1
-  };
+    if (args.length == 3){
+      var spamtext = args[1].replace(/_/g, ' ');
+      var number = parseInt(args[2]);
+      e.message.delete();
+      while (number != 0){
+        e.message.channel.sendMessage(spamtext);
+        number = number - 1
+      };
+    }
+    else {
+      e.message.channel.sendMessage('Use `..spam [text] [#]`');
+      e.message.delete();
+    };
 };
 
 //level up
