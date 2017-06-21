@@ -247,8 +247,9 @@ function random_on_message(arg, list){
     });
 
 };
-
-
+//traps
+  if (e.message.content.toLowerCase().startsWith('traps are gay'))
+  e.message.reply('but they\'re not');
 //basic commands
   on_message('..ping', '**Pong!** :ping_pong:');
   on_message('..rep', 't!rep <@299052998355714049>');
