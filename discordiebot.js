@@ -38,6 +38,13 @@ var ids = [
   '325827542164439040'
 ]
 
+var helpIDs = [
+  '325315599708454913',
+  '317978984119795712',
+  '295467114586832906',
+  '269957997600440320'
+]
+
 var urmomgay = [
   'ur mom',
   'ur mum',
@@ -159,7 +166,9 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
   var channel = client.Channels.get('327320793681756161');
   channel.sendMessage(`Baecon said: \"${e.message.content}\"`);
 }
-  else if (e.message.content.includes('void') && e.message.author.id != client.User.id) {
+  else if (e.message.content.includes('void') &&
+  e.message.author.id != client.User.id &&
+e.message.author.id != '325827542164439040') {
   var channel = client.Channels.get('327331811292217347');
   channel.sendMessage(`${e.message.author.mention} said: \"${e.message.content}\"`);
 }
@@ -251,7 +260,7 @@ function random_on_message(arg, list){
   e.message.delete();
 
 //help
-  if (e.message.content == '..help' && e.message.guild.id == '325315599708454913'){
+  if (e.message.content.toLowerCase() == '..help' && helpIDs.includes(e.message.guild.id)){
   client.Users.getMember('261841687784062977', '323992245781135360')
   var user = client.User;
   var username = user.username;
