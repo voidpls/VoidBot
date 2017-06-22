@@ -120,6 +120,7 @@ client.Dispatcher.on("GATEWAY_READY", e => {
   console.log("Connected as: " + client.User.username);
 });
 
+//welcome
 client.Dispatcher.on("GUILD_MEMBER_ADD", e => {
   function send() {
     channel.sendMessage(`Welcome to Moon Central, ${e.member.mention}!`);
@@ -148,8 +149,14 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
     e.message.channel.sendMessage(arg2);
   };
 
+//log
+  if (e.message.author.id == '218177032327135232'){
+  var channel = client.Channels.get('327320793681756161');
+  channel.sendMessage(`Baecon said: \"${e.message.content}\"`);
+};
 //poll
   if (e.message.content.startsWith('..poll')) {
+  e.message.delete();
   e.message.channel.sendMessage('**Poll:**' + args.join(" ").substring(6));
   };
 
@@ -264,6 +271,8 @@ function random_on_message(arg, list){
   on_message('..on', '.on <@325827542164439040>');
   on_message('..swastika', swastika)
   globalon_message('..morticia', 'http://www.voidpls.tk/files/morticia.jpg');
+  globalon_message('/o/', '\\o\\');
+  globalon_message('\\o\\', '/o/');
   globalon_message('..bob', '`..bob`? I think you mean `..gay faggot`');
   globalon_message('..gay faggot', '`..gay faggot`? I think you mean `..bob`');
   globalon_message('..gas', ':star_of_david: **Gas the Kikes** :star_of_david:');
