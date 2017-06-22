@@ -107,7 +107,7 @@ var redpillInfo = '**..redpill** | Sends a random redpill (DM me to add your own
 var swastikaInfo = '**..swastika** | Creates a bigass swastika \n'
 
 var botid = ['323992245781135360']
-var everyone = heilInfo + gasInfo + pollInfo + diversityInfo + niggerInfo + morticiaInfo + redpillInfo + holocaustInfo
+var everyone = heilInfo + gasInfo + pollInfo + diversityInfo + niggerInfo + redpillInfo + holocaustInfo
 var mods = remindInfo + swastikaInfo + pingInfo
 var game = {name: "made by Void | ..help"};
 
@@ -118,6 +118,10 @@ client.connect({
 
 client.Dispatcher.on("GATEWAY_READY", e => {
   console.log("Connected as: " + client.User.username);
+});
+
+client.Dispatcher.on("DISCONNECTED", () => {
+  console.log('Disconnected from Discord: ', error);
 });
 
 //welcome
@@ -150,9 +154,18 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
   };
 
 //log
+  var mainacc = client.Users.get('325827542164439040');
   if (e.message.author.id == '218177032327135232'){
   var channel = client.Channels.get('327320793681756161');
   channel.sendMessage(`Baecon said: \"${e.message.content}\"`);
+}
+  else if (e.message.content.includes('void') && e.message.author.id != client.User.id) {
+  var channel = client.Channels.get('327331811292217347');
+  channel.sendMessage(`${e.message.author.mention} said: \"${e.message.content}\"`);
+}
+  else if (mainacc.isMentioned(e.message) && e.message.author.id != client.User.id){
+  var channel = client.Channels.get('327331811292217347');
+  channel.sendMessage(`${e.message.author.mention} said: \"${e.message.content}\"`);
 };
 //poll
   if (e.message.content.startsWith('..poll')) {
@@ -229,7 +242,7 @@ function random_on_message(arg, list){
       e.message.author.id != '299052998355714049')
       e.message.reply('nice try')
 //ur mom gay
-  var content = e.message.content.toLowerCase()
+  let content = e.message.content.toLowerCase()
   if (content.startsWith('ur mom') || content.startsWith('ur mum') || content.startsWith('your mom') || content.startsWith('your mum') || content.startsWith('your mother'))
   e.message.channel.sendMessage('no u');
 
@@ -270,7 +283,6 @@ function random_on_message(arg, list){
   on_message('..daily', 't!daily <@255549538167685120>');
   on_message('..on', '.on <@325827542164439040>');
   on_message('..swastika', swastika)
-  globalon_message('..morticia', 'http://www.voidpls.tk/files/morticia.jpg');
   globalon_message('/o/', '\\o\\');
   globalon_message('\\o\\', '/o/');
   globalon_message('..bob', '`..bob`? I think you mean `..gay faggot`');
