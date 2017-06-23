@@ -128,7 +128,7 @@ client.Dispatcher.on("GATEWAY_READY", e => {
 });
 
 client.Dispatcher.on("DISCONNECTED", () => {
-  console.log('Disconnected from Discord: ', error);
+  console.log('Disconnected from Discord');
 });
 
 //welcome
@@ -156,7 +156,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
 
 //global message function
   function globalon_message(arg1, arg2){
-  if (e.message.content == arg1)
+  if (e.message.content == arg1 && e.message.author.id != client.User.id)
     e.message.channel.sendMessage(arg2);
   };
 
