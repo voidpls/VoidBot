@@ -123,7 +123,7 @@ client.Dispatcher.on("GUILD_MEMBER_ADD", e => {
 client.Dispatcher.on("GUILD_MEMBER_REMOVE", e => {
   let channel = client.Channels.get('325321760939704320');
 	if (e.guild.id === "325315599708454913") {
-    channel.sendMessage(`About time that nigger ${e.member.username} left or got kicked!`);
+    channel.sendMessage(`About time that nigger ${e.member.name} left or got kicked!`);
 };
 });
 
@@ -133,6 +133,9 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
   var args = e.message.content.split(/[ ]+/);
   client.Users.fetchMembers()
 
+//notso off
+  if (e.message.author.id == '170903342199865344')
+  e.message.delete();
 //self message function
   function on_message(arg1, arg2){
     if (e.message.content == arg1 && ids.includes(e.message.author.id))
