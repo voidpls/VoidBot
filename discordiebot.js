@@ -120,10 +120,10 @@ client.Dispatcher.on("GUILD_MEMBER_ADD", e => {
 };
 });
 
-client.Dispatcher.on("GUILD_MEMBER_REMOVE", e => {
+client.Dispatcher.on("GUILD_MEMBER_REMOVE", member => {
   let channel = client.Channels.get('325321760939704320');
 	if (e.guild.id === "325315599708454913") {
-    channel.sendMessage(`About time that nigger ${e.member.mention} left or got kicked!`);
+    channel.sendMessage(`About time that nigger ${member.user} left or got kicked!`);
 };
 });
 
