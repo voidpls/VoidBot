@@ -7,6 +7,9 @@ var client = new Discordie({
   messageCacheLimit: 1000,
   autoReconnect: true
 });
+var data = require('./data.json')
+var redpill = data.redpill
+var holocaust = data.holocaust
 
 //variables
 var links = [
@@ -57,65 +60,40 @@ var niggers = [
   'http://www.voidpls.tk/niggers/2.jpg',
   'http://www.voidpls.tk/niggers/3.jpg',
   'http://www.voidpls.tk/niggers/4.jpg',
-  'http://www.voidpls.tk/niggers/5.jpg'
-]
-
-var redpill = [
-  'An interactive map of white genocide in the world. \nhttp://whitegenocideproject.com/map-of-white-genocide/',
-  'What we could do about white genocide. \nhttp://thisiseuropa.net/howtoreversewhitegenocide/',
-  '“Nonwhite daters gain status by dating any White. Whites, on the other hand, have little to gain by dating minorities.” \nSource: http://sf.oxfordjournals.org/content/89/3/807.abstract',
-  'White/Black babies are less healthy than White babies. \nSource: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2867623/',
-  'Mixed race couples are more likely to have stillborn babies than same-race couples. \nSource: https://www.ncbi.nlm.nih.gov/pubmed/15994621',
-  'Black-White children are more likely than both Black and Whites to make poor decisions. \nSource: http://www.nber.org/papers/w14192',
-  '90% of women who have a child with a Black man never marry the father. \nSource: http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2625893',
-  '98% of White women who have children with Black men are not financially supported by the father. \nSource: http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2625893',
-  'The average White woman who has kids with a Black man earns $7250 a year, excluding welfare. \nSource: http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2625893',
-  '97% of White women who have children with Black men have used welfare. \nSource: http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2625893',
-  '97% of Black fathers who have children with White women are not active in their children’s lives. \nSource: http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2625893',
-  'Race-mixers may give less parental support to their children because of greater genetic distance. \nSource: http://onlinelibrary.wiley.com/doi/10.1111/j.1095-8312.2008.01110.x/abstract',
-  '97% of interracial (Black man, White women) children are born out of wedlock. Source: http://papers.ssrn.com/ White-Black couples have more partner violence than White couples and as much violence as Black couples. \nSource: http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3611980/',
-  'White women who marry minorities tend to be poor and to “marry up” in socioeconomic status. \nSource: http://paa2008.princeton.edu/papers/80046#page=7',
-  'Better educated men and women are more likely to exclude blacks as romantic partners. \nSource: http://paa2008.princeton.edu/papers/80046#page=23',
-  '90% of White women who have kids with black men are unemployed or earn less than 10K a year. \nSource: http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2625893',
-  'It can be proven that whites are genetically superior in intelligence compared to their African counterparts. Whites have created vast empires from Rome to Britain and have lead the charge for scientific advancement for hundreds of years. ',
-  'Proof that the IQ gap is in fact racial\nhttp://nationalvanguard.org/2016/07/14-reasons-iq-race-gap-is-genetic/',
-  'Blacks preforming poorer in schools due to their lower IQ \nhttp://gulfcoastcommentary.blogspot.com/2013/03/blacks-score-much-lower-on-all-academic.html?m=1',
-  'IQ once again showing that blacks are intellectually inferior with whites and Asians leading the group. \nhttps://www.iq-tests.eu/iq-test-IQ-correlations-700.html',
-  'A thorough explanation of white genocide and its disastrous implications. \nhttp://ww.renegadetribune.com/white-genocide-racist-conspiracy-theory-or-inconvenient-truth/\nhttps://www.google.com/amp/s/m.mic.com/articles/amp/106252/the-year-white-people-will-become-a-minority-in-america-has-been-declared\nhttp://andrewcarringtonhitchcock.com/jewish-genocide-of-the-white-race-case-closed/\nhttps://www.darkmoon.me/2016/white-extinction/'
-]
-
-var holocaust = [
-  '1. The Holocaust is the only claimed genocide which was written in history on the basis of military tribunals where the victors judged the vanquished and that accepted as evidence absurd allegations such as human skin lampshades, human soap, blowing an experimental village with 20,000 Jews... just to name a few.',
-  '2. The Holocaust is the only claimed genocide in which it is claimed that the perpetrators somehow managed to commit a perfect murder x 6,000,000 by destroying all evidence and using an unknown code language to submit orders and plans.',
-  '3. The Holocaust is the only claimed genocide which claims a systematic industrial extermination in novel extermination weapons such as gas vans, gas chambers, diesel chambers, steam chambers, incinerators, etc. yet none of those weapons are ever found nor do they leave pictures, blueprints or construction orders.',
-  '4. The Holocaust is the only claimed genocide which is peddled by people who by their own accounts were treated in hospitals in so-called "extermination camps".',
-  '5. The Holocaust is the only claimed genocide which is "trademarked" and which has become a multi-billion dollar industry.',
-  '6. The Holocaust is the only claimed genocide which is still used today as one of the most powerful political weapons ever invented.',
-  '7. The Holocaust is the only claimed genocide which has been elevated to a religion status, including a religious dogmatic number, shrines, pilgrimages, martyrs and saints.',
-  '8. The Holocaust is the only claimed genocide that will get you excommunicated (best case) or jailed (worst case) if you doubt its veracity.',
-  '9. The Holocaust is the only claimed genocide which has changed the official story radically over the years yet we are always told that this is the absolute truth etched in stone which nobody is supposed to question.',
-  '10. The Holocaust is the only genocide which relies on Soviet sources (anybody who ever lived in the Soviet Union would tell you how the "truth" is determined over there).'
+  'http://www.voidpls.tk/niggers/5.jpg',
+  'http://www.voidpls.tk/niggers/6.jpg',
+  'http://www.voidpls.tk/niggers/7.jpg',
+  'http://www.voidpls.tk/niggers/8.jpg',
+  'http://www.voidpls.tk/niggers/9.jpg'
 ]
 
 var swastika =
   ':red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle:\n:red_circle::red_circle::red_circle::white_circle::white_circle::white_circle::black_circle::white_circle::white_circle::white_circle::red_circle::red_circle::red_circle:\n:red_circle::red_circle::white_circle::white_circle::white_circle::black_circle::white_circle::white_circle::white_circle::white_circle::white_circle::red_circle::red_circle:\n:red_circle::red_circle::white_circle::white_circle::black_circle::white_circle::white_circle::white_circle::black_circle::white_circle::white_circle::red_circle::red_circle:\n:red_circle::red_circle::white_circle::white_circle::white_circle::black_circle::white_circle::black_circle::white_circle::black_circle::white_circle::red_circle::red_circle:\n:red_circle::red_circle::black_circle::white_circle::white_circle::white_circle::black_circle::white_circle::white_circle::white_circle::black_circle::red_circle::red_circle:\n:red_circle::red_circle::white_circle::black_circle::white_circle::black_circle::white_circle::black_circle::white_circle::white_circle::white_circle::red_circle::red_circle:\n:red_circle::red_circle::white_circle::white_circle::black_circle::white_circle::white_circle::white_circle::black_circle::white_circle::white_circle::red_circle::red_circle:\n:red_circle::red_circle::white_circle::white_circle::white_circle::white_circle::white_circle::black_circle::white_circle::white_circle::white_circle::red_circle::red_circle:\n:red_circle::red_circle::red_circle::white_circle::white_circle::white_circle::black_circle::white_circle::white_circle::white_circle::red_circle::red_circle::red_circle:\n:red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle::red_circle:'
 
-//descriptions:
-var heilInfo = '**..heil** | Posts a picture of hitler \n'
-var gasInfo = '**..gas** | Sends "Gas the Kikes" \n'
-var pollInfo = '**..poll [question]** | Makes a poll \n'
-var diversityInfo = '**..diversity** | Sends a random picture on diversity \n'
-var niggerInfo = '**..nigger** | Sends a nigger \n'
-var morticiaInfo = '**..morticia** | Darn Russian Spy \n'
-var remindInfo = '**..remind** | Hitler did nothing wrong \n'
-var pingInfo = '**..ping** | Pong \n'
-var holocaustInfo = '**..holocaust [1-10]** | Sends a statement debunking the Holocaust \n'
-var redpillInfo = '**..redpill** | Sends a random redpill (DM me to add your own) \n'
-var swastikaInfo = '**..swastika** | Creates a bigass swastika \n'
+var islam = [
+  'http://www.voidpls.tk/islam/peace1.jpg',
+  'http://www.voidpls.tk/islam/peace2.jpg',
+  'http://www.voidpls.tk/islam/peace3.jpg'
+]
 
+//descriptions:
+var info = {
+  "heil": "**..heil** | Posts a picture of hitler \n",
+  "gas": "**..gas** | Sends 'Gas the Kikes' \n",
+  "poll": "**..poll [question]** | Makes a poll \n",
+  "diversity": "**..diversity** | Sends a random picture on diversity \n",
+  "nigger": "**..nigger** | Sends a nigger \n",
+  "morticia": "**..morticia** | Darn Russian Spy \n'",
+  "remind": "**..remind** | Hitler did nothing wrong \n",
+  "ping": "**..ping** | Pong \n",
+  "holocaust": "**..holocaust [1-10]** | Sends a statement debunking the Holocaust \n",
+  "redpill": "**..redpill** | Sends a random redpill (DM me to add your own) \n",
+  "swastika": "**..swastika** | Creates a bigass swastika \n",
+  "islam": "**..islam** | Religion of Peace"
+}
 var botid = ['323992245781135360']
-var everyone = heilInfo + gasInfo + pollInfo + diversityInfo + niggerInfo + redpillInfo + holocaustInfo
-var mods = remindInfo + swastikaInfo + pingInfo
+var everyone = info.heil + info.gas + info.poll + info.diversity + info.nigger + info.redpill + info.holocaust + info.islam
+var mods = info.remind + info.swastika + info.ping
 var game = {name: "made by Void | ..help"};
 
 client.User.setStatus(null, game);
@@ -136,9 +114,16 @@ client.Dispatcher.on("GUILD_MEMBER_ADD", e => {
   function send() {
     channel.sendMessage(`Welcome to Moon Central, ${e.member.mention}!`);
 };
-  var channel = client.Channels.get('325648252810690570');
+  let channel = client.Channels.get('325648252810690570');
 	if (e.guild.id === "325315599708454913") {
     setTimeout(send, 5000);
+};
+});
+
+client.Dispatcher.on("GUILD_MEMBER_REMOVE", e => {
+  let channel = client.Channels.get('325321760939704320');
+	if (e.guild.id === "325315599708454913") {
+    channel.sendMessage(`About time that nigger ${e.member.username} left or got kicked!`);
 };
 });
 
@@ -302,5 +287,8 @@ function random_on_message(arg, list){
   random_on_message('..diversity', links);
   random_on_message('..nigger', niggers);
   random_on_message('..redpill', redpill);
-
+//islam
+  let islamI = Math.floor(islam.length * Math.random());
+  if (e.message.content == '..islam')
+  e.message.channel.sendMessage('"Religion of Peace" \n' + islam[islamI]);
 });
