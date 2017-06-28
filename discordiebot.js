@@ -17,7 +17,8 @@ var links = [
   'http://www.voidpls.tk/diversity/2.jpg',
   'http://www.voidpls.tk/diversity/3.jpg',
   'http://www.voidpls.tk/diversity/4.jpg',
-  'http://www.voidpls.tk/diversity/5.jpg'
+  'http://www.voidpls.tk/diversity/5.jpg',
+  'http://www.voidpls.tk/diversity/6.jpg'
 ]
 
 var ids = [
