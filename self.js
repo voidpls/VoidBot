@@ -14,7 +14,6 @@ client.Dispatcher.on("GATEWAY_READY", e => {
   console.log("Connected as: " + client.User.username);
 });
 
-
 client.Dispatcher.on("MESSAGE_CREATE", e => {
   if (e.message.author !== client.user) return;
     let prefix = "..";
@@ -27,7 +26,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
           limit: 100
         })
         .then(messages => {
-          let msg_array = messages.array();
+          let msg_array = messages.toArray();
           msg_array = msg_array.filter(m => m.author.id === client.user.id);
           msg_array.length = messagecount + 1;
           msg_array.map(m => m.delete().catch(console.error));

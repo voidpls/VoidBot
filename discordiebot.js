@@ -133,9 +133,6 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
   var args = e.message.content.split(/[ ]+/);
   client.Users.fetchMembers()
 
-//notso off
-  if (e.message.author.id == '170903342199865344')
-  e.message.delete();
 //self message function
   function on_message(arg1, arg2){
     if (e.message.content == arg1 && ids.includes(e.message.author.id))
@@ -276,8 +273,8 @@ function random_on_message(arg, list){
   e.message.reply('but they aren\'t');
 //basic commands
   on_message('..ping', '**Pong!** :ping_pong:');
-  on_message('..rep', 't!rep <@299052998355714049>');
-  on_message('..daily', 't!daily <@255549538167685120>');
+  on_message('..rep', 't!rep <@135721889828962305>');
+  on_message('..daily', 't!daily <@135721889828962305>');
   on_message('..on', '.on <@325827542164439040>');
   on_message('..swastika', swastika)
   globalon_message('/o/', '\\o\\');
