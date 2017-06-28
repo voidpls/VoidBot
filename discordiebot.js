@@ -283,6 +283,7 @@ function random_on_message(arg, list){
   globalon_message('..gay faggot', '`..gay faggot`? I think you mean `..bob`');
   globalon_message('..gas', ':star_of_david: **Gas the Kikes** :star_of_david:');
   globalon_message('..heil', 'http://www.voidpls.tk/files/hitler.png');
+  globalon_message('..truth', 'Girls are the best but like Effy is better');
   on_message('..remind', '**--------------------------------\n<:swastika:325668829759930368>   Daily Reminder:   <:swastika:325668829759930368>\nHitler Did Nothing Wrong!\n--------------------------------**');
   random_on_message('..diversity', links);
   random_on_message('..nigger', niggers);
