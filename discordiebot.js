@@ -117,22 +117,23 @@ client.Dispatcher.on("DISCONNECTED", () => {
 client.Dispatcher.on("GUILD_MEMBER_ADD", e => {
   function send() {
     channel.sendMessage(`Welcome to Moon Central, ${e.member.mention}!`);
-};
+  }
   let channel = client.Channels.get('325648252810690570');
 	if (e.guild.id === "325315599708454913") {
     setTimeout(send, 5000);
 };
 });
 
-client.Dispatcher.on("GUILD_MEMBER_REMOVE", e => {
+client.Dispatcher.on("GUILD_MEMBER_REMOVE", member => {
   let channel = client.Channels.get('325321760939704320');
-	if (e.guild.id === "325315599708454913") {
-    channel.sendMessage(`About time that nigger ${e.user.username} left or got kicked!`);
+	if (guild.id === "325315599708454913") {
+    channel.sendMessage(`About time that nigger ${member.user.username} left or got kicked!`);
 };
 });
 
 //commands
 client.Dispatcher.on("MESSAGE_CREATE", e => {
+
 //args
   var args = e.message.content.split(/[ ]+/);
   client.Users.fetchMembers()
