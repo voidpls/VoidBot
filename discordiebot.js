@@ -275,6 +275,7 @@ function random_on_message(arg, list){
   on_message('..daily', 't!daily <@135721889828962305>');
   on_message('..on', '.on <@325827542164439040>');
   on_message('..swastika', swastika)
+  globalon_message('..morticia', 'http://www.voidpls.tk/files/morticia.jpg');
   globalon_message('/o/', '\\o\\');
   globalon_message('\\o\\', '/o/');
   globalon_message('..bob', '`..bob`? I think you mean `..gay faggot`');
