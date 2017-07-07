@@ -22,13 +22,13 @@ var links = [
 ]
 
 var ids = [
-  //me
+  //stacey
   '299036445157621760',
   //blma
   '325314346999611415',
   //bob
   '325625615761801217',
-  //atdit
+  //atdit non-mod
   '325313826352398350',
   //ben
   '135721889828962305',
@@ -39,7 +39,23 @@ var ids = [
   //Hitler
   '191386226442502145',
   //Void#9093
-  '325827542164439040'
+  '325827542164439040',
+  //Void#4724
+  '299052998355714049',
+  //atdit
+  '241875461171445761'
+]
+var spamIDs = [
+  //Void#4724
+  '299052998355714049',
+  //Void#9093
+  '325827542164439040',
+  //atdit
+  '241875461171445761',
+  //stacey
+  '299036445157621760',
+  //atdit non-mod
+  '325313826352398350'
 ]
 
 var helpIDs = [
@@ -180,7 +196,7 @@ function random_on_message(arg, list){
 }
 
 //spam
-  if (e.message.content.startsWith('..spam') && e.message.author.id == '325827542164439040') {
+  if (e.message.content.startsWith('..spam') && spamIDs.includes(e.message.author.id)) {
     if (args.length == 3){
       var spamtext = args[1].replace(/_/g, ' ');
       var number = parseInt(args[2]);
@@ -228,8 +244,10 @@ function random_on_message(arg, list){
 }
 //echo
   if (e.message.content.startsWith('..echo') &&
-      e.message.author.id == '299036445157621760')
+      spamIDs.includes(e.message.author.id)){
   e.message.channel.sendMessage(args.join(" ").substring(6));
+  e.message.delete();
+}
   else if (e.message.content.startsWith('..echo') &&
       e.message.author.id != '299052998355714049')
       e.message.reply('nice try')
