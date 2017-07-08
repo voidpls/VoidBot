@@ -257,7 +257,7 @@ function random_on_message(arg, list){
   e.message.channel.sendMessage('no u');
 
 //delete evidence xd
-  if (e.message.content == '.on <@325827542164439040>')
+  if (e.message.content == '.on <@299052998355714049>')
   e.message.delete();
 
 //help
@@ -291,7 +291,7 @@ function random_on_message(arg, list){
   on_message('..ping', '**Pong!** :ping_pong:');
   on_message('..rep', 't!rep <@135721889828962305>');
   on_message('..daily', 't!daily <@135721889828962305>');
-  on_message('..on', '.on <@325827542164439040>');
+  on_message('..on', '.on <@299052998355714049>');
   on_message('..swastika', swastika)
   globalon_message('..morticia', 'http://www.voidpls.tk/files/morticia.jpg');
   globalon_message('/o/', '\\o\\');
