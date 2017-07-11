@@ -43,7 +43,13 @@ var ids = [
   //Void#4724
   '299052998355714049',
   //atdit
-  '241875461171445761'
+  '241875461171445761',
+  //vegan
+  '301566395534278656',
+  //garl
+  '165250994291212288',
+  //bantz
+  '191029824796622848'
 ]
 var spamIDs = [
   //Void#4724
@@ -118,7 +124,7 @@ var game = {name: "made by Void | ..help"};
 
 client.User.setStatus(null, game);
 client.connect({
-  token: "MzIzOTkyMjQ1NzgxMTM1MzYw.DCLlRw.xs1GqfbDfpxjQ3RSGZR2FzSspCE"
+  token: "MzM0NDc1ODI1MjU4ODIzNzAx.DEbxWw.uknJNDDbKppkgKZz73wV-kg68fA"
 });
 
 client.Dispatcher.on("GATEWAY_READY", e => {
