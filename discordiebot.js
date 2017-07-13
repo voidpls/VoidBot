@@ -197,7 +197,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
   e.message.author.id != client.User.id &&
 e.message.author.id != '325827542164439040') {
   var channel = client.Channels.get('327331811292217347');
-  channel.sendMessage('```${e.message.author.mention} said: \"${e.message.content}\"```');
+  channel.sendMessage("`${e.message.author.mention} said: \"${e.message.content}\"`");
 }
   else if (mainacc.isMentioned(e.message) && e.message.author.id != client.User.id){
   var channel = client.Channels.get('327331811292217347');
