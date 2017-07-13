@@ -146,6 +146,27 @@ client.Dispatcher.on("GUILD_MEMBER_ADD", e => {
     setTimeout(send, 5000);
   }
 });
+//VC notify
+client.Dispatcher.on("VOICE_CHANNEL_JOIN", e => {
+
+  let channel = client.Channels.get('333769317697060865');
+
+  if (e.channelId == '329434888157790210'){
+  channel.sendMessage('',false, {
+      color: 0xD00000,
+      author: {
+       name: e.user.username + e.user.discriminator,
+       icon_url: e.user.avatarURL
+      },
+      fields: [
+        {
+          name: "",
+          value: '**' + e.user.username + ' has joined VC**'
+        }
+      ]
+    });
+  }
+});
 
 //commands
 client.Dispatcher.on("MESSAGE_CREATE", e => {
@@ -176,7 +197,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
   e.message.author.id != client.User.id &&
 e.message.author.id != '325827542164439040') {
   var channel = client.Channels.get('327331811292217347');
-  channel.sendMessage(`${e.message.author.mention} said: \"${e.message.content}\"`);
+  channel.sendMessage('```${e.message.author.mention} said: \"${e.message.content}\"```');
 }
   else if (mainacc.isMentioned(e.message) && e.message.author.id != client.User.id){
   var channel = client.Channels.get('327331811292217347');
@@ -184,17 +205,18 @@ e.message.author.id != '325827542164439040') {
 };
 //poll
   if (e.message.content.startsWith('..poll')) {
+  let sentMsg = e.message.channel.sendMessage('**Poll:**' + args.join(" ").substring(6))
+  return sentMsg
   e.message.delete();
-  e.message.channel.sendMessage('**Poll:**' + args.join(" ").substring(6));
-  };
-
-//poll part 2
+};
   if (e.message.content.startsWith('**Poll:**') &&
-      botid.includes(e.message.author.id)) {
-    e.message.addReaction('✅');
-    e.message.addReaction('❎');
-  };
-
+  e.message.author.id == client.User.id){
+  e.message.addReaction('✅').then(e.message.addReaction('❎'));
+};
+//y/n poll
+  if (e.message.content.toLowerCase().includes('y/n')){
+  e.message.addReaction('✅').then(e.message.addReaction('❎'));
+};
 //random on message
 function random_on_message(arg, list){
   var i = Math.floor(list.length * Math.random());
