@@ -28,7 +28,7 @@ var ids = [
   //blma
   '325314346999611415',
   //bob
-  '325625615761801217',
+  //'325625615761801217',
   //atdit non-mod
   '325313826352398350',
   //ben
@@ -53,6 +53,8 @@ var ids = [
   '191029824796622848'
 ]
 var spamIDs = [
+  //Effy
+  '135721889828962305',
   //Void#4724
   '299052998355714049',
   //Void#9093
@@ -152,7 +154,8 @@ client.Dispatcher.on("GUILD_MEMBER_ADD", e => {
 
 //commands
 client.Dispatcher.on("MESSAGE_CREATE", e => {
-
+if (e.message.author.id == client.User.id) return;
+else {
 //args
   var args = e.message.content.split(/[ ]+/);
   client.Users.fetchMembers()
@@ -174,26 +177,17 @@ if (e.message.content.toLowerCase().startsWith(p + 'stag') && spamIDs.includes(e
   else return;
 };
 
-/*
+
   //prune
-  if (e.message.content.startsWith("." + "d" && e.message.author.id == '325827542164439040')) {
+  if (e.message.content.startsWith("." + "d") && e.message.author.id == '325827542164439040') {
     let msgcount = parseInt(args[0]);
 
-    //e.message.channel.fetchMessages({limit: msgcount}).then(messages => e.message.channel.deleteMessage(messages));
 
-    e.message.channel.fetchMessages({limit: 100}).then(() => {
-    var msgArray = e.message.channel.messages.filter(m => m.channel.id == e.message.channel.id);
-    msgArray.length = msgcount + 1;
-    client.Messages.deleteMessages(msgArray).catch(console.log);
+    e.message.channel.fetchMessages({limit: 100}).then( m => {
+    client.Messages.delete(m);
   });
-
-      //let msgs = e.message.channel.fetchMessages({limit: 100}).then(msgs => {
-
-        //var msgArray = msgs.filter(m => m.author.id === '325827542164439040' || m.author.id === '334475825258823701')
-        //client.Messages.deleteMessages(msgArray).catch(console.log);
-      //})
     }
-    */
+
 //self message function
   function on_message(arg1, arg2){
     if (e.message.content.toLowerCase() == p + arg1 && ids.includes(e.message.author.id))
@@ -217,7 +211,12 @@ if (e.message.content.toLowerCase().startsWith(p + 'stag') && spamIDs.includes(e
   }
 //ping
   if (e.message.content.toLowerCase() == p + 'ping' && ids.includes(e.message.author.id)) {
-    e.message.channel.sendMessage("**Pong! :ping_pong:**")
+    let start = process.hrtime();
+    e.message.channel.sendMessage(":ping_pong:  |  Pong! - Time taken:").then(m => {
+      const diff = process.hrtime(start);
+      let time = diff[0] * 1000 + diff[1] / 1000000
+      m.edit(':ping_pong:  |  Pong! - Time taken: **' + Math.round(time) + 'ms**');
+    })
     };
 
 //log
@@ -249,6 +248,7 @@ e.message.author.id != '325827542164439040') {
   if (e.message.content.toLowerCase().includes('y/n')){
   e.message.addReaction('✅').then(e.message.addReaction('❎'));
 };
+
 //random on message
 function random_on_message(arg, list){
   var i = Math.floor(list.length * Math.random());
@@ -386,4 +386,5 @@ function random_on_message(arg, list){
   let islamI = Math.floor(islam.length * Math.random());
   if (e.message.content == 'islam')
   e.message.channel.sendMessage('"Religion of Peace" \n' + islam[islamI]);
+};
 });
