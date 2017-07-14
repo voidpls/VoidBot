@@ -272,7 +272,30 @@ function random_on_message(arg, list){
       e.message.delete();
     };
 };
-
+//feedback
+  if (e.message.content.toLowerCase().startsWith(p + 'complain')){
+    var channel = client.Channels.get('335540223884656640');
+    var author = e.message.author
+    args.shift();
+    var feedback = args.join(' ');
+    if (feedback.length < 10){
+      e.message.channel.sendMessage("`Error: Feedback too short (10+ characters)`");
+    }
+    else {
+    channel.sendMessage('', false, {
+          color: 0xD00000,
+          author: {
+           name: author.username + "#" + author.discriminator,
+           icon_url: author.avatarURL
+         },
+          fields: [{name: "**Feedback:**", value: feedback}],
+          footer: {
+            text: "ID ("+ author.id +")"
+          }
+        });
+      e.message.addReaction(":check:335548356552294410")
+  }
+};
 //level up
   if (e.message.content.toLowerCase().includes('leveled up!')){
   e.message.channel.sendMessage('***L-L-LEVEL UP!!!***');
