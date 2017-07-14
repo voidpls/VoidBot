@@ -224,7 +224,7 @@ if (e.message.content.toLowerCase().startsWith(p + 'stag') && spamIDs.includes(e
   var mainacc = client.Users.get('325827542164439040');
   if (e.message.author.id == '218177032327135232'){
   var channel = client.Channels.get('327320793681756161');
-  channel.sendMessage('Baecon said: \"${e.message.content}\"');
+  channel.sendMessage('Baecon said: \"' + e.message.content + '\"');
 }
   else if (e.message.content.toLowerCase().includes('void') &&
   e.message.author.id != client.User.id &&
