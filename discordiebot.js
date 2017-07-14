@@ -240,13 +240,10 @@ e.message.author.id != '325827542164439040') {
 };
 //poll
   if (e.message.content.toLowerCase().startsWith(p + 'poll')) {
-  let sentMsg = e.message.channel.sendMessage('**Poll:**' + args.join(" ").substring(6))
-  return sentMsg
+  e.message.channel.sendMessage('**Poll:**' + args.join(" ").substring(6)).then(m => {
+    m.addReaction('✅').then(m.addReaction('❎'));
+  });
   e.message.delete();
-};
-  if (e.message.content.toLowerCase().startsWith('**Poll:**') &&
-  e.message.author.id == client.User.id){
-  e.message.addReaction('✅').then(e.message.addReaction('❎'));
 };
 //y/n poll
   if (e.message.content.toLowerCase().includes('y/n')){
