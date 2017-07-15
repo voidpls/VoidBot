@@ -346,8 +346,7 @@ function random_on_message(arg, list){
 
 //die
   if (e.message.content.toLowerCase().startsWith(p + 'kill') && e.message.author.id == '325827542164439040')
-  e.message.channel.sendMessage('i am kill :skull:');
-  client.disconnect();
+  e.message.channel.sendMessage('i am kill :skull:').then(client.disconnect());
 //kick
   if (e.message.content.toLowerCase().startsWith(p +'gas') && e.message.author.id == '325827542164439040'){
     let user = getUser(args[1]);
