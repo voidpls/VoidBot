@@ -349,7 +349,7 @@ function random_on_message(arg, list){
     if (user === undefined) return;
     else {
     user.kick();
-    e.message.channel.sendMessage("<:check:335197798272073728>** " + user.username + " **has been gassed!");
+    e.message.channel.sendMessage("<:check:335544753443831810>** " + user.username + " **has been gassed!");
   };
   }
 //get user function
