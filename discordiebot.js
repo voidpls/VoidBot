@@ -234,7 +234,7 @@ e.message.author.id != '325827542164439040') {
   else if (mainacc.isMentioned(e.message) && e.message.author.id != client.User.id){
   var channel = client.Channels.get('327331811292217347');
   let me = client.Users.get('325827542164439040');
-  let content = e.message.content.replace('<@325827542164439040>', '@' + me.username)
+  let content = e.message.content.replace('<@325827542164439040>', '@' + me.username).replace('<@!325827542164439040>', '@' + me.username)
   channel.sendMessage("`" + e.message.author.username + "` said: `\"" + content + "`\"");
 };
 //poll
@@ -387,7 +387,7 @@ function random_on_message(arg, list){
 
 };
 //traps
-  if (e.message.content.toLowerCase().startsWith('traps are gay'))
+  if (e.message.content.toLowerCase().includes('traps are gay'))
   e.message.reply('but they aren\'t');
 //basic commands
   on_message('swastika', swastika)
