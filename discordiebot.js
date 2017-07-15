@@ -345,10 +345,11 @@ function random_on_message(arg, list){
   e.message.channel.sendMessage('no u');
 
 //die
-  if (e.message.content.toLowerCase().startsWith('..kill') && e.message.author.id == '325827542164439040')
+  if (e.message.content.toLowerCase().startsWith(p + 'kill') && e.message.author.id == '325827542164439040')
+  e.message.channel.sendMessage('i am kill :skull:');
   client.disconnect();
 //kick
-  if (e.message.content.toLowerCase().startsWith('..gas') && e.message.author.id == '325827542164439040'){
+  if (e.message.content.toLowerCase().startsWith(p +'gas') && e.message.author.id == '325827542164439040'){
     let user = getUser(args[1]);
     if (user === undefined) return;
     else {
