@@ -371,13 +371,27 @@ function random_on_message(arg, list){
 }
 //kick
   if (e.message.content.toLowerCase().startsWith(p +'gas') && author.id == '325827542164439040'){
+    if (args.length == 2){
+      let user = getUser(args[1]);
+      if (user === undefined) return;
+      else {
+        user.kick();
+        e.message.channel.sendMessage("<:check:335544753443831810>** " + user.username + " **has been gassed!");
+      };
+    };
+};
+
+if (e.message.content.toLowerCase().startsWith(p +'zyklon') && author.id == '325827542164439040'){
+  if (args.length == 2){
     let user = getUser(args[1]);
     if (user === undefined) return;
     else {
-    user.kick();
-    e.message.channel.sendMessage("<:check:335544753443831810>** " + user.username + " **has been gassed!");
+      user.ban(0);
+      e.message.channel.sendMessage("<:check:335544753443831810>** " + user.username + " **has been treated with a lethal dose of Zyklon-B");
+    };
   };
-  }
+};
+
 //get user function
   function getUser(arg) {
     user = arg.replace(/\D/g,'');
@@ -432,7 +446,7 @@ function random_on_message(arg, list){
   random_on_message('redpill', redpill);
 //islam
   let islamI = Math.floor(islam.length * Math.random());
-  if (e.message.content == 'islam')
+  if (e.message.content == p + 'islam')
   e.message.channel.sendMessage('"Religion of Peace" \n' + islam[islamI]);
 };
 });
