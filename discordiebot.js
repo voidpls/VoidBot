@@ -125,7 +125,6 @@ var everyone = info.heil + info.gas + info.poll + info.diversity + info.nigger +
 var mods = info.remind + info.swastika + info.ping
 var game = {name: "made by Void | ..help"};
 
-client.User.setStatus("dnd", game);
 
 start();
 
@@ -133,6 +132,7 @@ function start(){
   client.connect({
     token: "MzM0NDc1ODI1MjU4ODIzNzAx.DEbxWw.uknJNDDbKppkgKZz73wV-kg68fA"
   });
+  client.User.setStatus("dnd", game);
 }
 
 client.Dispatcher.on("GATEWAY_READY", e => {
