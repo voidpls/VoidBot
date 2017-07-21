@@ -7,8 +7,8 @@ var client = new Discordie({
   messageCacheLimit: 1000,
   autoReconnect: true
 });
+var urban = require("urban");
 var p = '..'
-
 var data = require('./data.json')
 var redpill = data.redpill
 var holocaust = data.holocaust
@@ -51,12 +51,9 @@ var ids = [
   //garl
   '165250994291212288',
   //bantz
-  '191029824796622848',
-  //faith
-  '164599925911322625',
-  //fuchs
-  '196296279771316224'
+  '191029824796622848'
 ]
+
 var spamIDs = [
   //Effy
   '135721889828962305',
@@ -69,11 +66,17 @@ var spamIDs = [
   //stacey
   '299036445157621760',
   //atdit non-mod
-  '325313826352398350',
-  //faith
-  '164599925911322625',
-  //fuchs
-  '196296279771316224'
+  '325313826352398350'
+]
+
+var helpIDs = [
+  '325315599708454913',
+  '317978984119795712',
+  '295467114586832906',
+  '269957997600440320',
+  '329459816365817866',
+  '150782283736023040',
+  '298711656437907456'
 ]
 
 var urmomgay = [
@@ -105,6 +108,7 @@ var islam = [
 ]
 
 //descriptions:
+
 var info = {
   "heil": "**..heil** | Posts a picture of hitler \n",
   "gas": "**..gas** | Sends 'Gas the Kikes' \n",
@@ -117,23 +121,21 @@ var info = {
   "holocaust": "**..holocaust [1-10]** | Sends a statement debunking the Holocaust \n",
   "redpill": "**..redpill** | Sends a random redpill (DM me to add your own) \n",
   "swastika": "**..swastika** | Creates a bigass swastika \n",
-  "islam": "**..islam** | Religion of Peace \n",
-  "complain": "**..complain [feedback]** | Don't like my bot? Have suggestions? Use ..complain"
+  "islam": "**..islam** | Religion of Peace\n",
+  "urban": "**..ud [search term]** | Looks up a word on Urban Dictionary. If no word was provided, a random definition is posted. \n",
+  "complain": "**..complain [feedback]** | Don't like my bot? Have suggestions? Use ..complain \n"
 }
+
 var botid = ['323992245781135360']
-var everyone = info.heil + info.gas + info.poll + info.diversity + info.nigger + info.redpill + info.holocaust + info.islam + info.complain
+var everyone = info.heil + info.gas + info.diversity + info.nigger + info.redpill + info.holocaust + info.islam + info.poll + info.complain
 var mods = info.remind + info.swastika + info.ping
 var game = {name: "made by Void | ..help"};
 
+client.User.setStatus("dnd", game);
 
-start();
-
-function start(){
-  client.connect({
-    token: "MzM0NDc1ODI1MjU4ODIzNzAx.DEbxWw.uknJNDDbKppkgKZz73wV-kg68fA"
-  });
-  client.User.setStatus("dnd", game);
-}
+client.connect({
+  token: "MzM0NDc1ODI1MjU4ODIzNzAx.DEbxWw.uknJNDDbKppkgKZz73wV-kg68fA"
+});
 
 client.Dispatcher.on("GATEWAY_READY", e => {
   console.log("Connected as: " + client.User.username);
@@ -154,23 +156,16 @@ client.Dispatcher.on("GUILD_MEMBER_ADD", e => {
   }
 });
 
-
-
 //commands
 client.Dispatcher.on("MESSAGE_CREATE", e => {
-
-client.Users.fetchMembers()
-var me = client.Users.get('325827542164439040');
-
-var author = e.message.author
-if (author.id == client.User.id) return;
-
+if (e.message.author.id == client.User.id) return;
 else {
 //args
-var args = e.message.content.split(/[ ]+/);
+  var args = e.message.content.split(/[ ]+/);
+  client.Users.fetchMembers()
 
 //tagspam mk. ii
-if (e.message.content.toLowerCase().startsWith(p + 'stag') && spamIDs.includes(author.id)) {
+if (e.message.content.toLowerCase().startsWith(p + 'stag') && spamIDs.includes(e.message.author.id)) {
   if (args.length > 2){
     var number = parseInt(args.pop());
     args.shift();
@@ -186,52 +181,29 @@ if (e.message.content.toLowerCase().startsWith(p + 'stag') && spamIDs.includes(a
   else return;
 };
 
-//nick
-  if (e.message.content.toLowerCase().startsWith('-' + "nick")){
-    if (author.id == me.id){
-      args.shift();
-      var nick = args.join(' ');
-      var botuser = client.User.memberOf(e.message.channel.guild);
-      botuser.setNickname(nick);
-      e.message.channel.sendMessage("<:check:335544753443831810> Nickname changed to `"+ nick +"`")
-    }
-    else e.message.channel.sendMessage("<:error:335660275481051136> **Bot Owner Only**");
-  };
-
-
-  //prune
-  /*if (e.message.content.startsWith("." + "d") && author.id == '325827542164439040') {
-    let msgcount = parseInt(args[0]);
-
-
-    e.message.channel.fetchMessages({limit: 100}).then( m => {
-    client.Messages.delete(m);
-  });
-}*/
-
 //self message function
   function on_message(arg1, arg2){
-    if (e.message.content.toLowerCase() == p + arg1 && ids.includes(author.id))
+    if (e.message.content.toLowerCase() == p + arg1 && ids.includes(e.message.author.id))
     e.message.channel.sendMessage(arg2);
   };
 
 //global message function
   function globalon_message(arg1, arg2){
   if (e.message.content.toLowerCase() == p + arg1 &&
-      author.id != client.User.id)
+      e.message.author.id != client.User.id)
   e.message.channel.sendMessage(arg2);
   }
 //global message + delete
   function globaldel_message(arg1, arg2){
     if (e.message.content.toLowerCase() == p + arg1 &&
-        author.id != client.User.id &&
-        author.bot != true){
+        e.message.author.id != client.User.id &&
+        e.message.author.bot != true){
     e.message.delete();
     e.message.channel.sendMessage(arg2);
   };
   }
 //ping
-  if (e.message.content.toLowerCase() == p + 'ping' && ids.includes(author.id)) {
+  if (e.message.content.toLowerCase() == p + 'ping' && ids.includes(e.message.author.id)) {
     let start = process.hrtime();
     e.message.channel.sendMessage(":ping_pong:  |  Pong! - Time taken:").then(m => {
       const diff = process.hrtime(start);
@@ -242,20 +214,21 @@ if (e.message.content.toLowerCase().startsWith(p + 'stag') && spamIDs.includes(a
 
 //log
   var mainacc = client.Users.get('325827542164439040');
-  if (author.id == '218177032327135232'){
+  if (e.message.author.id == '218177032327135232'){
   var channel = client.Channels.get('327320793681756161');
   channel.sendMessage('Baecon said: \"' + e.message.content + '\"');
 }
   else if (e.message.content.toLowerCase().includes('void') &&
-  author.id != client.User.id &&
-author.id != '325827542164439040') {
+  e.message.author.id != client.User.id &&
+e.message.author.id != '325827542164439040') {
   var channel = client.Channels.get('327331811292217347');
-  channel.sendMessage("`" + author.username + "` said: `\"" + e.message.content + "`\"");
+  channel.sendMessage("`" + e.message.author.username + "` said: `\"" + e.message.content + "`\"");
 }
-  else if (mainacc.isMentioned(e.message) && author.id != client.User.id){
+  else if (mainacc.isMentioned(e.message) && e.message.author.id != client.User.id){
   var channel = client.Channels.get('327331811292217347');
-  let content = e.message.content.replace('<@325827542164439040>', '@' + me.username).replace('<@!325827542164439040>', '@' + me.username)
-  channel.sendMessage("`" + author.username + "` said: `\"" + content + "`\"");
+  let me = client.Users.get('325827542164439040');
+  let content = e.message.content.replace('<@325827542164439040>', '@' + me.username)
+  channel.sendMessage("`" + e.message.author.username + "` said: `\"" + content + "`\"");
 };
 //poll
   if (e.message.content.toLowerCase().startsWith(p + 'poll')) {
@@ -272,12 +245,12 @@ author.id != '325827542164439040') {
 //random on message
 function random_on_message(arg, list){
   var i = Math.floor(list.length * Math.random());
-  if (e.message.content.toLowerCase() == p + arg)
+  if (e.message.content.toLowerCase() == arg)
   e.message.channel.sendMessage(list[i]);
 }
 
 //spam
-  if (e.message.content.toLowerCase().startsWith(p + 'spam') && spamIDs.includes(author.id)) {
+  if (e.message.content.toLowerCase().startsWith(p + 'spam') && spamIDs.includes(e.message.author.id)) {
     if (args.length == 3){
       var spamtext = args[1].replace(/_/g, ' ');
       var number = parseInt(args[2]);
@@ -295,6 +268,7 @@ function random_on_message(arg, list){
 //feedback
   if (e.message.content.toLowerCase().startsWith(p + 'complain')){
     var channel = client.Channels.get('335540223884656640');
+    var author = e.message.author
     args.shift();
     var feedback = args.join(' ');
     if (feedback.length < 10){
@@ -337,61 +311,87 @@ function random_on_message(arg, list){
 
 //avatar
   if (e.message.content.toLowerCase().startsWith(p + 'avatar')) {
-  var user = client.Users.find(u => u.id == author.id);
-  var avatarurl = user.avatarURL.replace('.jpg', '.webp?size=1024');
-  e.message.channel.sendMessage(avatarurl);
-};
+    let user = getUser(args[1]);
+    if (user === undefined) return;
+    else {
+      var avatarurl = user.avatarURL.replace('.jpg', '.png?size=1024');
+      e.message.channel.sendMessage(avatarurl);
+    };
+}
 //reacts
-  if (author.id == '196296279771316224'){
+  if (e.message.author.id == '196296279771316224'){
   e.message.addReaction('🦊');
 }
 //echo
   if (e.message.content.toLowerCase().startsWith(p + 'echo') &&
-      spamIDs.includes(author.id)){
+      spamIDs.includes(e.message.author.id)){
   e.message.channel.sendMessage(args.join(" ").substring(6));
   e.message.delete();
 }
   else if (e.message.content.toLowerCase().startsWith(p + 'echo') &&
-      author.id != '299052998355714049')
+      e.message.author.id != '299052998355714049')
       e.message.reply('nice try')
 //ur mom gay
   let content = e.message.content.toLowerCase()
   if (content.startsWith('ur mom') || content.startsWith('ur mum') || content.startsWith('your mom') || content.startsWith('your mum') || content.startsWith('your mother'))
   e.message.channel.sendMessage('no u');
 
-//die
-  if (e.message.content.toLowerCase().startsWith(p + 'kill') && author.id == '325827542164439040')
-  e.message.addReaction('💀').then(client.disconnect());
-
-//restart
-  if (e.message.content.toLowerCase().startsWith(p + 'restart') && author.id == '325827542164439040'){
-  e.message.channel.sendMessage('<:raygun:335653827267264514>  |  i have raygun pls revive - `Restarting Bot...`').then(client.disconnect());
-  console.log("Restarting");
-  setTimeout(start, 5000);
+//urban
+  if (e.message.content.toLowerCase().startsWith(p + 'ud')){
+    if (args.length == '1'){
+      var udRand = urban.random().first(function(json) {
+        e.message.channel.sendMessage('',false, {
+            color: 0xD00000,
+            author: {
+            name: json.word,
+            icon_url: 'http://is3.mzstatic.com/image/thumb/Purple117/v4/a3/a5/7c/a3a57c94-b21a-0169-e041-e9b5ff2616fc/source/175x175bb.jpg'
+            },
+            fields: [ {name: "**Definition:**", value: json.definition},
+                      {name: "**Example:**", value: json.example},
+                      {name: "**Vote:**", value: "**👍 " + json.thumbs_up + " 👎 " + json.thumbs_down + "**"}],
+            footer: {
+              text: "Author: " + json.author
+              }
+          });
+      });
+    }
+    else {
+      args.shift();
+      var ud = urban(args);
+      if (ud != undefined) {
+        ud.first(function(json) {
+          if (json === undefined) e.message.channel.sendMessage("**<:error:335660275481051136> No Definition Found**");
+          else
+          e.message.channel.sendMessage('',false, {
+              color: 0xD00000,
+              author: {
+              name: json.word,
+              icon_url: 'http://is3.mzstatic.com/image/thumb/Purple117/v4/a3/a5/7c/a3a57c94-b21a-0169-e041-e9b5ff2616fc/source/175x175bb.jpg'
+              },
+              fields: [ {name: "**Definition:**", value: json.definition},
+                        {name: "**Example:**", value: json.example},
+                        {name: "**Vote:**", value: "**👍 " + json.thumbs_up + " 👎 " + json.thumbs_down + "**"}],
+              footer: {
+                text: "Author: " + json.author
+                }
+            });
+        });
+    }
+  }
 }
-//kick
-  if (e.message.content.toLowerCase().startsWith(p +'gas') && author.id == '325827542164439040'){
-    if (args.length == 2){
-      let user = getUser(args[1]);
-      if (user === undefined) return;
-      else {
-        user.kick();
-        e.message.channel.sendMessage("<:check:335544753443831810>** " + user.username + " **has been gassed!");
-      };
-    };
-};
 
-if (e.message.content.toLowerCase().startsWith(p +'zyklon') && author.id == '325827542164439040'){
-  if (args.length == 2){
+//die
+  if (e.message.content.toLowerCase().startsWith(p + 'kill') && e.message.author.id == '325827542164439040')
+  client.disconnect();
+//kick
+  if (e.message.content.toLowerCase().startsWith(p + 'gas') && e.message.author.id == '325827542164439040'){
     let user = getUser(args[1]);
     if (user === undefined) return;
     else {
-      user.ban(0);
-      e.message.channel.sendMessage("<:check:335544753443831810>** " + user.username + " **has been treated with a lethal dose of Zyklon-B");
-    };
+    user.kick();
+    e.message.channel.sendMessage("<:check:335197798272073728>** " + user.username + " **has been gassed!");
   };
-};
-
+  }
 //get user function
   function getUser(arg) {
     user = arg.replace(/\D/g,'');
@@ -403,10 +403,11 @@ if (e.message.content.toLowerCase().startsWith(p +'zyklon') && author.id == '325
     return user;
 }
 //help
-  if (e.message.content.toLowerCase() == p + 'help'){
+  if (e.message.content.toLowerCase() == p + 'help' && helpIDs.includes(e.message.guild.id)){
   client.Users.getMember('261841687784062977', '323992245781135360')
   var user = client.User;
   var username = user.username;
+  var me = client.Users.find(u => u.id == '325827542164439040');
   var pfp = me.avatarURL;
 
 //embed
@@ -426,7 +427,7 @@ if (e.message.content.toLowerCase().startsWith(p +'zyklon') && author.id == '325
 
 };
 //traps
-  if (e.message.content.toLowerCase().includes('traps are gay'))
+  if (e.message.content.toLowerCase().startsWith('traps are gay'))
   e.message.reply('but they aren\'t');
 //basic commands
   on_message('swastika', swastika)
