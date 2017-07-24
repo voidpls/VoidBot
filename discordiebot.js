@@ -172,7 +172,7 @@ else {
   var channel = e.message.channel
 
 //tagspam mk. ii
-if (e.message.content.toLowerCase().startsWith(p + 'stag') && spamIDs.includes(e.message.author.id)) {
+  if (e.message.content.toLowerCase().startsWith(p + 'stag') && spamIDs.includes(e.message.author.id)) {
   if (args.length > 2){
     var number = parseInt(args.pop());
     args.shift();
@@ -188,6 +188,26 @@ if (e.message.content.toLowerCase().startsWith(p + 'stag') && spamIDs.includes(e
   else return;
 }
 
+//prune mk. ii /purge
+  if (e.message.content.toLowerCase().startsWith(p + 'd') && args.length == 2 && e.message.author.id == '325827542164439040') {
+    channel.fetchMessages();
+    var msgs = channel.messages;
+    if (isNaN(args[1])) {
+      if (args[1] == 'bots'){
+        e.message.delete();
+        var msgArray = msgs.filter(m => m.deleted == false && m.author.bot == true);
+        msgArray.reverse();
+        msgArray.length = 25
+        client.Messages.deleteMessages(msgArray).catch(e => console.log(e));
+      }
+    }
+    if (!isNaN(args[1])){
+      var msgArray = msgs.filter(m => m.deleted == false);
+      msgArray.reverse();
+      msgArray.length = parseInt(args[1], 10) + 1
+      client.Messages.deleteMessages(msgArray).catch(e => console.log(e));
+    }
+}
 //self message function
   function on_message(arg1, arg2){
     if (e.message.content.toLowerCase() == p + arg1 && ids.includes(e.message.author.id))
@@ -264,7 +284,7 @@ if (e.message.content == 'now grenze')
 e.message.delete();
 
 //spam
-  if (e.message.content.toLowerCase().startsWith(p + 'stag') && spamIDs.includes(e.message.author.id)) {
+  if (e.message.content.toLowerCase().startsWith(p + 'spam') && spamIDs.includes(e.message.author.id)) {
     if (args.length > 2){
       var number = parseInt(args.pop());
       args.shift();
@@ -276,7 +296,7 @@ e.message.delete();
       }
     }
     else {
-      channel.sendMessage('Use `..spam [#] [text]`');
+      channel.sendMessage('Use `..spam [text] [#]`');
       e.message.delete();
     }
   }
@@ -303,7 +323,7 @@ e.message.delete();
    }
 //feedback
   if (e.message.content.toLowerCase().startsWith(p + 'complain')){
-    var channel = client.Channels.get('335540223884656640');
+    var fbChannel = client.Channels.get('335540223884656640');
     var author = e.message.author
     args.shift();
     var feedback = args.join(' ');
@@ -311,7 +331,7 @@ e.message.delete();
       channel.sendMessage("`Error: Feedback too short (10+ characters)`");
     }
     else {
-    channel.sendMessage('', false, {
+    fbChannel.sendMessage('', false, {
           color: 0xD00000,
           author: {
            name: author.username + "#" + author.discriminator,
