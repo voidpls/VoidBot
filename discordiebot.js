@@ -1,6 +1,6 @@
 //https://github.com/voidpls/selfbot.git
 //ssh -i "bot.pem" ec2-user@ec2-54-91-219-104.compute-1.amazonaws.com
-
+//.catch((e) => { console.log(e) })
 
 var Discordie = require("discordie");
 var client = new Discordie({
@@ -123,11 +123,12 @@ var info = {
   "urban": "**..ud [search term]** | Looks up a word on Urban Dictionary. \n",
   "pfp": "**..pfp [user]** | Gets the profile picture of an user \n",
   "lmgtfy": "**..lmgtfy [search term]** | Generates a lmgtfy link \n",
+  "modping": "**..modping** | Pings all the online mods \n",
   "complain": "**..complain [feedback]** | Don't like my bot? Have suggestions? Use ..complain"
 }
 
 var botid = ['323992245781135360']
-var everyone = info.heil + info.gas + info.diversity + info.nigger + info.redpill + info.holocaust + info.islam + info.poll + info.urban + info.lmgtfy + info.complain
+var everyone = info.heil + info.gas + info.diversity + info.nigger + info.redpill + info.holocaust + info.islam + info.poll + info.urban + info.lmgtfy + info.modping + info.complain
 var mods = info.remind + info.swastika + info.ping
 var game = {name: "made by Void | ..help"}
 
@@ -225,12 +226,15 @@ if (e.message.content.toLowerCase().startsWith(p + 'stag') && spamIDs.includes(e
   channel.sendMessage('Baecon said: \"' + e.message.content + '\"');
 }
   else if (e.message.content.toLowerCase().includes('void') &&
-  e.message.author.id != client.User.id &&
-e.message.author.id != '325827542164439040') {
+           e.message.author.id != client.User.id &&
+           e.message.author.id != '325827542164439040' &&
+           e.message.author.bot != true) {
   var channel = client.Channels.get('327331811292217347');
   channel.sendMessage("`" + e.message.author.username + "` said: `\"" + e.message.content + "`\"");
 }
-  else if (mainacc.isMentioned(e.message) && e.message.author.id != client.User.id){
+  else if (mainacc.isMentioned(e.message) &&
+           e.message.author.id != client.User.id &&
+           e.message.author.bot != true){
   var channel = client.Channels.get('327331811292217347');
   let me = client.Users.get('325827542164439040');
   let content = e.message.content.replace('<@325827542164439040>', '@' + me.username).replace('<@!325827542164439040>', '@' + me.username)
@@ -255,33 +259,47 @@ function random_on_message(arg, list){
   channel.sendMessage(list[i]);
 }
 
+//now grenze
+if (e.message.content == 'now grenze')
+e.message.delete();
+
 //spam
-if (e.message.content.toLowerCase().startsWith(p + 'stag') && spamIDs.includes(e.message.author.id)) {
-  if (args.length > 2){
-    var number = parseInt(args.pop());
-    args.shift();
-    spamtext = args.join(' ');
-    e.message.delete();
-    while (number != 0){
-      channel.sendMessage(spamtext);
-      number = number - 1
+  if (e.message.content.toLowerCase().startsWith(p + 'stag') && spamIDs.includes(e.message.author.id)) {
+    if (args.length > 2){
+      var number = parseInt(args.pop());
+      args.shift();
+      spamtext = args.join(' ');
+      e.message.delete();
+      while (number != 0){
+        channel.sendMessage(spamtext);
+        number = number - 1
+      }
+    }
+    else {
+      channel.sendMessage('Use `..spam [#] [text]`');
+      e.message.delete();
     }
   }
-  else {
-    channel.sendMessage('Use `..spam [#] [text]`');
-    e.message.delete();
+
+//ping admins/mod
+  if (e.message.content.toLowerCase() == p + "modping"){
+    let members = client.Users.membersForGuild('325315599708454913');
+    let membersArray = members.filter(m => m.hasRole('325320325409669130') || m.hasRole('325320348553969685') || m.hasRole('333750148788125707'))
+    .filter(m => m.status != 'offline')
+    var membersMention = membersArray.map(m => m.nickMention).join(' | ');
+    channel.sendMessage('**Tagging all online Staff...** \n' + membersMention);
   }
-}
+
 //nick
-   if (e.message.content.toLowerCase().startsWith('-' + "nick")){
-     if (author.id == me.id){
-       args.shift();
-       var nick = args.join(' ');
-       var botuser = client.User.memberOf(channel.guild);
-       botuser.setNickname(nick);
-       channel.sendMessage("<:check:335544753443831810> Nickname changed to `"+ nick +"`")
-     }
-     else channel.sendMessage("<:error:335660275481051136> **Bot Owner Only**");
+  if (e.message.content.toLowerCase().startsWith('-' + "nick")){
+    if (e.message.author.id == me.id){
+      args.shift();
+      var nick = args.join(' ');
+      var botuser = client.User.memberOf(channel.guild);
+      botuser.setNickname(nick);
+      channel.sendMessage("<:check:335544753443831810> Nickname changed to `"+ nick +"`")
+      }
+      else channel.sendMessage("<:error:335660275481051136> **Bot Owner Only**");
    }
 //feedback
   if (e.message.content.toLowerCase().startsWith(p + 'complain')){
@@ -502,6 +520,7 @@ if (e.message.content.toLowerCase().startsWith(p +'zyklon') && e.message.author.
   globaldel_message('jihad', '<:jihad:322904816441491456>');
   globaldel_message('911', '<:plane:334937403217281024><:towers:334934504647032832>');
   globaldel_message('morticia', 'http://www.voidpls.tk/files/morticia.jpg');
+  globaldel_message('hitler', '<:a1:338564354955804672><:a2:338564371435487234><:a3:338564382789468162> \n<:a4:338564396404047873><:a5:338564407850434560><:a6:338564418902425616> \n<:a7:338564428318507011><:a8:338564438330441729><:a9:338564448916602880>');
   globalon_message('bob', '`bob`? I think you mean `gay faggot`');
   globalon_message('gay faggot', '`gay faggot`? I think you mean `bob`');
   globaldel_message('gas', ':star_of_david: **Gas the Kikes** :star_of_david:');
