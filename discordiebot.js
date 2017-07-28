@@ -470,7 +470,7 @@ if (e.message.content.startsWith(p + 'lmgtfy') && args.length >= 2){
   }
   if (e.message.content.toLowerCase() == p + 'list' && e.message.author.id == mainacc.id){
     var listGuilds = client.Guilds.map(g => g.name);
-    channel.sendMessage(listGuilds)
+    channel.sendMessage('**I\'m in these servers: \n**' + listGuilds.join('\n'))
 }
 
 
