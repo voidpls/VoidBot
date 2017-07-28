@@ -1,6 +1,13 @@
 //https://github.com/voidpls/selfbot.git
 //ssh -i "bot.pem" ec2-user@ec2-54-91-219-104.compute-1.amazonaws.com
 //.catch((e) => { console.log(e) })
+//pm2
+
+var Imgur = require('@rmp135/imgur');
+var Client = Imgur.Client
+let imgurClient = new Client('43652b743b5a7a0')
+
+var moment = require('moment');
 
 var Discordie = require("discordie");
 var client = new Discordie({
@@ -11,8 +18,6 @@ var urban = require("urban");
 var p = '..'
 var data = require('./data.json')
 var randomPuppy = require('random-puppy');
-var Imgur = require('imgur-search');
-var imgur = new Imgur("9745feb5fc05422");
 var redpill = data.redpill
 var holocaust = data.holocaust
 
@@ -448,25 +453,47 @@ if (e.message.content.startsWith(p + 'lmgtfy') && args.length >= 2){
   var q = args.join('+');
   e.message.channel.sendMessage("http://lmgtfy.com/?q=" + q);
 }
+
+//guilds
+  if (e.message.content.toLowerCase() == p + 'servers'){
+    var guilds = client.Guilds
+    var now = moment()
+    var formatted = now.format('ddd, MMM Do, YYYY hh:mma')
+
+    channel.sendMessage('',false, {
+      color: 0xD00000,
+      title: "I am in **" + guilds.length + "** servers",
+      footer: {
+        text: formatted
+      }
+    });
+  }
+  if (e.message.content.toLowerCase() == p + 'list' && e.message.author.id == mainacc.id){
+    var listGuilds = client.Guilds.map(g => g.name);
+    channel.sendMessage(listGuilds)
+}
+
+
 //puppy
   if (e.message.content.toLowerCase() == p + 'cute'){
-    var pup = randomPuppy('aww').then(pup => {
+    randomPuppy('aww').then(pup => {
       channel.sendMessage(pup);
     });
   }
+
 //imgur
-/*  if (e.message.content.toLowerCase().startsWith(p + 'pic')){
-    //if (args.length >= 2){
-    //args.shift();
-    //var q = args.join('');
-    var subSearch = Imgur.get_image().then(pic => {
-      console.log(pic)
-      //if (pic === undefined) channel.sendMessage('**<:error:335660275481051136> No Picture Found**')
-      //else
-      //channel.sendMessage(pic);
-    });
-  //}
-} */
+  if (e.message.content.toLowerCase().startsWith(p + 'pic')){
+    if (args.length >= 2){
+      args.shift();
+      var q = args.join('');
+      process.nextTick(function() {
+        randomPuppy(q).then(pic => {
+          if (pic === undefined) channel.sendMessage('**<:error:335660275481051136> No Picture Found**')
+          else channel.sendMessage(pic);
+        });
+      });
+    }
+  }
 
 //die
    if (e.message.content.toLowerCase().startsWith(p + 'kill') && e.message.author.id == '325827542164439040')
