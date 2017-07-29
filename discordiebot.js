@@ -2,11 +2,6 @@
 //ssh -i "bot.pem" ec2-user@ec2-54-91-219-104.compute-1.amazonaws.com
 //.catch((e) => { console.log(e) })
 //pm2
-
-var Imgur = require('@rmp135/imgur');
-var Client = Imgur.Client
-let imgurClient = new Client('43652b743b5a7a0')
-
 var moment = require('moment');
 
 var Discordie = require("discordie");
