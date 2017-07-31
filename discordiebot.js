@@ -322,7 +322,7 @@ e.message.delete();
   }
 
 //ping admins/mod
-  if (e.message.content.toLowerCase() == p + "modping"){
+  if (e.message.content.toLowerCase() == p + "modping" && e.message.guild.id == '325315599708454913'){
     let members = client.Users.membersForGuild('325315599708454913');
     let membersArray = members.filter(m => m.hasRole('325320325409669130') || m.hasRole('325320348553969685') || m.hasRole('333750148788125707'))
     .filter(m => m.status != 'offline')
@@ -370,6 +370,12 @@ e.message.delete();
   channel.sendMessage('***L-L-LEVEL UP!!!***');
   }
 
+//roleme
+/*
+  if (e.message.content.toLowerCase() == p + 'roleme'){
+    e.message.member.assignRole('325320348553969685')
+  } */
+  
 //holocaust
   if (e.message.content.toLowerCase().startsWith(p + 'holocaust')){
     var intarg = parseInt(args[1]) - 1
@@ -490,50 +496,64 @@ if (e.message.content.startsWith(p + 'lmgtfy') && args.length >= 2){
 
 
 //puppy
-  if (e.message.content.toLowerCase() == p + 'cute'){
-    randomPuppy('aww').then(pup => {
-      channel.sendMessage(pup);
-    });
-  }
+  if (e.message.content.toLowerCase() == p + 'cute') search('aww', '')
 
+  function reduce(int, md, image){
+    if (md.width >= md.height) return image.resize(Math.round(md.width - md.width*int));
+    else return image.resize(Math.round(md.length - md.length*int));
+  }
 //imgur
-  if (e.message.content.toLowerCase().startsWith(p + 'p ')){
+  if (e.message.content.toLowerCase().startsWith(p + 'pic ')){
     if (args.length >= 2){
       args.shift();
       var arg = args.join('')
       var q = arg.replace('r/', '').replace('/r/', '')
       channel.sendMessage("Searching for **" + arg + "**...").then(msg => {
-        function search(q){
+        function search(q, imageMsg){
           randomPuppy(q).then(pic => {
 
-            if (pic === undefined) msg.edit('<:error:335660275481051136> No result found for **' + arg + '**');
+            if (pic === undefined) msg.edit('<:error:335660275481051136> No results found for **' + arg + '**');
             else
               var filename = pic.slice(pic.length - 11).replace('png', 'jpg').replace('\m', '')
-              var pngFilename = filename.replace('jpg', 'png').replace('\m', '')
+              var pngFilename = filename.replace('jpg', 'png')
               var url = pic.replace('imgur', 'i.imgur').replace('.jpg', '.png')
-
+              if (url.slice(url.length - 3) == 'gif'){ search(q, imageMsg); console.log('gif'); return; }
+              else
+              console.log(url)
               download(url, {directory: "./png/", filename: pngFilename}, function (err) {
-                if (err) search(q);
+                if (err) setTimeout(function() {search(q, imageMsg); console.log('Retrying');}, 1000)
                 else {
-                  sharp('./png/' + pngFilename)
-                    .toFile('./jpg/' + filename, function(err){
-                      if (err) console.log(err);
-                      else {
-                        channel.uploadFile('./jpg/' + filename, filename, "<:image:340725852612460544> Image results for **" + arg + "**:").then(() => msg.delete());
-                        setTimeout(function(){
-                          del(['./jpg/' + filename, './png/' + pngFilename])
-                        }, 10000)
+                  var image = sharp('./png/' + pngFilename)
+                  image
+                    .metadata()
+                    .then(function(metadata) {
+                      if (metadata.width >= '1999' || metadata.height >= '1999'){
+                        if (metadata.width >= '7999' || metadata.height >= '7999') { reduce(0.7, metadata, image); console.log('kkk(8k)'); }
+                        else if (metadata.width >= '4999' || metadata.height >= '4999') { reduce(0.6, metadata, image); console.log('kkk(5k)'); }
+                        else if (metadata.width >= '3999' || metadata.height >= '3999') { reduce(0.5, metadata, image); console.log('kkk(4k)'); }
+                        else if (metadata.width >= '2999' || metadata.height >= '2999') { reduce(0.4, metadata, image); console.log('kkk(3k)'); }
+                        else { reduce(0.3, metadata, image); console.log('kkk(2k)'); }
                       }
-                    })
-                }
-              })
-            });
+                      return image
+                        .toFile('./jpg/' + filename, function(err){
+                          if (err) { console.log(err) }
+                          else {
+                            channel.uploadFile('./jpg/' + filename, filename, imageMsg)
+                            .then(() => {
+                              msg.delete()
+                              setTimeout(function(){ del(['./jpg/*', './png/*']) }, 3000)
+                            });
+                          }
+                        });
+                    });
+                  }
+                })
+            }).catch(e => console.log(e));
           }
-        search(q);
-    });
-  }
+        search(q, "<:image:340725852612460544> Image results for **" + arg + "**:");
+      });
+    }
 }
-
 //die
    if (e.message.content.toLowerCase().startsWith(p + 'kill') && e.message.author.id == '325827542164439040')
    e.message.addReaction('💀').then(client.disconnect());
