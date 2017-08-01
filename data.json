@@ -53,5 +53,27 @@
   "8. The Holocaust is the only claimed genocide that will get you excommunicated (best case) or jailed (worst case) if you doubt its veracity.",
   "9. The Holocaust is the only claimed genocide which has changed the official story radically over the years yet we are always told that this is the absolute truth etched in stone which nobody is supposed to question.",
   "10. The Holocaust is the only genocide which relies on Soviet sources (anybody who ever lived in the Soviet Union would tell you how the \"truth\" is determined over there)."
-]
+],
+"info": [{
+  "heil": "**..heil** | Posts a picture of hitler \n",
+  "gas": "**..gas** | Sends 'Gas the Kikes' \n",
+  "poll": "**..poll [question]** | Makes a poll \n",
+  "diversity": "**..diversity** | Sends a random picture on diversity \n",
+  "nigger": "**..nigger** | Sends a nigger \n",
+  "morticia": "**..morticia** | Darn Russian Spy \n'",
+  "remind": "**..remind** | Hitler did nothing wrong \n",
+  "ping": "**..ping** | Pong \n",
+  "holocaust": "**..holocaust [1-10]** | Sends a statement debunking the Holocaust \n",
+  "redpill": "**..redpill** | Sends a random redpill (DM me to add your own) \n",
+  "swastika": "**..swastika** | Creates a bigass swastika \n",
+  "islam": "**..islam** | Religion of Peace\n",
+  "urban": "**..ud [search term]** | Looks up a word on Urban Dictionary. \n",
+  "pfp": "**..pfp [user]** | Gets the profile picture of an user \n",
+  "lmgtfy": "**..lmgtfy [search term]** | Generates a lmgtfy link \n",
+  "modping": "**..modping** | Pings all the online mods \n",
+  "complain": "**..complain [feedback]** | Don't like my bot? Have suggestions? Use ..complain \n",
+  "pic": "**..pic [search]** | Searches Imgur for an image. \n",
+  "kick": "**..gas [user]** | Kicks a User. \n",
+  "ban": "**..zyklon [user]** | Bans a User. \n"
+}]
 }
