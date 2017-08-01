@@ -1,34 +1,18 @@
 //https://github.com/voidpls/selfbot.git
 //ssh -i "bot.pem" ec2-user@ec2-54-91-219-104.compute-1.amazonaws.com
 //.catch((e) => { console.log(e) })
-//pm2
 
-//duplex
-var duplex = require('duplex')
-//moment
 var moment = require('moment');
-//node-delete
-var del = require('node-delete');
-//sharp
-var sharp = require('sharp');
-//urban
-var urban = require("urban");
-//random-puppy
-var randomPuppy = require('random-puppy');
-//download-file
-var download = require('download-file')
-//discordie
+
 var Discordie = require("discordie");
-//client contructor
 var client = new Discordie({
   messageCacheLimit: 1000,
   autoReconnect: true
 });
-//prefix
+var urban = require("urban");
 var p = '..'
-//data
 var data = require('./data.json')
-
+var randomPuppy = require('random-puppy');
 var redpill = data.redpill
 var holocaust = data.holocaust
 
@@ -73,9 +57,7 @@ var ids = [
   //bantz
   '191029824796622848',
   //faith
-  '164599925911322625',
-  //142r
-  '340568262477611009'
+  '164599925911322625'
 ]
 
 var spamIDs = [
@@ -92,9 +74,7 @@ var spamIDs = [
   //atdit non-mod
   '325313826352398350',
   //faith
-  '164599925911322625',
-  //142r
-  '340568262477611009'
+  '164599925911322625'
 ]
 
 var urmomgay = [
@@ -158,7 +138,7 @@ start();
 
  function start(){
    client.connect({
-     token: "MzM0NDc1ODI1MjU4ODIzNzAx.DF8bWA.nP86G5qFffEJTz30ZTtgyRBb0L0"
+     token: "MzM0NDc1ODI1MjU4ODIzNzAx.DEbxWw.uknJNDDbKppkgKZz73wV-kg68fA"
    });
    client.User.setStatus("dnd", game);
  }
@@ -267,8 +247,8 @@ else {
 }
   else if (e.message.content.toLowerCase().includes('void') &&
            e.message.author.id != client.User.id &&
-           e.message.author.bot != true &&
-          !mainacc.isMentioned(e.message)) {
+           e.message.author.id != '325827542164439040' &&
+           e.message.author.bot != true) {
   var channel = client.Channels.get('327331811292217347');
   channel.sendMessage("`" + e.message.author.username + "` said: `\"" + e.message.content + "`\"");
 }
@@ -277,7 +257,7 @@ else {
            e.message.author.bot != true){
   var channel = client.Channels.get('327331811292217347');
   let me = client.Users.get('325827542164439040');
-  let content = e.message.content.replace(/<@325827542164439040>/g, '@' + me.username).replace(/<@!325827542164439040>/g, '@' + me.username)
+  let content = e.message.content.replace('<@325827542164439040>', '@' + me.username).replace('<@!325827542164439040>', '@' + me.username)
   channel.sendMessage("`" + e.message.author.username + "` said: `\"" + content + "`\"");
 }
 //poll
@@ -322,7 +302,7 @@ e.message.delete();
   }
 
 //ping admins/mod
-  if (e.message.content.toLowerCase() == p + "modping" && e.message.guild.id == '325315599708454913'){
+  if (e.message.content.toLowerCase() == p + "modping"){
     let members = client.Users.membersForGuild('325315599708454913');
     let membersArray = members.filter(m => m.hasRole('325320325409669130') || m.hasRole('325320348553969685') || m.hasRole('333750148788125707'))
     .filter(m => m.status != 'offline')
@@ -370,12 +350,6 @@ e.message.delete();
   channel.sendMessage('***L-L-LEVEL UP!!!***');
   }
 
-//roleme
-/*
-  if (e.message.content.toLowerCase() == p + 'roleme'){
-    e.message.member.assignRole('325320348553969685')
-  } */
-  
 //holocaust
   if (e.message.content.toLowerCase().startsWith(p + 'holocaust')){
     var intarg = parseInt(args[1]) - 1
@@ -496,64 +470,26 @@ if (e.message.content.startsWith(p + 'lmgtfy') && args.length >= 2){
 
 
 //puppy
-  if (e.message.content.toLowerCase() == p + 'cute') search('aww', '')
-
-  function reduce(int, md, image){
-    if (md.width >= md.height) return image.resize(Math.round(md.width - md.width*int));
-    else return image.resize(Math.round(md.length - md.length*int));
+  if (e.message.content.toLowerCase() == p + 'cute'){
+    randomPuppy('aww').then(pup => {
+      channel.sendMessage(pup);
+    });
   }
+
 //imgur
-  if (e.message.content.toLowerCase().startsWith(p + 'pic ')){
+  if (e.message.content.toLowerCase().startsWith(p + 'pic')){
     if (args.length >= 2){
       args.shift();
-      var arg = args.join('')
-      var q = arg.replace('r/', '').replace('/r/', '')
-      channel.sendMessage("Searching for **" + arg + "**...").then(msg => {
-        function search(q, imageMsg){
-          randomPuppy(q).then(pic => {
-
-            if (pic === undefined) msg.edit('<:error:335660275481051136> No results found for **' + arg + '**');
-            else
-              var filename = pic.slice(pic.length - 11).replace('png', 'jpg').replace('\m', '')
-              var pngFilename = filename.replace('jpg', 'png')
-              var url = pic.replace('imgur', 'i.imgur').replace('.jpg', '.png')
-              if (url.slice(url.length - 3) == 'gif'){ search(q, imageMsg); console.log('gif'); return; }
-              else
-              console.log(url)
-              download(url, {directory: "./png/", filename: pngFilename}, function (err) {
-                if (err) setTimeout(function() {search(q, imageMsg); console.log('Retrying');}, 1000)
-                else {
-                  var image = sharp('./png/' + pngFilename)
-                  image
-                    .metadata()
-                    .then(function(metadata) {
-                      if (metadata.width >= '1999' || metadata.height >= '1999'){
-                        if (metadata.width >= '7999' || metadata.height >= '7999') { reduce(0.7, metadata, image); console.log('kkk(8k)'); }
-                        else if (metadata.width >= '4999' || metadata.height >= '4999') { reduce(0.6, metadata, image); console.log('kkk(5k)'); }
-                        else if (metadata.width >= '3999' || metadata.height >= '3999') { reduce(0.5, metadata, image); console.log('kkk(4k)'); }
-                        else if (metadata.width >= '2999' || metadata.height >= '2999') { reduce(0.4, metadata, image); console.log('kkk(3k)'); }
-                        else { reduce(0.3, metadata, image); console.log('kkk(2k)'); }
-                      }
-                      return image
-                        .toFile('./jpg/' + filename, function(err){
-                          if (err) { console.log(err) }
-                          else {
-                            channel.uploadFile('./jpg/' + filename, filename, imageMsg)
-                            .then(() => {
-                              msg.delete()
-                              setTimeout(function(){ del(['./jpg/*', './png/*']) }, 3000)
-                            });
-                          }
-                        });
-                    });
-                  }
-                })
-            }).catch(e => console.log(e));
-          }
-        search(q, "<:image:340725852612460544> Image results for **" + arg + "**:");
+      var q = args.join('');
+      process.nextTick(function() {
+        randomPuppy(q).then(pic => {
+          if (pic === undefined) channel.sendMessage('**<:error:335660275481051136> No Picture Found**')
+          else channel.sendMessage(pic);
+        });
       });
     }
-}
+  }
+
 //die
    if (e.message.content.toLowerCase().startsWith(p + 'kill') && e.message.author.id == '325827542164439040')
    e.message.addReaction('💀').then(client.disconnect());
@@ -617,6 +553,9 @@ if (e.message.content.toLowerCase().startsWith(p +'zyklon') && e.message.author.
       }
     });
 }
+//traps
+  if (e.message.content.toLowerCase().includes('traps are gay'))
+  e.message.reply('but they aren\'t');
 //basic commands
   on_message('swastika', swastika)
   globaldel_message('salute', '<:TopKek:338007448860229633><:pepeSalute:338007522050965506> <:swastika:325668829759930368>')
