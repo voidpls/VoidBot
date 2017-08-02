@@ -494,16 +494,15 @@ if (e.message.content.startsWith(p + 'lmgtfy') && args.length >= 2){
 
             if (pic === undefined) msg.edit('<:error:335660275481051136> No results found for **' + arg + '**');
             else
-              var filename = pic.slice(pic.length - 11).replace('png', 'jpg').replace('\m', '')
-              var pngFilename = filename.replace('jpg', 'png')
-              var url = pic.replace('imgur', 'i.imgur').replace('.jpg', '.png')
+              var filename = pic.slice(pic.length - 11).replace('\m', '')
+              var url = pic.replace('imgur', 'i.imgur')
               if (url.slice(url.length - 3) == 'gif'){ search(q, imageMsg); console.log('gif'); return; }
               else
               console.log(url)
-              download(url, {directory: "./png/", filename: pngFilename}, function (err) {
+              download(url, {directory: "./png/", filename: filename}, function (err) {
                 if (err) setTimeout(function() {search(q, imageMsg); console.log('Retrying');}, 1000)
                 else {
-                  var image = sharp('./png/' + pngFilename)
+                  var image = sharp('./png/' + filename)
                   image
                     .metadata()
                     .then(function(metadata) {
