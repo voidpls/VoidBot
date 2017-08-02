@@ -495,6 +495,7 @@ if (e.message.content.startsWith(p + 'lmgtfy') && args.length >= 2){
             if (pic === undefined) msg.edit('<:error:335660275481051136> No results found for **' + arg + '**');
             else
               var filename = pic.slice(pic.length - 11).replace('\m', '')
+              var jpgFilename = filename.replace('png', 'jpg')
               var url = pic.replace('imgur', 'i.imgur')
               if (url.slice(url.length - 3) == 'gif'){ search(q, imageMsg); console.log('gif'); return; }
               else
@@ -514,13 +515,13 @@ if (e.message.content.startsWith(p + 'lmgtfy') && args.length >= 2){
                         else { reduce(0.3, metadata, image); console.log('kkk(2k)'); }
                       }
                       image
-                        .toFile('./jpg/' + filename, function(err){
+                        .toFile('./jpg/' + jpgFilename, function(err){
                           if (err) { console.log(err) }
                           else {
                             channel.uploadFile('./jpg/' + filename, filename, imageMsg)
                             .then(() => {
                               msg.delete()
-                              setTimeout(function(){ del(['./jpg/*', './png/*']) }, 3000)
+                              setTimeout(function(){ del(['./jpg/' + jpgFilename, './png/*']) }, 3000)
                             });
                           }
                         });
@@ -606,8 +607,8 @@ if (e.message.content.toLowerCase().startsWith(p +'zyklon') && kkIds.includes(e.
     });
 }
 //basic commands
-  on_message('swastika', swastika)
-  globaldel_message('salute', '<:TopKek:338007448860229633><:pepeSalute:338007522050965506> <:swastika:325668829759930368>')
+  on_message('swastika', swastika);
+  globaldel_message('salute', '<:TopKek:338007448860229633><:pepeSalute:338007522050965506> <:swastika:325668829759930368>');
   globaldel_message('jihad', '<:jihad:322904816441491456>');
   globaldel_message('911', '<:plane:334937403217281024><:towers:334934504647032832>');
   globaldel_message('morticia', 'http://www.voidpls.tk/files/morticia.jpg');
@@ -617,7 +618,7 @@ if (e.message.content.toLowerCase().startsWith(p +'zyklon') && kkIds.includes(e.
   globaldel_message('gas', ':star_of_david: **Gas the Kikes** :star_of_david:');
   globalon_message('heil', 'http://www.voidpls.tk/files/hitler.png');
   globalon_message('truth', 'Girls are the best but like Effy is better');
-  on_message('remind', '**--------------------------------\n<:swastika:325668829759930368>   Daily Reminder:   <:swastika:325668829759930368>\nHitler Did Nothing Wrong!\n--------------------------------**');
+  globalon_message('remind', '**--------------------------------\n<:swastika:325668829759930368>   Daily Reminder:   <:swastika:325668829759930368>\nHitler Did Nothing Wrong!\n--------------------------------**');
   random_on_message('diversity', links);
   random_on_message('nigger', niggers);
   random_on_message('redpill', redpill);
