@@ -565,7 +565,7 @@ if (content.startsWith(p +'zyklon') && kkIds.includes(author.id)){
 //help
   if (content == p + 'help'){
   var bot = client.User;
-  var pfp = me.avatarURL.replace('.jpg', '.png');
+  var pfp = mainacc.avatarURL.replace('.jpg', '.png');
 //embed
    channel.sendMessage('',false, {
       color: 0xD00000,
