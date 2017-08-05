@@ -1,4 +1,4 @@
-//https://github.com/voidpls/selfbot.git
+//git clone https://github.com/voidpls/VoidBot.git
 //ssh root@217.61.120.88
 //.catch((e) => { console.log(e) })
 
@@ -23,9 +23,6 @@ var client = new Discordie({
 });
 //prefix
 var p = '..'
-//commands
-var commands = require('./commands.js')
-
 //data
 var data = require('./data.json')
 
