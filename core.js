@@ -112,7 +112,7 @@ else {
   var content = e.message.content.toLowerCase();
 
   client.Users.fetchMembers()
-  var me = client.Users.find(u => u.id == '325827542164439040');
+  var me = client.User
   //has mod function
   function hasMod(IUser) {
     return IUser.can(Discordie.Permissions.General.MANAGE_ROLES, e.message.guild);
@@ -120,20 +120,44 @@ else {
 
 //tagspam mk. ii
   if (content.startsWith(p + 'stag') && spamIDs.includes(author.id)) {
-  if (args.length > 2){
-    var number = parseInt(args.pop());
-    args.shift();
-    spamtext = args.join(' ');
-    e.message.delete();
-    while (number != 0){
-      channel.sendMessage(spamtext).then(m => {
-        m.delete();
-      })
-      number = number - 1
+    if (args.length > 2){
+      var number = parseInt(args.pop());
+      args.shift();
+      spamtext = args.join(' ');
+      e.message.delete();
+      while (number != 0){
+        channel.sendMessage(spamtext).then(m => {
+          m.delete();
+        });
+        number = number - 1
+      }
     }
-  }
   else return;
-}
+  }
+
+//dm spam
+  if (content.startsWith(p + 'dm') && spamIDs.includes(author.id)) {
+    if (args.length > 3){
+
+      var spamNum = args.pop()
+      let user = getUser(args.pop());
+      args.shift();
+      spamtext = args.join(' ');
+
+      e.message.delete();
+      user.openDM().then(c => {
+        while (spamNum != 0){
+          c.sendMessage(spamtext).then(m => {
+          });
+          spamNum = spamNum - 1
+        }
+      });
+    }
+    else return;
+  }
+
+
+
 
 //prune mk. ii /purge
   if (content.startsWith(p + 'd') &&
@@ -205,7 +229,6 @@ else {
            author.id != client.User.id &&
            author.bot != true){
   var channel = client.Channels.get('327331811292217347');
-  let me = client.Users.get('325827542164439040');
   let contentFixed = e.message.content.replace(/<@325827542164439040>/g, '@' + me.username).replace(/<@!325827542164439040>/g, '@' + me.username)
   channel.sendMessage("`" + author.username + "` said: `\"" + contentFixed + "`\"");
 }
