@@ -32,7 +32,7 @@ var holocaust = data.holocaust
 //variables
 var links = data.diversity
 
-var spamIDs = [
+var trustedIDs = [
   //Effy
   '135721889828962305',
   //Void#4724
@@ -119,7 +119,7 @@ else {
   }
 
 //tagspam mk. ii
-  if (content.startsWith(p + 'stag') && spamIDs.includes(author.id)) {
+  if (content.startsWith(p + 'stag') && trustedIDs.includes(author.id)) {
     if (args.length > 2){
       var number = parseInt(args.pop());
       args.shift();
@@ -136,7 +136,7 @@ else {
   }
 
 //dm spam
-  if (content.startsWith(p + 'dm') && spamIDs.includes(author.id)) {
+  if (content.startsWith(p + 'dm') && trustedIDs.includes(author.id)) {
     if (args.length > 3){
 
       var spamNum = args.pop()
@@ -145,13 +145,16 @@ else {
       spamtext = args.join(' ');
 
       e.message.delete();
-      user.openDM().then(c => {
-        while (spamNum != 0){
-          c.sendMessage(spamtext).then(m => {
-          });
-          spamNum = spamNum - 1
-        }
-      });
+      if (user === undefined) return;
+      else {
+        user.openDM().then(c => {
+          while (spamNum != 0){
+            c.sendMessage(spamtext).then(m => {
+            });
+            spamNum = spamNum - 1
+          }
+        });
+      }
     }
     else return;
   }
@@ -256,7 +259,7 @@ if (content == 'now grenze')
 e.message.delete();
 
 //spam
-  if (content.startsWith(p + 'spam') && spamIDs.includes(author.id)) {
+  if (content.startsWith(p + 'spam') && trustedIDs.includes(author.id)) {
     if (args.length > 2){
       var number = parseInt(args.pop());
       args.shift();
@@ -367,7 +370,7 @@ e.message.delete();
 }
 //echo
   if (content.startsWith(p + 'echo') &&
-      spamIDs.includes(author.id)){
+      trustedIDs.includes(author.id)){
   channel.sendMessage(args.join(" ").substring(6));
   e.message.delete();
 }
