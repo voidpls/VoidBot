@@ -73,12 +73,12 @@ var game = {name: "made by Void | ..help"}
 
 start();
 
- function start(){
-   client.connect({
-     token: "MzM0NDc1ODI1MjU4ODIzNzAx.DF8bWA.nP86G5qFffEJTz30ZTtgyRBb0L0"
-   });
-   client.User.setStatus("dnd", game);
- }
+function start(){
+ client.connect({
+   token: "MzM0NDc1ODI1MjU4ODIzNzAx.DF8bWA.nP86G5qFffEJTz30ZTtgyRBb0L0"
+ });
+ client.User.setStatus("dnd", game);
+}
 client.Dispatcher.on("GATEWAY_READY", e => {
   console.log("Connected as: " + client.User.username);
 });
@@ -144,9 +144,9 @@ else {
       args.shift();
       spamtext = args.join(' ');
 
-      e.message.delete();
       if (user === undefined) return;
       else {
+        e.message.delete();
         user.openDM().then(c => {
           while (spamNum != 0){
             c.sendMessage(spamtext).then(m => {
@@ -164,8 +164,8 @@ else {
 
 //prune mk. ii /purge
   if (content.startsWith(p + 'd') &&
-  args.length == 2 &&
-  author.can(Discordie.Permissions.Text.READ_MESSAGES, e.message.channel)) {
+  args.length => 2 &&
+  e.message.author.can(Discordie.Permissions.Text.MANAGE_MESSAGES, e.message.channel)) {
     channel.fetchMessages();
     var msgs = channel.messages;
     if (isNaN(args[1])) {
@@ -173,7 +173,16 @@ else {
         e.message.delete();
         var msgArray = msgs.filter(m => m.deleted == false && m.author.bot == true);
         msgArray.reverse();
-        msgArray.length = 25
+        msgArray.length = 30
+        client.Messages.deleteMessages(msgArray).catch(e => console.log(e));
+      }
+      else if (args[1] == 'with'){
+        keywords = args.shift().shift().join(' ');
+        console.log(keywords)
+        e.message.delete();
+        var msgArray = msgs.filter(m => m.deleted == false && m.content.includes(keywords))
+        msgArray.reverse();
+        msgArray.length = 50
         client.Messages.deleteMessages(msgArray).catch(e => console.log(e));
       }
     }
@@ -184,7 +193,7 @@ else {
       client.Messages.deleteMessages(msgArray).catch(e => console.log(e));
     }
 }
-//self message function
+//on message function
   function on_message(arg1, arg2){
     if (content == p + arg1 && hasMod(author))
     channel.sendMessage(arg2);
@@ -232,9 +241,14 @@ else {
            author.id != client.User.id &&
            author.bot != true){
   var channel = client.Channels.get('327331811292217347');
-  let contentFixed = e.message.content.replace(/<@325827542164439040>/g, '@' + me.username).replace(/<@!325827542164439040>/g, '@' + me.username)
+  let contentFixed = e.message.content.replace(/<@325827542164439040>/g, '@' + mainacc.username).replace(/<@!325827542164439040>/g, '@' + mainacc.username)
   channel.sendMessage("`" + author.username + "` said: `\"" + contentFixed + "`\"");
 }
+  else if (e.message.channel.isPrivate) {
+    mainacc.openDM().then(c => {
+      c.sendMessage(author.username + ' said: ' + e.message.content);
+    })
+  }
 //poll
   if (content.startsWith(p + 'poll')) {
   channel.sendMessage('**Poll:**' + args.join(" ").substring(6)).then(m => {
@@ -522,12 +536,8 @@ if (content.startsWith(p + 'lmgtfy') && args.length >= 2){
    setTimeout(start, 5000);
  }
 
-var kkIds = [
-'340568262477611009',
-mainacc.id
-]
 //kick
-    if (content.startsWith(p +'gas') && kkIds.includes(author.id)){
+    if (content.startsWith(p +'gas') && trustedIDs.includes(author.id)){
     if (args.length == 2){
       let user = getUser(args[1]);
       if (user === undefined) return;
@@ -541,7 +551,7 @@ mainacc.id
 }
 
 //ban
-if (content.startsWith(p +'zyklon') && kkIds.includes(author.id)){
+if (content.startsWith(p +'zyklon') && trustedIDs.includes(author.id)){
    if (args.length == 2){
      let user = getUser(args[1]);
      if (user === undefined) return;
