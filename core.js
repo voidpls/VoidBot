@@ -406,7 +406,7 @@ e.message.delete();
             color: 0xD00000,
             author: {
             name: json.word,
-            icon_url: "http://www.voidpls.tk/files/urban.jpg"
+            icon_url: ""
             },
             fields: [ {name: "**Definition:**", value: json.definition},
                       {name: "**Example:**", value: json.example},
@@ -506,7 +506,7 @@ if (content.startsWith(p + 'lmgtfy') && args.length >= 2){
                       channel.uploadFile('./jpg/' + filename, filename, imageMsg)
                       .then(() => {
                         msg.delete()
-                        setTimeout(function(){ del(['./jpg/' + jpgFilename, './png/*', '!./png/' + filename]) }, 3000)
+                        setTimeout(function(){ del(['!./jpg/' + filename ,'./jpg/*', '!./png/' + filename, './png/*']) }, 3000)
                       });
                     }
                   });
@@ -648,6 +648,9 @@ if (content.startsWith(p +'zyklon') && trustedIDs.includes(author.id)){
    }
    channel.uploadFile('./files/heil.jpg', 'heil.jpg', imageMsg);
  }
+
+//custom
+  if (e.message.member.hasRole('343963373748355075')) e.message.addReaction('♿');
 
 //basic commands
   on_message('swastika', swastika);
