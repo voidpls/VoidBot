@@ -650,7 +650,7 @@ if (content.startsWith(p +'zyklon') && trustedIDs.includes(author.id)){
  }
 
 //custom
-  if (e.message.member.hasRole('343963373748355075')) e.message.addReaction('♿');
+  if (e.message.member.hasRole('343963373748355075'))e.message.addReaction('♿');
 
 //basic commands
   on_message('swastika', swastika);
