@@ -505,7 +505,7 @@ if (content.startsWith(p + 'lmgtfy') && args.length >= 2){
                     else {
                       channel.uploadFile('./jpg/' + filename, filename, imageMsg)
                       .then(() => {
-                        msg.delete()
+                        msg.delete().catch(e => console.log(e))
                         setTimeout(function(){ del(['!./jpg/' + filename ,'./jpg/*', '!./png/' + filename, './png/*']) }, 3000)
                       });
                     }
