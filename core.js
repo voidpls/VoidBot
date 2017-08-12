@@ -506,7 +506,7 @@ if (content.startsWith(p + 'lmgtfy') && args.length >= 2){
                       channel.uploadFile('./jpg/' + filename, filename, imageMsg)
                       .then(() => {
                         msg.delete()
-                        setTimeout(function(){ del(['./jpg/' + jpgFilename, '!./png/*', './png/' + filename]) }, 3000)
+                        setTimeout(function(){ del(['./jpg/' + jpgFilename, './png/*', '!./png/' + filename]) }, 3000)
                       });
                     }
                   });
@@ -634,6 +634,21 @@ if (content.startsWith(p +'zyklon') && trustedIDs.includes(author.id)){
       }
     });
 }
+
+//heil
+ if (content.startsWith(p + 'heil')){
+   var len = args.length
+   if (len => 2) {
+     args.shift()
+     var arg = args.join(' ')
+     var imageMsg = '**HEIL ' + arg + '!**'
+   }
+   else {
+     var imageMsg = '<:swastika:325668829759930368> **14 | 88** <:swastika:325668829759930368>'
+   }
+   channel.uploadFile('./files/heil.jpg', 'heil.jpg', imageMsg);
+ }
+
 //basic commands
   on_message('swastika', swastika);
   globaldel_message('salute', '<:TopKek:338007448860229633><:pepeSalute:338007522050965506> <:swastika:325668829759930368>');
@@ -644,7 +659,6 @@ if (content.startsWith(p +'zyklon') && trustedIDs.includes(author.id)){
   globalon_message('bob', '`bob`? I think you mean `gay faggot`');
   globalon_message('gay faggot', '`gay faggot`? I think you mean `bob`');
   globaldel_message('gas', ':star_of_david: **Gas the Kikes** :star_of_david:');
-  globalon_message('heil', 'http://www.voidpls.tk/files/hitler.png');
   globalon_message('truth', 'Girls are the best but like Effy is better');
   globalon_message('remind', '**--------------------------------\n<:swastika:325668829759930368>   Daily Reminder:   <:swastika:325668829759930368>\nHitler Did Nothing Wrong!\n--------------------------------**');
   random_on_message('diversity', links);
