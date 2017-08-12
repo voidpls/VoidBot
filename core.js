@@ -536,20 +536,38 @@ if (content.startsWith(p + 'lmgtfy') && args.length >= 2){
 //usage
 if (content.startsWith(p + 'stats') && author.id == '325827542164439040'){
   usage.lookup(process.pid, function(err, result) {
+
+  var startTime = Math.floor(process.uptime());
+  var days = Math.floor(startTime / (3600*24));
+  var hrs  = Math.floor(startTime / 3600);
+  var mins = Math.floor((startTime - (hrs * 3600)) / 60);
+  var secs = startTime - (hrs * 3600) - (mins * 60);
+
+  if (days == 0) {
+    if (hrs == 0) {
+      var timemsg = mins+' minutes and '+secs+' seconds'
+    }
+    else {
+    var timemsg = hrs+' hrs, '+mins+' mins '+secs+' secs'
+    }
+  }
+  else {
+    var timemsg = days+' days, '+hrs+' hours, '+mins+' mins, and '+secs+' secs'
+  }
     if (err) console.log(err);
-    channel.sendMessage('**Showing Bot Stats:** \nCPU Usage: **' + result.cpu + '**%\nMemory Usage: **' + Math.round(result.memory/100000)/10 + '**MB')
-    .then((msg) => {
-      let i = 20
-      function timer() {
-        setTimeout(function(){
-          if (i != 0){
-            msg.edit('**Showing Bot Stats:** \nCPU Usage: **' + result.cpu + '**%\nMemory Usage: **' + Math.round(result.memory/100000)/10 + '**MB\n' + i);
-            i--
-            timer();
-          }
-        }, 1000);
-      }
-    });
+    channel.sendMessage('',false, {
+       color: 0xD00000,
+       author: {
+        name: 'Bot Stats',
+        icon_url: 'http://i.imgur.com/58l6Gzw.png'
+      },
+       fields: [{name: "**CPU Usage:**", value: '**' + Math.round(result.cpu*10)/10 + '**%'},
+               {name: "**Memory Usage:**", value: '**' + Math.round(result.memory/100000)/10 + '**MB'},
+               {name: "**Uptime:**", value: timemsg}],
+       footer: {
+         text: "Bot Owner: "+mainacc.username+'#'+mainacc.discriminator
+       }
+     });
   });
 }
 
