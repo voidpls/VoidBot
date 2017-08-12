@@ -515,7 +515,7 @@ if (content.startsWith(p + 'lmgtfy') && args.length >= 2){
           })
       }).catch(e => console.log(e));
     }
-    if (content.startsWith(p + 'pic ')){
+    if (content.startsWith(p + 'pic ') && e.message.guild !== '292791323474264064'){
       if (args.length >= 2){
         args.shift();
         var arg = args.join('')
