@@ -163,7 +163,6 @@ else {
 
 
 /*
-
 //prune mk. ii /purge
   var manageMessages = Discordie.Permissions.Text.MANAGE_MESSAGES
 
