@@ -559,7 +559,7 @@ if (content.startsWith(p + 'stats') && author.id == '325827542164439040'){
        color: 0xD00000,
        author: {
         name: 'Bot Stats',
-        icon_url: 'http://i.imgur.com/58l6Gzw.png'
+        icon_url: 'http://i.imgur.com/2x6vqOb.png'
       },
        fields: [{name: "**CPU Usage:**", value: '**' + Math.round(result.cpu*10)/10 + '**%'},
                {name: "**Memory Usage:**", value: '**' + Math.round(result.memory/100000)/10 + '**MB'},
