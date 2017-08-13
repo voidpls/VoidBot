@@ -72,7 +72,9 @@
   "lmgtfy": "**..lmgtfy [search term]** | Generates a lmgtfy link \n",
   "modping": "**..modping** | Pings all the online mods \n",
   "complain": "**..complain [feedback]** | Don't like my bot? Have suggestions? Use ..complain \n",
+  "stats": "**..stats** | Show the bot's stats. \n",
   "pic": "**..pic [search]** | Searches Imgur for an image. \n",
+  "weather": "**..weather [location]** | Posts the weather for a given location. \n",
   "kick": "**..gas [user]** | Kicks a User. \n",
   "ban": "**..zyklon [user]** | Bans a User. \n"
 },

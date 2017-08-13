@@ -16,6 +16,8 @@ var urban = require('urban');
 var randomPuppy = require('random-puppy');
 //download-file
 var download = require('download-file')
+//weather
+var weather = require("yahoo-weather")
 //discordie
 var Discordie = require('discordie');
 //client contructor
@@ -69,7 +71,7 @@ var islam = [
 var info = data.info
 
 var botid = ['323992245781135360']
-var everyone = info["heil"] + info["gas"] + info["diversity"] + info["nigger"] + info["redpill"] + info["holocaust"] + info["islam"] + info["remind"] + info["poll"] + info["pic"] + info["urban"] + info["lmgtfy"] + info["modping"] + info["complain"]
+var everyone = info["heil"] + info["gas"] + info["diversity"] + info["nigger"] + info["redpill"] + info["holocaust"] + info["islam"] + info["remind"] + info["poll"] + info["pic"] + info["weather"] + info["urban"] + info["lmgtfy"] + info["modping"] + info["stats"] + info["complain"]
 var mods =   info["swastika"] + info["ping"] + info["kick"] + info["ban"]
 var game = {name: "made by Void | ..help"}
 
@@ -442,6 +444,76 @@ e.message.delete();
   }
 }
 
+//weather
+  if (content.startsWith(p + 'weather')  || content.startsWith(p + 'w')){
+    if (args.length > 1){
+      var len = args.length
+      args.shift()
+      loc = args.join(' ')
+      weather(loc, 'f').then(info => {
+          var ftemp = info.item.condition.temp
+          var ctemp = Math.round((ftemp-32)*5/9)
+          var cwind = Math.round((info.wind.chill-32)*5/9)
+          var now = moment()
+          var formatted = now.format('ddd, MMM Do, YYYY hh:mma')
+          if (ftemp > 30){
+            var desctext = 'Fuck, it\'s cold.'
+            if (ftemp > 45){
+              var desctext = 'Feels as cool as I am'
+              if (ftemp > 60){
+                var desctext = 'Why the fuck aren\'t you outside, fucking nerd.'
+                if (ftemp > 70){
+                  var desctext = 'mmm. perfect temps.'
+                  if (ftemp > 80){
+                    var desctext = 'Toasty!'
+                    if (ftemp > 90){
+                      var desctext = 'It\'s hot enough to cook a Jew!'
+                    }
+                  }
+                }
+              }
+            }
+          }
+          else var desctext = 'HANS! GRAB THE FUCKING FLAME THROWER!'
+          channel.sendMessage('',false, {
+            color: 0xD00000,
+            author: {
+              name: info.location.city+', '+info.location.region+', '+info.location.country
+            },
+            thumbnail: {url: 'http://l.yimg.com/a/i/us/we/52/'+ info.item.condition.code +'.gif'},
+            fields: [{name: "**Temperature:**", value: '**'+ftemp+'**°F/**'+ctemp+'**°C'},
+                     {name: "**Feels Like:**", value: '**'+info.wind.chill+'**°F/**'+cwind+'**°C'},
+                     {name: "**Condition**:", value: info.item.condition.text+' | **'+info.atmosphere.humidity+'**% humidity'}],
+            footer: {text: formatted},
+            description: desctext
+          });
+      }).catch(err => {
+        console.log(err)
+        channel.sendMessage("**<:error:335660275481051136> Could not find weather info for `"+loc+"`**")
+      });
+/*        else {
+          var temp = result[1].current.temperature
+          var celtemp = Math.round((temp-32)*5/9)
+          channel.sendMessage('',false, {
+            color: 0xD00000,
+            author: {
+              name: result[1].location.name,
+              icon_url: result[1].location.imagerelativeurl
+            },
+            fields: [{name: "**Temperature:**", value: temp+'°F / '+celtemp+'°C'}]
+          //footer: {
+          //   icon_url: pfp,
+        //     text: "Made by Void, for the honor of Mein Fürher"
+          // }
+          });
+        }
+      }); */
+    }
+    else {
+
+    }
+  }
+
 //lmgtfy
 if (content.startsWith(p + 'lmgtfy') && args.length >= 2){
   args.shift();
@@ -449,19 +521,28 @@ if (content.startsWith(p + 'lmgtfy') && args.length >= 2){
   e.message.channel.sendMessage("http://lmgtfy.com/?q=" + q);
 }
 
-//guilds
-  if (content == p + 'servers'){
+//botinfo
+  if (content == p + 'botinfo'){
     var guilds = client.Guilds
-    var now = moment()
-    var formatted = now.format('ddd, MMM Do, YYYY hh:mma')
+    client.Users.fetchMembers().then(() => {
+      var now = moment()
+      var formatted = now.format('ddd, MMM Do, YYYY hh:mma')
 
-    channel.sendMessage('',false, {
-      color: 0xD00000,
-      title: "I am in **" + guilds.length + "** servers",
-      footer: {
-        text: formatted
-      }
-    });
+      channel.sendMessage('',false, {
+        color: 0xD00000,
+        author: {
+          name: "Bot Info",
+          icon_url: "http://i.imgur.com/2x6vqOb.png"
+        },
+        fields: [
+          {name: '**Servers**', value: guilds.length},
+          {name: '**Users**', value: client.Users.length}
+        ],
+        footer: {
+          text: formatted
+        }
+      });
+  });
   }
   if (content == p + 'list' && author.id == mainacc.id){
     var listGuilds = client.Guilds.map(g => g.name);
@@ -491,13 +572,13 @@ if (content.startsWith(p + 'lmgtfy') && args.length >= 2){
             image
               .metadata()
               .then(function(metadata, err) {
-            /*    if (metadata.width >= '1999' || metadata.height >= '1999'){
+                if (metadata.width >= '1999' || metadata.height >= '1999'){
                   if (metadata.width >= '7999' || metadata.height >= '7999') { reduce(0.7, metadata, image); console.log('kkk(8k)'); }
                   else if (metadata.width >= '4999' || metadata.height >= '4999') { reduce(0.6, metadata, image); console.log('kkk(5k)'); }
                   else if (metadata.width >= '3999' || metadata.height >= '3999') { reduce(0.5, metadata, image); console.log('kkk(4k)'); }
                   else if (metadata.width >= '2999' || metadata.height >= '2999') { reduce(0.4, metadata, image); console.log('kkk(3k)'); }
                   else { reduce(0.3, metadata, image); console.log('kkk(2k)'); }
-                }*/
+                }
                 if (err) console.log(err)
                 image
                   .toFile('./jpg/' + jpgFilename, function(err){
@@ -506,7 +587,7 @@ if (content.startsWith(p + 'lmgtfy') && args.length >= 2){
                       channel.uploadFile('./jpg/' + filename, filename, imageMsg)
                       .then(() => {
                         msg.delete().catch(e => console.log(e))
-                        setTimeout(function(){ del(['!./jpg/' + filename ,'./jpg/*', '!./png/' + filename, './png/*']) }, 3000)
+                        del(['!./jpg/' + filename ,'./jpg/*', '!./png/' + filename, './png/*']);
                       });
                     }
                   });
@@ -638,7 +719,7 @@ if (content.startsWith(p +'zyklon') && trustedIDs.includes(author.id)){
 //heil
  if (content.startsWith(p + 'heil')){
    var len = args.length
-   if (len => 2) {
+   if (len > 1) {
      args.shift()
      var arg = args.join(' ')
      var imageMsg = '**HEIL ' + arg + '!**'
@@ -650,8 +731,11 @@ if (content.startsWith(p +'zyklon') && trustedIDs.includes(author.id)){
  }
 
 //custom
-  if (e.message.member.hasRole('343963373748355075') && e.message.guild.id == '292791323474264064')e.message.addReaction('♿');
-
+  if (e.message.member) {
+    if (e.message.member.roles.map(r => r.id).indexOf('343963373748355075') !== -1 && e.message.guild.id == '292791323474264064'){
+      e.message.addReaction('♿');
+    }
+  }
 //basic commands
   on_message('swastika', swastika);
   globaldel_message('salute', '<:TopKek:338007448860229633><:pepeSalute:338007522050965506> <:swastika:325668829759930368>');
