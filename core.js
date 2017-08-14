@@ -461,7 +461,7 @@ e.message.delete();
             if (ftemp > 45){
               var desctext = 'Feels as cool as I am'
               if (ftemp > 60){
-                var desctext = 'Why the fuck aren\'t you outside, fucking nerd.'
+                var desctext = 'Why the fuck aren\'t you outside, ya fucking nerd?'
                 if (ftemp > 70){
                   var desctext = 'mmm. perfect temps.'
                   if (ftemp > 80){
@@ -480,7 +480,7 @@ e.message.delete();
             author: {
               name: info.location.city+', '+info.location.region+', '+info.location.country
             },
-            thumbnail: {url: 'http://l.yimg.com/a/i/us/we/52/'+ info.item.condition.code +'.gif'},
+            thumbnail: {url: 'http://www.voidpls.tk/files/weather/'+ info.item.condition.code +'.png'},
             fields: [{name: "**Temperature:**", value: '**'+ftemp+'**°F/**'+ctemp+'**°C'},
                      {name: "**Feels Like:**", value: '**'+info.wind.chill+'**°F/**'+cwind+'**°C'},
                      {name: "**Condition**:", value: info.item.condition.text+' | **'+info.atmosphere.humidity+'**% humidity'}],
@@ -611,9 +611,25 @@ if (content.startsWith(p + 'lmgtfy') && args.length >= 2){
   if (content == p + 'cute') search('aww', '')
 
 //die
-   if (content.startsWith(p + 'kill') && author.id == '325827542164439040')
-   e.message.addReaction('💀').then(process.exit());
-
+   if (content.startsWith(p + 'kill') && author.id == '325827542164439040'){
+     var count = 5
+     channel.sendMessage('Shutting down in **'+count+'** seconds...').then(m => {
+     function shutdown(){
+       setTimeout(function(){
+         if (count != 0) {
+           count--
+           m.edit('Shutting down in **'+count+'** seconds...')
+           shutdown();
+         }
+         else {
+           m.edit('💀');
+           setTimeout(function(){process.exit()}, 3000)
+         }
+       }, 1000)
+     }
+     shutdown();
+   });
+}
 //usage
 if (content.startsWith(p + 'stats') && author.id == '325827542164439040'){
   usage.lookup(process.pid, function(err, result) {
