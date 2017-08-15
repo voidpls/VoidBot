@@ -31,7 +31,6 @@ var client = new Discordie({
 var p = '..'
 //data
 var data = require('./data.json')
-var weatherData = require('./files/weather.json')
 var redpill = data.redpill
 var holocaust = data.holocaust
 
@@ -465,6 +464,7 @@ e.message.delete();
 
 //weather
   if (content.startsWith(p + 'weather')  || content.startsWith(p + 'w')){
+  var weatherData = require('./files/weather.json')
   function weatherSearch(loc){
     weather(loc, 'f').then(info => {
         var ftemp = info.item.condition.temp
@@ -515,7 +515,7 @@ e.message.delete();
           fs.readFile('./files/weather.json', function (err, data) {
             var json = JSON.parse(data)
             json[author.id] = {location: loc, username: author.username+'#'+author.discriminator}
-            fs.writeFile("./files/weather.json", JSON.stringify(json))
+            fs.writeFile("./files/weather.json", JSON.stringify(json, null, '\t'))
             channel.sendMessage("Your location has been successfully updated to `"+loc+"`");
             if(err) console.log(err)
         })
@@ -531,7 +531,9 @@ e.message.delete();
       if (weatherData[author.id]){
         weatherSearch(weatherData[author.id].location);
       }
-      else channel.sendMessage('Type `..weather set [location]` to set a location.')
+      else {
+        channel.sendMessage('Type `..weather set [location]` to set a location.');
+      }
     }
   }
 
