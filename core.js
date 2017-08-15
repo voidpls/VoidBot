@@ -200,6 +200,21 @@ else {
     }
 }
 */
+/*
+ if (content == p + 'log'){
+   client.Users.fetchMembers()
+   let members = client.Users.membersForGuild('325315599708454913');
+   fs.readFile('./files/mcusers.json', function (err, data) {
+     var json = JSON.parse(data)
+     members.map(m => {
+       var role = m.roles.reverse().shift().name
+       json[m.username+'#'+m.discriminator] = {id: m.id}
+     })
+     fs.writeFile("./files/mcusers.json", JSON.stringify(json, null, '\t'))
+     if(err) console.log(err)
+  })
+} */
+
 //on message function
   function on_message(arg1, arg2){
     if (content == p + arg1 && hasMod(author))
