@@ -529,6 +529,7 @@ e.message.delete();
     }
     else {
       if (weatherData[author.id]){
+        var weatherData = require('./files/weather.json')
         weatherSearch(weatherData[author.id].location);
       }
       else {
