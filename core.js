@@ -2,6 +2,8 @@
 //ssh root@217.61.120.88
 //.catch((e) => { console.log(e) })
 
+//fs
+var fs = require('fs')
 //usage
 var usage = require('usage');
 //moment
@@ -14,10 +16,10 @@ var sharp = require('sharp');
 var urban = require('urban');
 //random-puppy
 var randomPuppy = require('random-puppy');
-//download-file
-var download = require('download-file')
 //weather
 var weather = require("yahoo-weather")
+//download-file
+var download = require('download-file')
 //discordie
 var Discordie = require('discordie');
 //client contructor
@@ -29,7 +31,7 @@ var client = new Discordie({
 var p = '..'
 //data
 var data = require('./data.json')
-
+var weatherData = require('./files/weather.json')
 var redpill = data.redpill
 var holocaust = data.holocaust
 
@@ -219,9 +221,11 @@ else {
     channel.sendMessage(arg2);
   }
   }
+
 //ping
   if (content == p + 'ping' && hasMod(author)) {
     let start = process.hrtime();
+    const dns = require('dns');
     channel.sendMessage(":ping_pong:  |  Pong! - Time taken:").then(m => {
       const diff = process.hrtime(start);
       let time = diff[0] * 1000 + diff[1] / 1000000
@@ -446,71 +450,73 @@ e.message.delete();
 
 //weather
   if (content.startsWith(p + 'weather')  || content.startsWith(p + 'w')){
-    if (args.length > 1){
-      var len = args.length
-      args.shift()
-      loc = args.join(' ')
-      weather(loc, 'f').then(info => {
-          var ftemp = info.item.condition.temp
-          var ctemp = Math.round((ftemp-32)*5/9)
-          var cwind = Math.round((info.wind.chill-32)*5/9)
-          var now = moment()
-          var formatted = now.format('ddd, MMM Do, YYYY hh:mma')
-          if (ftemp > 30){
-            var desctext = 'Fuck, it\'s cold.'
-            if (ftemp > 45){
-              var desctext = 'Feels as cool as I am'
-              if (ftemp > 60){
-                var desctext = 'Why the fuck aren\'t you outside, ya fucking nerd?'
-                if (ftemp > 70){
-                  var desctext = 'mmm. perfect temps.'
-                  if (ftemp > 80){
-                    var desctext = 'Toasty!'
-                    if (ftemp > 90){
-                      var desctext = 'It\'s hot enough to cook a Jew!'
-                    }
+  function weatherSearch(loc){
+    weather(loc, 'f').then(info => {
+        var ftemp = info.item.condition.temp
+        var ctemp = Math.round((ftemp-32)*5/9)
+        var cwind = Math.round((info.wind.chill-32)*5/9)
+        if (ftemp > 30){
+          var desctext = 'Fuck, it\'s cold.'
+          if (ftemp > 45){
+            var desctext = 'Feels as cool as I am'
+            if (ftemp > 65){
+              var desctext = 'Why the fuck aren\'t you outside, ya fucking nerd?'
+              if (ftemp > 75){
+                var desctext = 'Getting warmer...'
+                if (ftemp > 85){
+                  var desctext = 'Toasty!'
+                  if (ftemp > 95){
+                    var desctext = 'It\'s hot enough to cook a Jew!'
                   }
                 }
               }
             }
           }
-          else var desctext = 'HANS! GRAB THE FUCKING FLAME THROWER!'
-          channel.sendMessage('',false, {
-            color: 0xD00000,
-            author: {
-              name: info.location.city+', '+info.location.region+', '+info.location.country
-            },
-            thumbnail: {url: 'http://www.voidpls.tk/files/weather/'+ info.item.condition.code +'.png'},
-            fields: [{name: "**Temperature:**", value: '**'+ftemp+'**°F/**'+ctemp+'**°C'},
-                     {name: "**Feels Like:**", value: '**'+info.wind.chill+'**°F/**'+cwind+'**°C'},
-                     {name: "**Condition**:", value: info.item.condition.text+' | **'+info.atmosphere.humidity+'**% humidity'}],
-            footer: {text: formatted},
-            description: desctext
-          });
-      }).catch(err => {
-        console.log(err)
-        channel.sendMessage("**<:error:335660275481051136> Could not find weather info for `"+loc+"`**")
-      });
-/*        else {
-          var temp = result[1].current.temperature
-          var celtemp = Math.round((temp-32)*5/9)
-          channel.sendMessage('',false, {
-            color: 0xD00000,
-            author: {
-              name: result[1].location.name,
-              icon_url: result[1].location.imagerelativeurl
-            },
-            fields: [{name: "**Temperature:**", value: temp+'°F / '+celtemp+'°C'}]
-          //footer: {
-          //   icon_url: pfp,
-        //     text: "Made by Void, for the honor of Mein Fürher"
-          // }
-          });
         }
-      }); */
+        else var desctext = 'HANS! GRAB THE FUCKING FLAME THROWER!'
+        channel.sendMessage('',false, {
+          color: 0xD00000,
+          author: {
+            name: info.location.city+', '+info.location.region+', '+info.location.country
+          },
+          thumbnail: {url: 'http://www.voidpls.tk/files/weather/'+ info.item.condition.code +'.png'},
+          fields: [{name: "**Temperature:**", value: '**'+ftemp+'**°F/**'+ctemp+'**°C'},
+                   {name: "**Feels Like:**", value: '**'+info.wind.chill+'**°F/**'+cwind+'**°C'},
+                   {name: "**Condition**:", value: info.item.condition.text+' | **'+info.atmosphere.humidity+'**% humidity'}],
+          footer: {text: info.lastBuildDate.replace(/\w+[.!?]?$/, '')},
+          description: desctext
+        });
+    }).catch(err => {
+      console.log(err)
+      channel.sendMessage("**<:error:335660275481051136> Could not find weather info for `"+loc+"`**")
+    });
+  }
+    if (args.length > 1){
+      args.shift()
+      if (args[0] == 'set'){
+        if (args.length > 1){
+          args.shift()
+          loc = args.join(' ')
+          fs.readFile('./files/weather.json', function (err, data) {
+            var json = JSON.parse(data)
+            json[author.id] = {location: loc, username: author.username + author.discriminator}
+            fs.writeFile("./files/weather.json", JSON.stringify(json))
+            channel.sendMessage("Your location has been successfully updated to `"+loc+"`");
+            if(err) console.log(err)
+        })
+        }
+        else channel.sendMessage('Type `..weather set [location]` to set a location.')
+      }
+      else{
+        loc = args.join(' ')
+        weatherSearch(loc);
+      }
     }
     else {
-
+      if (weatherData[author.id]){
+        weatherSearch(weatherData[author.id].location);
+      }
+      else channel.sendMessage('Type `..weather set [location]` to set a location.')
     }
   }
 
