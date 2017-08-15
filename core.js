@@ -499,7 +499,7 @@ e.message.delete();
           loc = args.join(' ')
           fs.readFile('./files/weather.json', function (err, data) {
             var json = JSON.parse(data)
-            json[author.id] = {location: loc, username: author.username + author.discriminator}
+            json[author.id] = {location: loc, username: author.username+'#'+author.discriminator}
             fs.writeFile("./files/weather.json", JSON.stringify(json))
             channel.sendMessage("Your location has been successfully updated to `"+loc+"`");
             if(err) console.log(err)

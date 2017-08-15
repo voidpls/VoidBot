@@ -2,3 +2,5 @@
 
 ./png/*
 ./jpg/*
+#weather data
+./files/weather.json
