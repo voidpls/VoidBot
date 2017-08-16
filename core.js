@@ -199,20 +199,21 @@ else {
     }
 }
 */
-/*
+
  if (content == p + 'log'){
    client.Users.fetchMembers()
    let members = client.Users.membersForGuild('325315599708454913');
    fs.readFile('./files/mcusers.json', function (err, data) {
      var json = JSON.parse(data)
      members.map(m => {
-       var role = m.roles.reverse().shift().name
-       json[m.username+'#'+m.discriminator] = {id: m.id}
+       var mroles = m.roles
+       var rroles = mroles.map(r => r.name)
+       json[m.username+'#'+m.discriminator] = {id: m.id, roles: rroles}
      })
      fs.writeFile("./files/mcusers.json", JSON.stringify(json, null, '\t'))
      if(err) console.log(err)
   })
-} */
+}
 
 //on message function
   function on_message(arg1, arg2){
@@ -464,7 +465,6 @@ e.message.delete();
 
 //weather
   if (content.startsWith(p + 'weather')  || content.startsWith(p + 'w')){
-  var weatherData = require('./files/weather.json')
   function weatherSearch(loc){
     weather(loc, 'f').then(info => {
         var ftemp = info.item.condition.temp
@@ -475,7 +475,7 @@ e.message.delete();
           if (ftemp > 45){
             var desctext = 'Feels as cool as I am'
             if (ftemp > 65){
-              var desctext = 'Why the fuck aren\'t you outside, ya fucking nerd?'
+              var desctext = 'Why the fuck aren\'t you outside, ya nerd?'
               if (ftemp > 75){
                 var desctext = 'Getting warmer...'
                 if (ftemp > 85){
@@ -518,7 +518,7 @@ e.message.delete();
             fs.writeFile("./files/weather.json", JSON.stringify(json, null, '\t'))
             channel.sendMessage("Your location has been successfully updated to `"+loc+"`");
             if(err) console.log(err)
-        })
+        });
         }
         else channel.sendMessage('Type `..weather set [location]` to set a location.')
       }
@@ -528,13 +528,16 @@ e.message.delete();
       }
     }
     else {
-      if (weatherData[author.id]){
-        var weatherData = require('./files/weather.json')
-        weatherSearch(weatherData[author.id].location);
-      }
-      else {
-        channel.sendMessage('Type `..weather set [location]` to set a location.');
-      }
+      fs.readFile('./files/weather.json', function (err, weatherData) {
+        weatherData = JSON.parse(weatherData)
+        if (weatherData[author.id]){
+          weatherSearch(weatherData[author.id].location);
+        }
+        else {
+          channel.sendMessage('Type `..weather set [location]` to set a location.');
+        }
+        if(err) console.log(err)
+      });
     }
   }
 
