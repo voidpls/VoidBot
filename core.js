@@ -74,7 +74,6 @@ var info = data.info
 var botid = ['323992245781135360']
 var everyone = info["heil"] + info["gas"] + info["diversity"] + info["nigger"] + info["redpill"] + info["holocaust"] + info["islam"] + info["remind"] + info["poll"] + info["pic"] + info["weather"] + info["urban"] + info["lmgtfy"] + info["modping"] + info["stats"] + info["complain"]
 var mods =   info["swastika"] + info["ping"] + info["kick"] + info["ban"]
-var game = {name: "made by Void | ..help"}
 
 start();
 
@@ -82,10 +81,10 @@ function start(){
  client.connect({
    token: "MzM0NDc1ODI1MjU4ODIzNzAx.DF8bWA.nP86G5qFffEJTz30ZTtgyRBb0L0"
  });
- client.User.setStatus("dnd", game);
 }
 client.Dispatcher.on("GATEWAY_READY", e => {
   console.log("Connected as: " + client.User.username);
+  client.User.setStatus("dnd", {name: "made by Void | ..help"});
 });
 
 client.Dispatcher.on("DISCONNECTED", () => {
@@ -95,7 +94,7 @@ client.Dispatcher.on("DISCONNECTED", () => {
 //welcome
 client.Dispatcher.on("GUILD_MEMBER_ADD", e => {
   function send() {
-    channel.sendMessage(`Welcome to Moon Central, ${e.member.mention}!`);
+    channel.sendMessage(`Welcome to Moon Central, ${e.member.mention}! \nType **..modping** to ping staff!`);
   }
   let channel = client.Channels.get('325648252810690570');
 	if (e.guild.id === "325315599708454913") {
@@ -116,7 +115,6 @@ else {
   var channel = e.message.channel
   var content = e.message.content.toLowerCase();
 
-  client.Users.fetchMembers()
   var me = client.User
   //has mod function
   function hasMod(IUser) {
@@ -165,16 +163,16 @@ else {
   }
 
 
-/*
+
 //prune mk. ii /purge
   var manageMessages = Discordie.Permissions.Text.MANAGE_MESSAGES
 
-  if (content.startsWith(p + 'd') && args.length => 2 && author.can(manageMessages, channel)){
+  if (content.startsWith(p + 'd ') && args.length > 1 && author.can(manageMessages, channel)){
     channel.fetchMessages();
-    var msgs = channel.messages;
     if (isNaN(args[1])) {
       if (args[1] == 'bots'){
         e.message.delete();
+        var msgs = channel.messages;
         var msgArray = msgs.filter(m => m.deleted == false && m.author.bot == true);
         msgArray.reverse();
         msgArray.length = 30
@@ -182,24 +180,25 @@ else {
       }
       else if (args[1] == 'with'){
         let len = args.length
-        keywords = args[2, len]
-        console.log(keywords)
-        e.message.delete();
-        var msgArray = msgs.filter(m => m.deleted == false && m.content.includes(keywords))
+        var keywords = content.replace(p+'d with ', '');
+        var msgs = channel.messages;
+        var msgArray = msgs.filter(m => m.deleted == false && m.content.includes(keywords));
         msgArray.reverse();
         msgArray.length = 50
         client.Messages.deleteMessages(msgArray).catch(e => console.log(e));
       }
     }
     if (!isNaN(args[1])){
+      var msgs = channel.messages;
       var msgArray = msgs.filter(m => m.deleted == false);
       msgArray.reverse();
       msgArray.length = parseInt(args[1], 10) + 1
       client.Messages.deleteMessages(msgArray).catch(e => console.log(e));
     }
 }
-*/
 
+
+/*
  if (content == p + 'log'){
    client.Users.fetchMembers()
    let members = client.Users.membersForGuild('325315599708454913');
@@ -214,7 +213,7 @@ else {
      if(err) console.log(err)
   })
 }
-
+*/
 //on message function
   function on_message(arg1, arg2){
     if (content == p + arg1 && hasMod(author))
@@ -244,9 +243,17 @@ else {
     channel.sendMessage(":ping_pong:  |  Pong! - Time taken:").then(m => {
       const diff = process.hrtime(start);
       let time = diff[0] * 1000 + diff[1] / 1000000
-      m.edit(':ping_pong:  |  Pong! - Time taken: **' + Math.round(time) + 'ms**');
+      m.edit(':ping_pong:  |  Pong! - Time taken: **' + Math.round(time-40) + 'ms**');
     });
   }
+//invite
+	if (content == p + 'invite'){
+		author.openDM().then(c => {
+			var msg = '<:ss:350261180280995840> **Want to add me to your server?** <:ss:350261180280995840>\n\n:link: Here\'s my invite link: **http://voidpls.tk/invite**\n\n```diff\n- Don\'t need moderation commands? Uncheck all the perms.\n\n- If you have any issues, please message '+mainacc.username+'#'+mainacc.discriminator+'```'
+			c.sendMessage(msg);
+			e.message.addReaction(":check:335548356552294410")
+		});
+	}
 
 //log
   var mainacc = client.Users.get('325827542164439040');
@@ -315,7 +322,7 @@ e.message.delete();
   }
 
 //ping admins/mod
-  if (content == p + "modping" && e.message.guild.id == '325315599708454913'){
+  if (content.startsWith(p + "modping") && e.message.guild.id == '325315599708454913'){
     let members = client.Users.membersForGuild('325315599708454913');
     let membersArray = members.filter(m => m.hasRole('325320325409669130') || m.hasRole('325320348553969685') || m.hasRole('333750148788125707'))
     .filter(m => m.status != 'offline')
@@ -329,15 +336,15 @@ e.message.delete();
 
 //nick
   if (content.startsWith('-' + "nick")){
-    if (author.id == me.id){
+    if (author.id == mainacc.id){
       args.shift();
       var nick = args.join(' ');
       var botuser = client.User.memberOf(channel.guild);
       botuser.setNickname(nick);
-      channel.sendMessage("<:check:335544753443831810> Nickname changed to `"+ nick +"`")
-      }
-      else channel.sendMessage("<:error:335660275481051136> **Bot Owner Only**");
+      channel.sendMessage("<:check:335544753443831810> Nickname changed to **"+ nick +"**")
    }
+   else channel.sendMessage("<:error:335660275481051136> **Bot Owner Only**");
+  }
 //feedback
   if (content.startsWith(p + 'complain')){
     var fbChannel = client.Channels.get('335540223884656640');
@@ -366,6 +373,7 @@ e.message.delete();
   channel.sendMessage('***L-L-LEVEL UP!!!***');
   }
 
+if (content.includes('heil')) e.message.addReaction(":swastika:322900266959765506")
 //roleme
 /*
   if (content == p + 'roleme'){
@@ -470,6 +478,11 @@ e.message.delete();
         var ftemp = info.item.condition.temp
         var ctemp = Math.round((ftemp-32)*5/9)
         var cwind = Math.round((info.wind.chill-32)*5/9)
+        var forecast = info.item.forecast[0]
+        var cHigh = Math.round((forecast.high-32)*5/9)
+        var cLow = Math.round((forecast.low-32)*5/9)
+        var highLow = '**'+ forecast.high+'**°/**'+forecast.low+
+        			  '**°F **| '+cHigh+'**°/**'+cLow+'**°C'
         if (ftemp > 30){
           var desctext = 'Fuck, it\'s cold.'
           if (ftemp > 45){
@@ -488,7 +501,7 @@ e.message.delete();
             }
           }
         }
-        else var desctext = 'HANS! GRAB THE FUCKING FLAME THROWER!'
+        else var desctext = 'Hans! Grab the fucking Flame Thrower!'
         channel.sendMessage('',false, {
           color: 0xD00000,
           author: {
@@ -496,7 +509,7 @@ e.message.delete();
           },
           thumbnail: {url: 'http://www.voidpls.tk/files/weather/'+ info.item.condition.code +'.png'},
           fields: [{name: "**Temperature:**", value: '**'+ftemp+'**°F/**'+ctemp+'**°C'},
-                   {name: "**Feels Like:**", value: '**'+info.wind.chill+'**°F/**'+cwind+'**°C'},
+                   {name: "**High/Low:**", value: highLow},
                    {name: "**Condition**:", value: info.item.condition.text+' | **'+info.atmosphere.humidity+'**% humidity'}],
           footer: {text: info.lastBuildDate.replace(/\w+[.!?]?$/, '')},
           description: desctext
@@ -516,7 +529,7 @@ e.message.delete();
             var json = JSON.parse(data)
             json[author.id] = {location: loc, username: author.username+'#'+author.discriminator}
             fs.writeFile("./files/weather.json", JSON.stringify(json, null, '\t'))
-            channel.sendMessage("Your location has been successfully updated to `"+loc+"`");
+            channel.sendMessage("Your location has been successfully updated to **"+loc+"**");
             if(err) console.log(err)
         });
         }
@@ -560,10 +573,11 @@ if (content.startsWith(p + 'lmgtfy') && args.length >= 2){
         author: {
           name: "Bot Info",
           icon_url: "http://i.imgur.com/2x6vqOb.png"
-        },
+        },   
         fields: [
           {name: '**Servers**', value: guilds.length},
-          {name: '**Users**', value: client.Users.length}
+          {name: '**Users**', value: client.Users.length},
+          {name: '**Invite**', value: 'test'}
         ],
         footer: {
           text: formatted
@@ -663,7 +677,7 @@ if (content.startsWith(p + 'stats') && author.id == '325827542164439040'){
 
   var startTime = Math.floor(process.uptime());
   var days = Math.floor(startTime / (3600*24));
-  var hrs  = Math.floor(startTime / 3600);
+  var hrs  = Math.floor((startTime / 3600) - (days * 24));
   var mins = Math.floor((startTime - (hrs * 3600)) / 60);
   var secs = startTime - (hrs * 3600) - (mins * 60);
 
@@ -676,7 +690,7 @@ if (content.startsWith(p + 'stats') && author.id == '325827542164439040'){
     }
   }
   else {
-    var timemsg = days+' days, '+hrs+' hours, '+mins+' mins, and '+secs+' secs'
+    var timemsg = days+' days, '+hrs+' hours '+mins+' mins'
   }
     if (err) console.log(err);
     channel.sendMessage('',false, {
