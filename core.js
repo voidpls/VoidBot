@@ -182,7 +182,7 @@ else {
         let len = args.length
         var keywords = content.replace(p+'d with ', '');
         var msgs = channel.messages;
-        var msgArray = msgs.filter(m => m.deleted == false && m.content.includes(keywords));
+        var msgArray = msgs.filter(m => m.deleted == false && m.content.toLowerCase().includes(keywords));
         msgArray.reverse();
         msgArray.length = 50
         client.Messages.deleteMessages(msgArray).catch(e => console.log(e));
@@ -567,17 +567,19 @@ if (content.startsWith(p + 'lmgtfy') && args.length >= 2){
     client.Users.fetchMembers().then(() => {
       var now = moment()
       var formatted = now.format('ddd, MMM Do, YYYY hh:mma')
-
+      var nodeVersion = process.version
       channel.sendMessage('',false, {
         color: 0xD00000,
         author: {
           name: "Bot Info",
           icon_url: "http://i.imgur.com/2x6vqOb.png"
-        },   
+        },
         fields: [
           {name: '**Servers**', value: guilds.length},
           {name: '**Users**', value: client.Users.length},
-          {name: '**Invite**', value: 'test'}
+      //    {name: '**Invite**', value: '[here](http://voidpls.tk/invite)'},
+          {name: '**Node.js**', value: "["+nodeVersion+"](https://nodejs.org/)"},
+          {name: '**Discordie**', value: "[v0.11.0](https://qeled.github.io/discordie/#/)"}
         ],
         footer: {
           text: formatted
@@ -589,6 +591,29 @@ if (content.startsWith(p + 'lmgtfy') && args.length >= 2){
     var listGuilds = client.Guilds.map(g => g.name);
     channel.sendMessage('**I\'m in these servers: \n**' + listGuilds.join('\n'))
 }
+//eval
+  function clean(text) {
+    if (typeof(text) === "string")
+      return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+    else
+      return text;
+  }
+
+  if (content.startsWith(p + 'eval') || content.startsWith(p + 'debug')){
+    if (author.id !== mainacc.id) channel.sendMessage('**<:error:335660275481051136> Bot Owner Only**');
+    else {
+      try {
+        var code = args.slice(1).join(' ');
+        let evaled = eval(code);
+
+        if (typeof evaled !== 'string')
+        evaled = require("util").inspect(evaled);
+        channel.sendMessage('\`\`\`xl\n'+clean(evaled)+'\`\`\`').catch(e => channel.sendMessage(`\`ERROR\` \`\`\`xl\n${clean(e)}\n\`\`\``))
+      } catch (err) {
+        channel.sendMessage(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``)
+      }
+    }
+  }
 
   function reduce(int, md, image){
     if (md.width >= md.height) return image.resize(Math.round(md.width - md.width*int));
@@ -672,13 +697,13 @@ if (content.startsWith(p + 'lmgtfy') && args.length >= 2){
    });
 }
 //usage
-if (content.startsWith(p + 'stats') && author.id == '325827542164439040'){
+if (content.startsWith(p + 'stats')){
   usage.lookup(process.pid, function(err, result) {
 
   var startTime = Math.floor(process.uptime());
   var days = Math.floor(startTime / (3600*24));
   var hrs  = Math.floor((startTime / 3600) - (days * 24));
-  var mins = Math.floor((startTime - (hrs * 3600)) / 60);
+  var mins = Math.floor((startTime - (hrs * 3600) - (days * 1440)) / 60);
   var secs = startTime - (hrs * 3600) - (mins * 60);
 
   if (days == 0) {
@@ -735,13 +760,17 @@ if (content.startsWith(p + 'stats') && author.id == '325827542164439040'){
 if (content.startsWith(p +'zyklon') && trustedIDs.includes(author.id)){
    if (args.length == 2){
      let user = getUser(args[1]);
-     if (user === undefined) return;
+     if (!user) return;
      else {
       user.ban(0);
       channel.sendMessage("<:check:335544753443831810>** " + user.username + " **has been treated with a lethal dose of Zyklon-B");
     }
   }
-  else if (args.length == 1) channel.sendMessage('**Revving up the Gas Chambers...**');
+  else if (args.length == 1) {
+    channel.sendMessage('**Revving up the Gas Chambers...**').then(msg => {
+      setTimeout(function(){msg.edit('**Gas chambers spinning at full RPM, ready for gassing!**')}, 3000);
+    });
+  }
 }
 //get user function
   function getUser(arg) {
@@ -768,7 +797,7 @@ if (content.startsWith(p +'zyklon') && trustedIDs.includes(author.id)){
               {name: "**Private Commands**", value: mods}],
       footer: {
         icon_url: pfp,
-        text: "Made by Void, for the honor of Mein Fürher"
+        text: "Made by Void, for the honor of Mein Führer"
       }
     });
 }
