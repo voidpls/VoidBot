@@ -250,7 +250,7 @@ else {
 
       ping.on('result', function(ms) {
         if (ms == undefined) channel.sendMessage('<:error:335660275481051136> Could not ping **'+args[1]+'**');
-        else channel.sendMessage(':ping_pong:  |  Pong! - \`'+args[1]+'\` responded in: **' + ms + 'ms**');
+        else channel.sendMessage(':ping_pong:  |  Pong! - \`'+args[1]+'\` responded in: **' + Math.round(ms) + 'ms**');
       });
       ping.send();
     }
@@ -259,7 +259,7 @@ else {
       channel.sendMessage(":ping_pong:  |  Pong! - Time taken:").then(m => {
         const diff = process.hrtime(start);
         let time = diff[0] * 1000 + diff[1] / 1000000
-        m.edit(':ping_pong:  |  Pong! - Time taken: **' + Math.round(time-40) + 'ms**');
+        m.edit(':ping_pong:  |  Pong! - Time taken: **' + Math.round(time-30) + 'ms**');
       });
     }
   }
