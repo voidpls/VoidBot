@@ -266,7 +266,7 @@ else {
 
 //speedtest
   if (content == p + 'speedtest'){
-    var test = speedTest({maxTime: 5000});
+    var test = speedTest({maxTime: 5000, maxServers: 2, pingCount: 5});
     channel.sendMessage('**Running a speedtest...**').then(msg => {
       test.on('data', data => {
         msg.edit('', {
