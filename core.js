@@ -20,8 +20,14 @@ var randomPuppy = require('random-puppy');
 var weather = require("yahoo-weather")
 //download-file
 var download = require('download-file')
+//tcpp
+var Ping = require('ping-lite');
+//speedtest
+var speedTest = require('speedtest-net');
 //discordie
 var Discordie = require('discordie');
+var discordiePackage = require("discordie/package.json")
+
 //client contructor
 var client = new Discordie({
   messageCacheLimit: 1000,
@@ -237,15 +243,53 @@ else {
   }
 
 //ping
-  if (content == p + 'ping' && hasMod(author)) {
-    let start = process.hrtime();
-    const dns = require('dns');
-    channel.sendMessage(":ping_pong:  |  Pong! - Time taken:").then(m => {
-      const diff = process.hrtime(start);
-      let time = diff[0] * 1000 + diff[1] / 1000000
-      m.edit(':ping_pong:  |  Pong! - Time taken: **' + Math.round(time-40) + 'ms**');
+  if (content.startsWith(p + 'ping') && hasMod(author)) {
+    if (args.length > 1){
+
+      var ping = new Ping(args[1]);
+
+      ping.on('result', function(ms) {
+        if (ms == undefined) channel.sendMessage('<:error:335660275481051136> Could not ping **'+args[1]+'**');
+        else channel.sendMessage(':ping_pong:  |  Pong! - \`'+args[1]+'\` responded in: **' + ms + 'ms**');
+      });
+      ping.send();
+    }
+    else {
+      let start = process.hrtime();
+      channel.sendMessage(":ping_pong:  |  Pong! - Time taken:").then(m => {
+        const diff = process.hrtime(start);
+        let time = diff[0] * 1000 + diff[1] / 1000000
+        m.edit(':ping_pong:  |  Pong! - Time taken: **' + Math.round(time-40) + 'ms**');
+      });
+    }
+  }
+
+//speedtest
+  if (content == p + 'speedtest'){
+    var test = speedTest({maxTime: 5000});
+    channel.sendMessage('**Running a speedtest...**').then(msg => {
+      test.on('data', data => {
+        msg.edit('', {
+               color: 0xD00000,
+               author: {
+                name: 'Speedtest Results',
+                icon_url: 'http://i.imgur.com/2x6vqOb.png'
+              },
+               fields: [{name: "**Ping:**", value: '**' + Math.round(data.server.ping) + '**ms'},
+                       {name: "**Download:**", value: '**' + Math.round(data.speeds.download*10)/10 + '**Mbit/s'},
+                       {name: "**Upload:**", value: '**' + Math.round(data.speeds.upload*10)/10 + '**Mbit/s'}],
+               footer: {
+                 text: "Server Location: "+data.server.location+', '+ data.server.country
+               }
+        });
+      });
+    });
+
+    test.on('error', err => {
+      console.log(err);
     });
   }
+
 //invite
 	if (content == p + 'invite'){
 		author.openDM().then(c => {
@@ -579,7 +623,7 @@ if (content.startsWith(p + 'lmgtfy') && args.length >= 2){
           {name: '**Users**', value: client.Users.length},
       //    {name: '**Invite**', value: '[here](http://voidpls.tk/invite)'},
           {name: '**Node.js**', value: "["+nodeVersion+"](https://nodejs.org/)"},
-          {name: '**Discordie**', value: "[v0.11.0](https://qeled.github.io/discordie/#/)"}
+          {name: '**Discordie**', value: "[v"+discordiePackage.version+"](https://qeled.github.io/discordie/#/)"}
         ],
         footer: {
           text: formatted
