@@ -250,7 +250,7 @@ else {
 
       ping.on('result', function(ms) {
         if (ms == undefined) channel.sendMessage('<:error:335660275481051136> Could not ping **'+args[1]+'**');
-        else channel.sendMessage(':ping_pong:  |  Pong! - \`'+args[1]+'\` responded in: **' + Math.round(ms) + 'ms**');
+        else channel.sendMessage(':ping_pong:  |  Pong! - \`'+args[1]+'\` responded in **' + Math.round(ms) + 'ms**');
       });
       ping.send();
     }
@@ -288,6 +288,19 @@ else {
     test.on('error', err => {
       console.log(err);
     });
+    test.on('data', data => {
+      console.dir(data);
+    });
+
+    test.on('error', err => {
+      console.error(err);
+    });
+
+    test.on('done', dataOverload => {
+      console.log('TL;DR:');
+      console.dir(dataOverload);
+      console.log('The speed test has completed successfully.');
+    });
   }
 
 //invite
@@ -305,21 +318,21 @@ else {
   var channel = client.Channels.get('327320793681756161');
   channel.sendMessage('Baecon said: \"' + e.message.content + '\"');
 }
-  else if (content.includes('void') &&
+  if (content.includes('void') &&
            author.id != client.User.id &&
            author.bot != true &&
           !mainacc.isMentioned(e.message)) {
   var channel = client.Channels.get('327331811292217347');
   channel.sendMessage("`" + author.username + "` said: `\"" + e.message.content + "`\"");
 }
-  else if (mainacc.isMentioned(e.message) &&
+  if (mainacc.isMentioned(e.message) &&
            author.id != client.User.id &&
            author.bot != true){
   var channel = client.Channels.get('327331811292217347');
   let contentFixed = e.message.content.replace(/<@325827542164439040>/g, '@' + mainacc.username).replace(/<@!325827542164439040>/g, '@' + mainacc.username)
   channel.sendMessage("`" + author.username + "` said: `\"" + contentFixed + "`\"");
 }
-  else if (e.message.channel.isPrivate) {
+  if (e.message.channel.isPrivate) {
     mainacc.openDM().then(c => {
       c.sendMessage(author.username + ' said: ' + e.message.content);
     })
