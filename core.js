@@ -388,7 +388,7 @@ e.message.delete();
   }
 
 //tfw
-  var tfw = ['tfw', 'mfw', '>tfw', "mfw"]
+  var tfw = ['mfw', "mfw"]
   if (tfw.includes(args[0])) channel.sendMessage('Nobody gives a shit about how you feel, kill yourself ' + author.mention);
 
 //nick
