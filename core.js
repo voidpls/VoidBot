@@ -46,20 +46,12 @@ var links = data.diversity
 var trustedIDs = [
   //Effy
   '135721889828962305',
-  //Void#4724
-  '299052998355714049',
   //Void#9093
   '325827542164439040',
-  //atdit
-  '241875461171445761',
   //stacey
   '299036445157621760',
-  //atdit non-mod
-  '325313826352398350',
   //faith
   '164599925911322625',
-  //142r
-  '340568262477611009'
 ]
 
 var urmomgay = [ 'ur mom', 'ur mum', 'your mom', 'your mum' ]
