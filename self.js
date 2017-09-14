@@ -1,4 +1,5 @@
 var Discordie = require('discordie');
+var funcs = require("./func.js");
 
 var client = new Discordie({
   autoReconnect: true
@@ -15,16 +16,43 @@ client.Dispatcher.on("GATEWAY_READY", e => {
 });
 
 client.Dispatcher.on("MESSAGE_CREATE", e => {
+
   var args = e.message.content.split(/[ ]+/).slice(1)
+  var content = e.message.content
+  var author = e.message.content
+  var member = e.message.member
+  var guild = e.message.guild
+
 
   if (e.message.author.id !== client.User.id) return;
   else {
 
-    if (e.message.content.startsWith(prefix+'stream ')){
+//stream
+    if (content.startsWith(prefix+'stream ')){
       var game = {type: 1, name: args.join(' '), url: "https://www.twitch.tv/twitch"}
       client.User.setStatus(null, game);
       e.message.delete()
     }
+//clap
+    if (content.startsWith(prefix+'clap ')){
+      var clap = '👏'+args.join('👏')+'👏'
+      e.message.edit(clap);
+    }
+
+//mock
+    if (content.startsWith(prefix+'mock ')){
+      funcs.mock(e, args);
+    }
+
+//clr
+    if (content.startsWith(prefix+"clr ")) {
+      funcs.clr(e, content, args);
+    }
+
+    if (content.startsWith('waaping')){
+      e.message.edit('pong');
+    }
+
 
   }
 });
