@@ -42,8 +42,9 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
 //mockclap
   if (content.startsWith(prefix+'mockclap ')){
     var mocktxt = funcs.mock(e, args);
-    var claptext = '👏' + mocktext.replace(' ', '👏') + '👏';
-    e.message.edit(mockclap);
+    var claptxt = mocktxt = mocktxt.split(' ');
+    claptxt = '👏' + claptxt.join('👏') + '👏';
+    e.message.edit(claptxt);
   }
 
 //mock
