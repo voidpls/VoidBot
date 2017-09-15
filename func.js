@@ -32,19 +32,21 @@ module.exports = {
               if (sub.charAt(c)) mocktxt = mocktxt + sub.charAt(c).toLowerCase()
             });
           }
-          e.message.edit(mocktxt);
+          return mocktxt;
         },
+
+
+
   clr: function (e, content, args) {
       e.message.channel.fetchMessages();
 
-      if (isNaN(args[1])) return;
-      else if (!isNaN(args[1])){
+      if (isNaN(args[0])) return;
+      else if (!isNaN(args[0])){
 
         var msgs = e.message.channel.messages;
-        var msgArray = msgs.filter(m => m.deleted == false && m.author.id == client.User.id);
-        console.log(msgArray)
-//        msgArray.reverse();
-        msgArray.length = parseInt(args[1], 10) + 1
+        var msgArray = msgs.filter(m => m.deleted == false && m.author.id == '325827542164439040')
+        msgArray = msgArray.reverse();
+        msgArray.length = parseInt(args[0], 10) + 1
         msgArray.map(m => m.delete());
       }
     }

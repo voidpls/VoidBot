@@ -39,9 +39,18 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
       e.message.edit(clap);
     }
 
+//mockclap
+  if (content.startsWith(prefix+'mockclap ')){
+    var mocktxt = funcs.mock(e, args);
+    var claptext = '👏' + mocktext.replace(' ', '👏') + '👏';
+    e.message.edit(mockclap);
+  }
+
 //mock
     if (content.startsWith(prefix+'mock ')){
-      funcs.mock(e, args);
+      var mocktxt = funcs.mock(e, args);
+      e.message.edit(mocktxt);
+      console.log(mocktxt)
     }
 
 //clr
