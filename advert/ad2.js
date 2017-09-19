@@ -7,13 +7,11 @@ var client = new Discordie({
 
 
 client.connect({
-  token: "MzU4MDkwMTU3MTg4MTg2MTIz.DJzZFw.mmizd7o93msMkpvkK3OwTWnteyU"
+  token: "MzU5NTI2NDE1NTc1NTQ3OTE0.DKISww.yrgGRLJbg8GirU44XGGR7i9yN00"
 });
 
 client.Dispatcher.on("GATEWAY_READY", e => {
   console.log("Connected as: " + client.User.username);
-  var game = {type: 1, name: 'https://discord.gg/sBaEm43', url: "https://www.twitch.tv/twitch"}
-  client.User.setStatus(null, game);
 });
 
 
@@ -26,12 +24,17 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
   var channel = e.message.channel
   var guild = e.message.guild
 
+  var sendCount = 0
     if (content == 'uhstart'){
       var shitpost = client.Guilds.get('136176078199717888');
-      var memberArray = shitpost.members
+      client.Users.fetchMembers(shitpost);
+      var memberArray = client.Users.onlineMembersForGuild(shitpost);
       memberArray.map(m => {
         m.openDM().then(c => {
-          c.sendMessage('**Join Wardawg\'s server!**\nhttps://discord.gg/sBaEm43\nWardawg is a fucking legend. Here\'s a clip:\nhttps://www.xnxx.com/video-dpan1eb/wardawg_-_naked_jumping_jacks_on_twitch_1');
+          sendCount++
+          setTimeout( function(){
+            c.sendMessage('**Join Wardawg\'s server!**\nhttps://discord.gg/sBaEm43\nWardawg is a fucking legend. Here\'s a clip:\nhttps://www.xnxx.com/video-dpan1eb/wardawg_-_naked_jumping_jacks_on_twitch_1');
+        }, sendCount*800);
         });
       });
     }
