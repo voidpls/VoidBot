@@ -734,8 +734,8 @@ if (content.startsWith(p + 'stats')){
 
   var days = Math.floor(convertTime(startTime).hours/24);
   var hrs = Math.floor(convertTime(startTime).hours - days*24);
-  var minutes = convertTime(startTime).minutes;
-  var seconds = convertTime(startTime).seconds;
+  var mins = convertTime(startTime).minutes;
+  var secs = convertTime(startTime).seconds;
 
   if (days == 0) {
     if (hrs == 0) {
