@@ -1,4 +1,6 @@
 var StringMap = require('string-map');
+var moment = require('moment');
+Vibrant = require('node-vibrant')
 
 module.exports = {
 
@@ -151,7 +153,6 @@ module.exports = {
 
     log: function(e, webhookChannel, client){
 
-      var moment = require('moment');
       var content = e.message.content
       var channel = e.message.channel
 
@@ -159,26 +160,33 @@ module.exports = {
       var member = e.message.member
       var guild = e.message.guild
       var resolvedContent = e.message.resolveContent();
-
       var now = moment()
       var formatted = now.format('ddd, MMM Do, YYYY hh:mma')
-      client.Webhooks.fetchForChannel(webhookChannel).then(webhook => {
 
-        client.Webhooks.execute(webhook[0], null, {
-          username: member.username,
-          avatar_url: member.avatarURL,
-          embeds: [{
-            color: 0xffffff,
-            author: {name: guild.name, icon_url: guild.iconURL},
-            description: "I mentioned you in **#" + channel.name + "**",
-            fields: [{name: "Message:", value: content},
-                     {name: "Author:", value: '**'+member.mention+'** (ID: '+member.id+')'}],
-            footer: {text: "Sent: "+ formatted}
-          }]
+      var hex = '0xffffff'
+
+      vibrant = new Vibrant(member.avatarURL)
+      vibrant.getPalette().then(palette => {
+
+        hex = parseInt(palette.Vibrant.getHex().replace('#', '0x'))
+        client.Webhooks.fetchForChannel(webhookChannel).then(webhook => {
+          client.Webhooks.execute(webhook[0], null, {
+
+            username: member.username,
+            avatar_url: member.avatarURL,
+            embeds: [{
+              color: hex,
+              author: {name: guild.name, icon_url: guild.iconURL},
+              description: "I mentioned you in **#" + channel.name + "**",
+              fields: [{name: "Message:", value: content},
+                       {name: "Author:", value: '**'+member.username+'#'+member.discriminator+'** (ID: '+member.id+')'}],
+              footer: {text: "Sent: "+ formatted}
+            }]
+          });
+
         });
 
-      });
+      }).catch(err => console.log(err));
+
     }
-
-
   }
