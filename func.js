@@ -168,11 +168,11 @@ module.exports = {
           username: member.username,
           avatar_url: member.avatarURL,
           embeds: [{
-            color: 0xcd0000,
+            color: 0xffffff,
             author: {name: guild.name, icon_url: guild.iconURL},
             description: "I mentioned you in **#" + channel.name + "**",
             fields: [{name: "Message:", value: content},
-                     {name: "Author:", value: '**'+member.mention+'** ('+member.id+')'}],
+                     {name: "Author:", value: '**'+member.mention+'** (ID: '+member.id+')'}],
             footer: {text: "Sent: "+ formatted}
           }]
         });
