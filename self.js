@@ -7,9 +7,7 @@ var client = new Discordie({
 
 var prefix = '..'
 
-client.connect({
-  token: "MzI1ODI3NTQyMTY0NDM5MDQw.DGMMdg.cCDzjDqP-kbHFvv6Os1XSpRaL2U"
-});
+client.connect({token: "MzU5NTQyMzY1OTI2NDU3MzU5.DKIiaQ.3VEdAuSlxJ5o9wKeyfhgM6TaP7U"});
 
 client.Dispatcher.on("GATEWAY_READY", e => {
   console.log("Connected as: " + client.User.username);
@@ -23,9 +21,10 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
   var member = e.message.member
   var guild = e.message.guild
 
+  var mainacc = client.Users.get('359542365926457359');
 
-  if (e.message.author.id !== client.User.id) return;
-  else {
+
+  if (e.message.author.id === client.User.id) {
 
 //stream
     if (content.startsWith(prefix+'stream ')){
@@ -40,19 +39,25 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
     }
 
 //mockclap
-  if (content.startsWith(prefix+'mockclap ')){
-    var mocktxt = funcs.mock(e, args);
-    var claptxt = mocktxt = mocktxt.split(' ');
-    claptxt = '👏' + claptxt.join('👏') + '👏';
-    e.message.edit(claptxt);
-  }
+    if (content.startsWith(prefix+'mockclap ')){
+      var mocktxt = funcs.mock(e, args);
+      var claptxt = mocktxt = mocktxt.split(' ');
+      claptxt = '👏' + claptxt.join('👏') + '👏';
+      e.message.edit(claptxt);
+    }
 
 //mock
     if (content.startsWith(prefix+'mock ')){
       var mocktxt = funcs.mock(e, args);
       e.message.edit(mocktxt);
-      console.log(mocktxt)
     }
+
+//vapor
+    if (content.startsWith(prefix+'vapor ')){
+      var vaportxt = funcs.vapor(e, args)
+      e.message.edit(vaportxt);
+    }
+
 
 //clr
     if (content.startsWith(prefix+"clr ")) {
@@ -63,6 +68,12 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
       e.message.edit('pong');
     }
 
-
+  }
+  else {
+  //logger
+    if (mainacc.isMentioned(e.message)){
+      var webhookChannel = client.Channels.get('360910579554320386')
+      funcs.log(e, webhookChannel, client)
+    }
   }
 });

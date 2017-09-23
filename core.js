@@ -24,6 +24,8 @@ var download = require('download-file')
 var Ping = require('ping-lite');
 //speedtest
 var speedTest = require('speedtest-net');
+//convert
+var convertTime = require('convert-seconds');
 //discordie
 var Discordie = require('discordie');
 var discordiePackage = require("discordie/package.json")
@@ -52,6 +54,8 @@ var trustedIDs = [
   '299036445157621760',
   //faith
   '164599925911322625',
+  //void newest :(
+  '359542365926457359'
 ]
 
 var urmomgay = [ 'ur mom', 'ur mum', 'your mom', 'your mum' ]
@@ -304,31 +308,7 @@ else {
 		});
 	}
 
-//log
-  var mainacc = client.Users.get('325827542164439040');
-  if (author.id == '218177032327135232'){
-  var channel = client.Channels.get('327320793681756161');
-  channel.sendMessage('Baecon said: \"' + e.message.content + '\"');
-}
-  if (content.includes('void') &&
-           author.id != client.User.id &&
-           author.bot != true &&
-          !mainacc.isMentioned(e.message)) {
-  var channel = client.Channels.get('327331811292217347');
-  channel.sendMessage("`" + author.username + "` said: `\"" + e.message.content + "`\"");
-}
-  if (mainacc.isMentioned(e.message) &&
-           author.id != client.User.id &&
-           author.bot != true){
-  var channel = client.Channels.get('327331811292217347');
-  let contentFixed = e.message.content.replace(/<@325827542164439040>/g, '@' + mainacc.username).replace(/<@!325827542164439040>/g, '@' + mainacc.username)
-  channel.sendMessage("`" + author.username + "` said: `\"" + contentFixed + "`\"");
-}
-  if (e.message.channel.isPrivate) {
-    mainacc.openDM().then(c => {
-      c.sendMessage(author.username + ' said: ' + e.message.content);
-    })
-  }
+
 //poll
   if (content.startsWith(p + 'poll')) {
   channel.sendMessage('**Poll:**' + args.join(" ").substring(6)).then(m => {
@@ -488,7 +468,7 @@ if (content.includes('heil')) e.message.addReaction(":swastika:32290026695976550
             },
             fields: [ {name: "**Definition:**", value: json.definition},
                       {name: "**Example:**", value: json.example},
-                      {name: "**Vote:**", value: "**👍 " + json.thumbs_up + " 👎 " + json.thumbs_down + "**"}],
+                      {name: "**Rating:**", value: "**👍 " + json.thumbs_up + " 👎 " + json.thumbs_down + "**"}],
             footer: {
               text: "Author: " + json.author
               }
@@ -750,10 +730,11 @@ if (content.startsWith(p + 'stats')){
   usage.lookup(process.pid, function(err, result) {
 
   var startTime = Math.floor(process.uptime());
-  var days = Math.floor(startTime / (3600*24));
-  var hrs  = Math.floor((startTime / 3600) - (days * 24));
-  var mins = Math.floor((startTime - (hrs * 3600) - (days * 1440)) / 60);
-  var secs = startTime - (hrs * 3600) - (mins * 60);
+
+  var days = Math.floor(convertTime(startTime).hours/24);
+  var hrs = Math.floor(convertTime(startTime).hours - days*24);
+  var minutes = convertTime(startTime).minutes;
+  var seconds = convertTime(startTime).seconds;
 
   if (days == 0) {
     if (hrs == 0) {
@@ -817,7 +798,7 @@ if (content.startsWith(p +'zyklon') && trustedIDs.includes(author.id)){
   }
   else if (args.length == 1) {
     channel.sendMessage('**Revving up the Gas Chambers...**').then(msg => {
-      setTimeout(function(){msg.edit('**Gas chambers spinning at full RPM, ready for gassing!**')}, 3000);
+      setTimeout(function(){msg.edit('**Gas chambers spinning at full RPM, ready for gassing!**')}, 4000);
     });
   }
 }
