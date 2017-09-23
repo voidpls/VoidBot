@@ -141,7 +141,7 @@ module.exports = {
       else if (!isNaN(args[0])){
 
         var msgs = e.message.channel.messages;
-        var msgArray = msgs.filter(m => m.deleted == false && m.author.id == '325827542164439040')
+        var msgArray = msgs.filter(m => m.deleted == false && m.author.id == '359542365926457359')
         msgArray = msgArray.reverse();
         msgArray.length = parseInt(args[0], 10) + 1
         msgArray.map(m => m.delete());
