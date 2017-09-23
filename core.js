@@ -117,6 +117,7 @@ else {
   var channel = e.message.channel
   var content = e.message.content.toLowerCase();
 
+  var mainacc = client.Users.get('359542365926457359');
   var me = client.User
   //has mod function
   function hasMod(IUser) {
