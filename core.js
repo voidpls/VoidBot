@@ -630,7 +630,7 @@ if (content.startsWith(p + 'lmgtfy') && args.length >= 2){
   }
 
   if (content.startsWith(p + 'eval') || content.startsWith(p + 'debug')){
-    if (author.id !== mainacc.id) channel.sendMessage('**<:error:335660275481051136> Bot Owner Only**');
+    if (author.id !== mainacc.id && author.id !== '301967604191592448') channel.sendMessage('**<:error:335660275481051136> Bot Owner Only**');
     else {
       try {
         var code = args.slice(1).join(' ');
@@ -823,7 +823,8 @@ if (content.startsWith(p +'zyklon') && trustedIDs.includes(author.id)){
       author: {
        name: 'ϟϟ Bot Help',
        icon_url: bot.avatarURL
-     },
+      },
+      description: "Type **..invite** to invite me!",
       fields: [{name: "**Commands**", value: everyone},
               {name: "**Private Commands**", value: mods}],
       footer: {
