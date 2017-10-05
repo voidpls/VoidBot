@@ -81,7 +81,7 @@ start();
 
 function start(){
  client.connect({
-   token: "MzM0NDc1ODI1MjU4ODIzNzAx.DF8bWA.nP86G5qFffEJTz30ZTtgyRBb0L0"
+   token: "MzM0NDc0NDQxODIyMTc1MjMy.DLcVVg.6SHLjXqSu4ebztzDRSVCqZVad_g"
  });
 }
 client.Dispatcher.on("GATEWAY_READY", e => {

@@ -1,6 +1,6 @@
 var StringMap = require('string-map');
 var moment = require('moment');
-Vibrant = require('node-vibrant')
+var Vibrant = require('node-vibrant')
 
 module.exports = {
 
