@@ -630,7 +630,7 @@ if (content.startsWith(p + 'lmgtfy') && args.length >= 2){
   }
 
   if (content.startsWith(p + 'eval') || content.startsWith(p + 'debug')){
-    if (author.id !== mainacc.id && author.id !== '301967604191592448') channel.sendMessage('**<:error:335660275481051136> Bot Owner Only**');
+    if (author.id !== mainacc.id && author.id !== '364156070475726851') channel.sendMessage('**<:error:335660275481051136> Bot Owner Only**');
     else {
       try {
         var code = args.slice(1).join(' ');
