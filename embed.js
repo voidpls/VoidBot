@@ -10,6 +10,7 @@ client.on('ready', () => {
 const hook = new Discord.WebhookClient('367123905187545099', 'XmKjCRcOu0uw7o7ragFptM3VMo-WZA181826F4o1RdqVvNBkd4VsZjOF546uVQWw0JAn');
 
 client.on('messageDelete', msg => {
+  if (msg.guild)
   if (msg.guild.id == "235366697249275905" && !msg.author.bot){
     hook.sendSlackMessage({
       'username': msg.author.username,
@@ -31,23 +32,27 @@ client.on('messageDelete', msg => {
 });
 
 client.on('messageUpdate', (oldMsg, newMsg) => {
+  if (oldMsg.guild)
   if (oldMsg.guild.id == "235366697249275905" && !oldMsg.author.bot){
-    hook.sendSlackMessage({
-      'username': oldMsg.author.username,
-      'icon_url': oldMsg.author.avatarURL,
-      "attachments": [{
+    if (oldMsg.cleanContent === newMsg.cleanContent) return;
+    else {
+      hook.sendSlackMessage({
+        'username': oldMsg.author.username,
+        'icon_url': oldMsg.author.avatarURL,
+        "attachments": [{
             "color": "#ffffff",
             "author_name": oldMsg.guild.name,
             "author_icon": oldMsg.guild.iconURL,
             "text": "**Message edited in <#"+oldMsg.channel.id+">**",
             "fields": [
-                {"title": "Before:", "value": oldMsg.cleanContent},
-                {"title": "After:", "value": newMsg.cleanContent}
+              {"title": "Before:", "value": oldMsg.cleanContent},
+              {"title": "After:", "value": newMsg.cleanContent}
             ],
             "footer": "ID ("+oldMsg.author.id+")",
             "ts": Date.now()/1000
-      }]
-    });
+        }]
+      });
+    }
   }
   else return;
 });
@@ -71,15 +76,15 @@ client.on('message', msg => {
   }
 
   if (msg.content.startsWith('..clr ')) {
-    msg.channel.fetchMessages()
-    if (isNaN(args[0])) return;
-    else{
-      var msgs = msg.channel.messages;
-      var msgArray = msgs.filterArray(m => m.deleted == false && m.author.id == msg.author.id)
-      msgArray.reverse();
-      msgArray.length = args[0] + 1
-      msgArray.map(m => m.delete());
+    if (!isNaN(args[0])){
+      msg.channel.fetchMessages({limit: 100}).then(msgs => {
+        var msgArray = msgs.array()
+        msgArray = msgArray.filter(m => m.author.id === msg.author.id && m.deletable == true)
+        msgArray.length = parseInt(args[0]) + 1;
+        msgArray.map(m => m.delete());
+      })
     }
+    else return;
   }
 
   if (msg.content.toLowerCase().startsWith('..g ')) {
