@@ -1,23 +1,124 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
+const google = require('google')
+var Vibrant = require('node-vibrant')
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
+const hook = new Discord.WebhookClient('367123905187545099', 'XmKjCRcOu0uw7o7ragFptM3VMo-WZA181826F4o1RdqVvNBkd4VsZjOF546uVQWw0JAn');
+
+client.on('messageDelete', msg => {
+  if (msg.guild.id == "235366697249275905" && !msg.author.bot){
+    hook.sendSlackMessage({
+      'username': msg.author.username,
+      'icon_url': msg.author.avatarURL,
+      "attachments": [{
+            "color": "#ffffff",
+            "author_name": msg.guild.name,
+            "author_icon": msg.guild.iconURL,
+            "text": "**Message deleted in <#"+msg.channel.id+">**",
+            "fields": [
+                {"title": "Message:", "value": msg.cleanContent}
+            ],
+            "footer": "ID ("+msg.author.id+")",
+            "ts": Date.now()/1000
+      }]
+    });
+  }
+  else return;
+});
+
+client.on('messageUpdate', (oldMsg, newMsg) => {
+  if (oldMsg.guild.id == "235366697249275905" && !oldMsg.author.bot){
+    hook.sendSlackMessage({
+      'username': oldMsg.author.username,
+      'icon_url': oldMsg.author.avatarURL,
+      "attachments": [{
+            "color": "#ffffff",
+            "author_name": oldMsg.guild.name,
+            "author_icon": oldMsg.guild.iconURL,
+            "text": "**Message edited in <#"+oldMsg.channel.id+">**",
+            "fields": [
+                {"title": "Before:", "value": oldMsg.cleanContent},
+                {"title": "After:", "value": newMsg.cleanContent}
+            ],
+            "footer": "ID ("+oldMsg.author.id+")",
+            "ts": Date.now()/1000
+      }]
+    });
+  }
+  else return;
+});
+
 client.on('message', msg => {
+
   if (msg.author.id !== '359542365926457359') return;
   else {
   var args = msg.content.split(/[ ]+/).slice(1)
 
+  if (!msg.member) color = 16777215
+  else var color = msg.member.colorRole.color
+
   if (msg.content.toLowerCase().startsWith('..e ')) {
-    if (!msg.member) color = 16777215
-    else var color = msg.member.colorRole.color
+
     msg.delete();
     msg.channel.send({embed: {
       color: color,
       description: args.join(' ')
     }});
+  }
+
+  if (msg.content.startsWith('..clr ')) {
+    msg.channel.fetchMessages()
+    if (isNaN(args[0])) return;
+    else{
+      var msgs = msg.channel.messages;
+      var msgArray = msgs.filterArray(m => m.deleted == false && m.author.id == msg.author.id)
+      msgArray.reverse();
+      msgArray.length = args[0] + 1
+      msgArray.map(m => m.delete());
+    }
+  }
+
+  if (msg.content.toLowerCase().startsWith('..g ')) {
+    msg.delete()
+    google.resultsPerPage = 8
+
+    google(args.join(' '), function (err, res){
+      if (err) console.error(err)
+      else {
+        var a = 0; var a2 = 0
+        var linksArray = []; linksArray["titles"] = []; linksArray["links"] = []
+        while (a >= 0){
+          var link = res.links[a]
+          if (link.link){
+            linksArray["titles"][a2] = "**"+link.title+"**"; linksArray["links"][a2] = link.link;
+            a2++;a++;
+            if(a2 >= 3) {
+              a = -1
+              msg.channel.send({embed: {
+                author: {
+                  name: "Google Search",
+                  icon_url: "https://i.imgur.com/RU7KojF.png"
+                },
+                description: "Results for: **"+args.join(' ')+"**",
+                color: color,
+                fields: [{name: linksArray["titles"][0], value: linksArray["links"][0]},
+                  {name: linksArray["titles"][1], value: linksArray["links"][1]},
+                  {name: linksArray["titles"][2], value: linksArray["links"][2]}],
+                footer: {
+                  icon_url: null,
+                  text: "Selfbot made by "+msg.author.username+'#'+msg.author.discriminator
+                }}
+              });
+            }
+          }
+          else a++;
+        }
+      }
+    });
   }
 
 }

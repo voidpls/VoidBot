@@ -26,6 +26,8 @@ var Ping = require('ping-lite');
 var speedTest = require('speedtest-net');
 //convert
 var convertTime = require('convert-seconds');
+//request
+var request = require('request');
 //discordie
 var Discordie = require('discordie');
 var discordiePackage = require("discordie/package.json")
@@ -109,7 +111,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
 
 var author = e.message.author
 
-if (author.id == client.User.id) return;
+if (author.id == client.User.id || author.bot) return;
 else {
   //args
   var args = e.message.content.split(/[ ]+/);
@@ -200,23 +202,6 @@ else {
     }
 }
 
-
-/*
- if (content == p + 'log'){
-   client.Users.fetchMembers()
-   let members = client.Users.membersForGuild('325315599708454913');
-   fs.readFile('./files/mcusers.json', function (err, data) {
-     var json = JSON.parse(data)
-     members.map(m => {
-       var mroles = m.roles
-       var rroles = mroles.map(r => r.name)
-       json[m.username+'#'+m.discriminator] = {id: m.id, roles: rroles}
-     })
-     fs.writeFile("./files/mcusers.json", JSON.stringify(json, null, '\t'))
-     if(err) console.log(err)
-  })
-}
-*/
 //on message function
   function on_message(arg1, arg2){
     if (content == p + arg1 && hasMod(author))
@@ -649,6 +634,54 @@ if (content.startsWith(p + 'lmgtfy') && args.length >= 2){
     if (md.width >= md.height) return image.resize(Math.round(md.width - md.width*int));
     else return image.resize(Math.round(md.length - md.length*int));
   }
+
+
+  function sharpen(attachUrl) {
+    if (!attachUrl.endsWith('png') && !attachUrl.endsWith('jpg')&& !attachUrl.endsWith('gif')) {
+      channel.sendMessage('**<:error:335660275481051136> Invalid Link / Incompatible Format!**');
+      return;
+    }
+    var download = require('image-downloader')
+    var options = {
+      url: attachUrl,
+      dest: './png/'
+    }
+    download.image(options)
+    .then(({ filename, image }) => {
+      sharp(image)
+      .sharpen(1, 200)
+      //.quality(90)
+      //.overlayWith('C://Users/Raze Legendz/Downloads/ahh.jpg',  { gravity: sharp.gravity.south })
+      .toBuffer(function(err, data, info){
+        channel.uploadFile(data, null)
+      })
+    }).catch((err) => {
+      channel.sendMessage('```xl\n'+err+'```')
+    })
+  }
+
+//sharpen test
+  if (content.startsWith('..' + 'sharpen')){
+    if (args[1]){
+      sharpen(args[1])
+    }
+    else {
+      var msgArray = channel.messages.reverse()
+      msgArray.length = 10
+      var a = 0
+      while(a < 10){
+        if (msgArray[a].attachments[0]){
+          var attachUrl = msgArray[a].attachments[0].url
+          sharpen(attachUrl)
+          break
+        }
+        else a++
+      }
+
+    }
+  }
+
+
 //imgur
   function search(q, imageMsg, msg){
     randomPuppy(q).then(pic => {
