@@ -1,14 +1,18 @@
 var Discordie = require("discordie");
+
 var i2b = require('imageurl-base64');
+
 var client = new Discordie({
 
   messageCacheLimit: 1000,
   autoReconnect: true
 });
 
+//connect
 
 client.connect({token: "Mzc3NjEyMzk1Mzk0MjM2NDE3.DOUVgg._PU24yBBxHE4MRplJLynAAw5Bcg"});
 
+//ready / daily restart
 
 client.Dispatcher.on("GATEWAY_READY", e => {
 
@@ -16,6 +20,9 @@ client.Dispatcher.on("GATEWAY_READY", e => {
   setTimeout(function(){process.exit()}, 86400000)
 
 });
+
+
+//welcome message
 
 client.Dispatcher.on("GUILD_MEMBER_ADD", e => {
   var passcodeChannel = client.Channels.get('269612335675473921')
@@ -80,7 +87,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
 //avatar
 
   if (content.startsWith(p + 'avatar ')){
-    if (author.can(Discordie.Permissions.General.MANAGE_CHANNELS, guild) || author.id == ownerID){
+    if (author.id == ownerID){
       i2b(args[0], function(err, data){
         if (err) channel.sendMessage('<:error:335660275481051136> **Avatar Change Error**\`\`\`xl\n' + err.message + '```')
         else {
@@ -89,7 +96,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
         }
       });
     }
-    else channel.sendMessage('<:error:335660275481051136> **Staff Only**"')
+    else channel.sendMessage('<:error:335660275481051136> **Owner Only**"')
   }
 
 //nick
