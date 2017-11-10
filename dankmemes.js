@@ -1,5 +1,5 @@
 var Discordie = require("discordie");
-
+var i2b = require('imageurl-base64');
 var client = new Discordie({
 
   messageCacheLimit: 1000,
@@ -78,15 +78,15 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
 
 //avatar
 
-  if (content.startsWith(p + 'avatar')){
+  if (content.startsWith(p + 'avatar ')){
     if (author.can(Discordie.Permissions.General.MANAGE_CHANNELS, guild) || author.id == ownerID){
-      try {
-        client.User.edit(null, null, args[0]);
-        channel.sendMessage('<:check:335544753443831810> **Avatar Changed**');
-      }
-      catch (e) {
-         channel.sendMessage('```' + e + '```');
-      }
+      i2b(args[0], function(err, data){
+        if (err) channel.sendMessage('<:error:335660275481051136> **Avatar Change Error**\`\`\`xl\n' + err.message + '```')
+        else {
+          client.User.setAvatar(data.dataUri);
+          channel.sendMessage('<:check:335544753443831810> **Avatar Changed**');
+        }
+      });
     }
     else channel.sendMessage('<:error:335660275481051136> **Staff Only**"')
   }
@@ -96,8 +96,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
   if (content.startsWith(p + 'nick')){
     if (author.can(Discordie.Permissions.General.MANAGE_CHANNELS, guild) || author.id == ownerID){
       var botUser = client.User.memberOf(guild)
-      if (!args[0]) args[0] = null
-      botUser.setNickname(args[0]);
+      botUser.setNickname(args.join(' '));
       channel.sendMessage('<:check:335544753443831810> Nickname changed to** '+args.join(' ')+' **')
     }
     else channel.sendMessage('<:error:335660275481051136> **Staff Only**"')
@@ -107,7 +106,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
 
   if (content.startsWith(p + 'name')){
     if (author.id == ownerID){
-      client.User.setUsername(args[0])
+      client.User.setUsername(args.join(' '))
       channel.sendMessage('<:check:335544753443831810> Name changed to** '+args.join(' ')+' **')
     }
     else channel.sendMessage('<:error:335660275481051136> **Owner Only** [Use --nick to change Nickname]')
