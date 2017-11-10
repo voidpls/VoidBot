@@ -862,7 +862,7 @@ if (content.startsWith(p +'zyklon') && trustedIDs.includes(author.id)){
               {name: "**Private Commands**", value: mods}],
       footer: {
         icon_url: pfp,
-        text: "Made by Void, for the honor of Mein Führer"
+        text: "Made by Void, for the honor of Der Reich"
       }
     });
 }
