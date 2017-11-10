@@ -2,5 +2,13 @@
 
 ./png/*
 ./jpg/*
+
+
 #weather data
+
 ./files/weather.json
+
+
+#node
+
+node_modules
