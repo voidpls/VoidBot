@@ -13,7 +13,7 @@ client.connect({token: "Mzc3NjEyMzk1Mzk0MjM2NDE3.DOUVgg._PU24yBBxHE4MRplJLynAAw5
 client.Dispatcher.on("GATEWAY_READY", e => {
 
   console.log("Connected as: " + client.User.username);
-
+  setTimeout(function(){process.exit()}, 86400000)
 
 });
 
