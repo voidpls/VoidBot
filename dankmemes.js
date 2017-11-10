@@ -130,7 +130,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
   if (content == '--undank' && channel.id == '269612335675473921') {
     if (!author.hasRole(passRole)) channel.sendMessage('you dont have dank memer stinky')
     else {
-      channel.sendMessage('undanked *dabs*');
+      channel.sendMessage('<:yeet:329344020348272640> *undanked* <:yeet:329344020348272640>');
       author.unassignRole(passRole);
     }
   }
