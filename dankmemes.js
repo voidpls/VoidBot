@@ -127,7 +127,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
     if (author.hasRole(passRole)) channel.sendMessage('you already have dank memer stinky')
     else {
       message.delete();
-      channel.sendMessage('​( ͡° ͜ʖ( ͡° ͜ʖ ͡° )ʖ ͡° )╯╲___'+author.mention+' – Don\'t mind me just taking my '+author.username+' for a walk');
+      channel.sendMessage('​( ͡° ͜ʖ( ͡° ͜ʖ ͡° )ʖ ͡° )╯╲___'+author.mention+' – Don\'t mind me just taking my **'+author.username+'** for a walk');
       author.assignRole(passRole);
     }
   }
