@@ -29,6 +29,7 @@ client.Dispatcher.on("GUILD_MEMBER_ADD", e => {
 //dankmemer: <@&268923144935440406>
 
 client.Dispatcher.on("MESSAGE_CREATE", e => {
+
   var message = e.message
   var channel = message.channel
   var author = message.member
@@ -119,7 +120,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
     if (author.hasRole(passRole)) channel.sendMessage('you already have dank memer stinky')
     else {
       message.delete();
-      channel.sendMessage(author.mention + '​, ( ͡° ͜ʖ( ͡° ͜ʖ ͡° )ʖ ͡° ) - You came to the right neighborhood.');
+      channel.sendMessage('​( ͡° ͜ʖ( ͡° ͜ʖ ͡° )ʖ ͡° )╯╲___'+author.mention+' – Don\'t mind me just taking my '+author.username+' for a walk');
       author.assignRole(passRole);
     }
   }
