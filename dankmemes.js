@@ -20,7 +20,7 @@ client.Dispatcher.on("GATEWAY_READY", e => {
 client.Dispatcher.on("GUILD_MEMBER_ADD", e => {
   var passcodeChannel = client.Channels.get('269612335675473921')
   passcodeChannel.sendMessage(
-    `Welcome to ${e.guild.name}, ${e.member.mention}! Read <#288606534815186944> and type **--dank** in this channel to enter the server!`
+    `Welcome to **${e.guild.name}**, ${e.member.mention}! Read <#288606534815186944> and type **--dank** to enter the server!`
   );
 });
 
