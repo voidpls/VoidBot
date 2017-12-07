@@ -54,9 +54,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
 
   var passArray = [
     '--dank',
-    '—dank',
-    '––dank',
-    '–dank'
+    '—dank'
   ]
 
   var ownerID = '359542365926457359'
