@@ -116,7 +116,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
       displayLength = '['+playedTime+'/'+songLength+']';
 
       mp3("./songs/"+list[1], function (err, dur) {
-        nextLength = Math.floor(dur / 60) + ":" + Math.floor(dur % 60 ? dur % 60 : '00');
+        nextLength = Math.floor(dur / 60) + ":" + ('00' + Math.floor(dur % 60 ? dur % 60 : '00')).slice(-2);
         channel.sendMessage('', false, {
           color: 0x3C8D0D,
           author: {name: ok,
