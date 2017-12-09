@@ -32,7 +32,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
   var content = message.content
   var args = content.split(/[ ]+/).slice(1)
 
-  if (message.author.bot || author.id == client.User.id) return;
+  if (message.author.bot || message.author.id == client.User.id) return;
   if (!content.startsWith(p)) return;
 
 //summon function
