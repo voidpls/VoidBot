@@ -20,9 +20,7 @@ client.Dispatcher.on("GATEWAY_READY", e => {
   console.log("Connected as: " + client.User.username);
 });
 
-const testFolder = './tests/';
-
-const list = fs.readdirSync('./songs')
+var list = fs.readdirSync('./songs')
 
 
 client.Dispatcher.on("MESSAGE_CREATE", e => {
@@ -53,7 +51,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
 
 //play func
 
-  function play() {
+  function play(list) {
 
     var encoder = info.voiceConnection.createExternalEncoder({
       type: "ffmpeg",
@@ -67,9 +65,12 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
 
     encoder.once('end', () => {
       list.shift();
-      if (list.length == 0) list = fs.readdirSync('./songs');
+      if (list.length == 0) {
+        list = fs.readdirSync('./songs');
+        play(list)
+      }
       else {
-        play()
+        play(list)
       }
     });
 
@@ -82,7 +83,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
     var info = client.VoiceConnections[0];
     if (!info) return channel.sendMessage('<:error:335660275481051136> Please type **'+p+'summon** first!');
 
-    play();
+    play(list);
 
     channel.sendMessage('<:check:335544753443831810> **Starting to play!**')
   }
@@ -94,12 +95,12 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
     var next = ''
     var info = client.VoiceConnections[0];
     var nextLength = '0:00'
-    var ok = list[0].substring(0, list[0].indexOf('.'))
+    var ok = list[0].substring(0, list[0].indexOf('.')).replace('_', '/');
 
     if (!list[0] || !info) return;
     if (!list[1]) next = 'None - Last song!';
     else {
-      next = list[1].substring(0, list[1].indexOf('.'));
+      next = list[1].substring(0, list[1].indexOf('.')).replace('_', '/');
 
     }
 
@@ -110,8 +111,10 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
       let time = Math.floor((diff[0] * 1000 + diff[1] / 1000000)/1000)
 
       var playedTime = Math.floor(time / 60) + ":" + ('00' + Math.floor(time % 60 ? time % 60 : '00')).slice(-2)
-      var songLength = Math.floor(dur / 60) + ":" + Math.floor(dur % 60 ? dur % 60 : '00')
+      var songLength = Math.floor(dur / 60) + ":" + ('00' + Math.floor(dur % 60 ? dur % 60 : '00')).slice(-2)
+
       displayLength = '['+playedTime+'/'+songLength+']';
+
       mp3("./songs/"+list[1], function (err, dur) {
         nextLength = Math.floor(dur / 60) + ":" + Math.floor(dur % 60 ? dur % 60 : '00');
         channel.sendMessage('', false, {
