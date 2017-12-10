@@ -98,7 +98,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
     var ok = list[0].substring(0, list[0].indexOf('.')).replace('_', '/');
 
     if (!list[0] || !info) return;
-    if (!list[1]) next = 'None - Last song!';
+    if (!list[1]) next = 'None - Last song!'; list[0] = '';
     else {
       next = list[1].substring(0, list[1].indexOf('.')).replace('_', '/');
 
