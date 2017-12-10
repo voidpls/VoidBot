@@ -95,9 +95,10 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
     var next = ''
     var info = client.VoiceConnections[0];
     var nextLength = '0:00'
-    var ok = list[0].substring(0, list[0].indexOf('.')).replace('_', '/');
 
     if (!list[0] || !info) return;
+    var ok = list[0].substring(0, list[0].indexOf('.')).replace('_', '/');
+
     if (!list[1]) {
       next = 'None - Last song!';
       list[0] = '';
