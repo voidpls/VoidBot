@@ -20,8 +20,11 @@ client.Dispatcher.on("GATEWAY_READY", e => {
   console.log("Connected as: " + client.User.username);
 });
 
-var list = fs.readdirSync('./songs')
+var list = shuffle(fs.readdirSync('./songs'));
 
+function shuffle (arr) {
+  return arr.sort(() => Math.random() - 0.5);
+}
 
 client.Dispatcher.on("MESSAGE_CREATE", e => {
 
@@ -59,18 +62,21 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
       format: "opus",
       debug: false
     });
-    encoder.play();
+    var encoderStream = encoder.play();
+    encoderStream;
 
     start = process.hrtime();
 
     encoder.once('end', () => {
       list.shift();
+      encoderStream.unpipeAll();
+
       if (list.length == 0) {
-        list = fs.readdirSync('./songs');
-        play(list)
+        list = shuffle(fs.readdirSync('./songs'));
+        play(list);
       }
       else {
-        play(list)
+        play(list);
       }
     });
 
@@ -90,52 +96,82 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
 
 //nowplaying
 
-  if (content == p+"np" || content == p+"queue" || content == p+"q") {
-    var displayLength = '[0:00/0:00]'
-    var next = ''
-    var info = client.VoiceConnections[0];
-    var nextLength = '0:00'
+    function queue(){
+      var displayLength = '[0:00/0:00]'
+      var next = ''
+      var nextLength = '0:00'
+      var info = client.VoiceConnections[0];
 
-    if (!list[0] || !info) return;
-    var ok = list[0].substring(0, list[0].indexOf('.')).replace('_', '/');
+      if (!list[0]) return;
 
-    if (!list[1]) {
-      next = 'None - Last song!';
-      list[0] = '';
-    }
-    else {
-      next = list[1].substring(0, list[1].indexOf('.')).replace('_', '/');
-    }
+      var ok = list[0].substring(0, list[0].indexOf('.'))
 
-    mp3("./songs/"+list[0], function (err, dur) {
+      if (!info) return;
 
-      if (err) return console.log(err.message);
-      let diff = process.hrtime(start);
-      let time = Math.floor((diff[0] * 1000 + diff[1] / 1000000)/1000)
+      if (!list[1]) {
+        next = 'None - Last song!';
+        list[0] = '';
+      }
+      else next = list[1].substring(0, list[1].indexOf('.'));
 
-      var playedTime = Math.floor(time / 60) + ":" + ('00' + Math.floor(time % 60 ? time % 60 : '00')).slice(-2)
-      var songLength = Math.floor(dur / 60) + ":" + ('00' + Math.floor(dur % 60 ? dur % 60 : '00')).slice(-2)
+      mp3("./songs/"+list[0], function (err, dur) {
 
-      displayLength = '['+playedTime+'/'+songLength+']';
+        if (err) return console.log(err.message);
+        let diff = process.hrtime(start);
+        let time = Math.floor((diff[0] * 1000 + diff[1] / 1000000)/1000)
 
-      mp3("./songs/"+list[1], function (err, dur) {
-        nextLength = Math.floor(dur / 60) + ":" + ('00' + Math.floor(dur % 60 ? dur % 60 : '00')).slice(-2);
-        channel.sendMessage('', false, {
-          color: 0x3C8D0D,
-          author: {name: ok,
-                  icon_url: "http://pluspng.com/img-png/play-button-png-play-red-outline-button-1500.png"},
-          title: displayLength,
-          timestamp: new Date(Date.now()).toISOString(),
-          fields: [{name: "Up Next:", value: next+' **['+nextLength+']**'}]
+        var playedTime = Math.floor(time / 60) + ":" + ('00' + Math.floor(time % 60 ? time % 60 : '00')).slice(-2)
+        var songLength = Math.floor(dur / 60) + ":" + ('00' + Math.floor(dur % 60 ? dur % 60 : '00')).slice(-2)
+
+        displayLength = '['+playedTime+'/'+songLength+']';
+
+        mp3("./songs/"+list[1], function (err, dur) {
+          nextLength = Math.floor(dur / 60) + ":" + ('00' + Math.floor(dur % 60 ? dur % 60 : '00')).slice(-2);
+          channel.sendMessage('', false, {
+            color: 0x3C8D0D,
+            author: {name: ok.replace('_', '/'),
+                    icon_url: "http://pluspng.com/img-png/play-button-png-play-red-outline-button-1500.png"},
+            title: displayLength,
+            timestamp: new Date(Date.now()).toISOString(),
+            fields: [{name: "Up Next:", value: next.replace('_', '/') +' **['+nextLength+']**'}]
+          });
         });
-      });
 
-    });
+      });
+    }
+
+  if (content == p+"np" || content == p+"queue" || content == p+"q") {
+    queue()
   }
 
   //ping
   if (content == p+'ping'){
     channel.sendMessage("**🏓 | Pong!**")
+  }
+
+  //skip
+  if (content == p+'skip' || content == p+'s') {
+
+    var info = client.VoiceConnections[0];
+    var encoder = info.voiceConnection.createExternalEncoder({
+      type: "ffmpeg",
+      source: "./songs/"+list[0],
+      format: "opus",
+      debug: false
+    });
+
+    var encoderStream = encoder.play();
+    list.shift();
+    encoderStream.unpipeAll();
+
+    if (list.length == 0) {
+      list = shuffle(fs.readdirSync('./songs'));
+      play(list);
+    }
+    else {
+      play(list);
+    }
+    queue();
   }
 
   //help
@@ -148,7 +184,11 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
               icon_url: client.User.avatarURL},
       timestamp: new Date(Date.now()).toISOString(),
       fields: [{name: "Commands:", value:
-        "**..queue | ..q | ..np** - Shows the current and following song\n**..summon** - Makes the bot join your VC\n**..start** - Restarts song queue\n**..ping** - Pong!"
+        "**..queue | ..q | ..np** - Shows the current and following song\n"+
+        "**..summon** - Makes the bot join your VC\n"+
+        "**..start** - Restarts song queue\n"+
+        "**..skip** - Skips current song\n"+
+        "**..ping** - Pong!"
       }],
       footer: {text:"This Bot is Private", icon_url: mainacc.avatarURL.replace('.jpg', '.png')}
     });
