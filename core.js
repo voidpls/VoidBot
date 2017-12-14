@@ -82,9 +82,12 @@ var mods =   info["swastika"] + info["ping"] + info["kick"] + info["ban"]
 start();
 
 function start(){
- client.connect({
-   token: "MzM0NDc0NDQxODIyMTc1MjMy.DLcVVg.6SHLjXqSu4ebztzDRSVCqZVad_g"
- });
+
+  setTimeout(function(){process.exit()}, 86400000)
+
+  client.connect({
+    token: "MzM0NDc0NDQxODIyMTc1MjMy.DLcVVg.6SHLjXqSu4ebztzDRSVCqZVad_g"
+  });
 }
 client.Dispatcher.on("GATEWAY_READY", e => {
   console.log("Connected as: " + client.User.username);
@@ -862,7 +865,7 @@ if (content.startsWith(p +'zyklon') && trustedIDs.includes(author.id)){
               {name: "**Private Commands**", value: mods}],
       footer: {
         icon_url: pfp,
-        text: "Made by Void, for the honor of Mein Führer"
+        text: "Made by Void, for the Glory of Der Reich"
       }
     });
 }
