@@ -118,10 +118,10 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
 
         if (err) return console.log(err.message);
         let diff = process.hrtime(start);
-        let time = Math.floor((diff[0] * 1000 + diff[1] / 1000000)/1000)
+        let time = Math.floor((diff[0] * 1000 + diff[1] / 1000000)/1000);
 
-        var playedTime = Math.floor(time / 60) + ":" + ('00' + Math.floor(time % 60 ? time % 60 : '00')).slice(-2)
-        var songLength = Math.floor(dur / 60) + ":" + ('00' + Math.floor(dur % 60 ? dur % 60 : '00')).slice(-2)
+        var playedTime = Math.floor(time / 60) + ":" + ('00' + Math.floor(time % 60 ? time % 60 : '00')).slice(-2);
+        var songLength = Math.floor(dur / 60) + ":" + ('00' + Math.floor(dur % 60 ? dur % 60 : '00')).slice(-2);
 
         displayLength = '['+playedTime+'/'+songLength+']';
 
@@ -134,14 +134,14 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
             title: displayLength,
             timestamp: new Date(Date.now()).toISOString(),
             fields: [{name: "Up Next:", value: next.replace('_', '/') +' **['+nextLength+']**'}]
-          });
-        });
+          }).catch(e => console.log(e));
+        }).catch(e => console.log(e));
 
       });
     }
 
   if (content == p+"np" || content == p+"queue" || content == p+"q") {
-    queue()
+    queue();
   }
 
   //ping
