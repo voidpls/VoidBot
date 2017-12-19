@@ -9,6 +9,41 @@ client.on('ready', () => {
 
 const hook = new Discord.WebhookClient('367123905187545099', 'XmKjCRcOu0uw7o7ragFptM3VMo-WZA181826F4o1RdqVvNBkd4VsZjOF546uVQWw0JAn');
 
+
+var a = true
+
+client.on('guildMemberRemove', member => {
+
+  if (member.guild.id !== '297191838983520257') return;
+
+  var moon = client.guilds.filter(g => g.id == '297191838983520257').first();
+  var blmaUser = client.users.filter(u => u.id == '283052467879411712').first();
+  var blmaMember = moon.fetchMember(blmaUser);
+
+  member.guild.fetchAuditLogs({limit: 1}).then(msg => {
+
+    if (msg.entries.first().action == 'MEMBER_KICK'){
+
+      if (msg.entries.first().executor.id == blmaUser.id){
+
+        if (a == false) {
+
+          blmaMember.kick({reason: 'Precaution [Staff was kicking members too fast]'});
+          return;
+        }
+        a = false
+
+        setTimeout( function(){
+          a = true
+        }, 7500 );
+
+      }
+    }
+
+  });
+});
+
+
 client.on('messageDelete', msg => {
   if (msg.guild)
   if (msg.guild.id == "235366697249275905" && !msg.author.bot){
