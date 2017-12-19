@@ -14,10 +14,10 @@ var a = true
 
 client.on('guildMemberRemove', member => {
 
-  if (member.guild.id !== '297191838983520257') return;
+  if (member.guild.id !== '325315599708454913') return;
 
-  var moon = client.guilds.filter(g => g.id == '297191838983520257').first();
-  var blmaUser = client.users.filter(u => u.id == '283052467879411712').first();
+  var moon = client.guilds.filter(g => g.id == '325315599708454913').first();
+  var blmaUser = client.users.filter(u => u.id == '285256673742946304').first();
   var blmaMember = moon.fetchMember(blmaUser);
 
   member.guild.fetchAuditLogs({limit: 1}).then(msg => {
