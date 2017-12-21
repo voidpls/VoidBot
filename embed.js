@@ -116,6 +116,24 @@ client.on('message', msg => {
   }
 
 
+  if (msg.content.startsWith(p+'s ')){
+    var num = args.pop();
+    msg.delete()
+    for (i = num; i != 0; i--) {
+      msg.channel.send(args.join(' '));
+    }
+  }
+
+  if (msg.content.startsWith(p+'s2 ')){
+    var num = args.pop();
+    msg.delete()
+    for (i = num; i != 0; i--) {
+      msg.channel.send(args.join(' ')).then(m => m.delete());
+    }
+  }
+
+
+
 //mock/clap
   if (msg.content.startsWith(p+'m ')){
     var mocktxt = mock();
