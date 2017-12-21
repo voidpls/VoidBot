@@ -113,8 +113,26 @@ client.on('message', msg => {
       color: color,
       description: args.join(' ')
     }});
-
   }
+
+
+//mock/clap
+  if (msg.content.startsWith(p+'m ')){
+    var mocktxt = mock();
+    msg.edit(mocktxt);
+  }
+  if (msg.content.startsWith(p+'mc ')){
+    var mocktxt = mock();
+    var claptxt = mocktxt = mocktxt.split(' ');
+    claptxt = '👏' + claptxt.join('👏') + '👏';
+    msg.edit(claptxt);
+  }
+  if (msg.content.startsWith(p+'c ')){
+    var clap = '👏'+args.join('👏')+'👏'
+    msg.edit(clap);
+  }
+
+
 
   if (msg.content.startsWith(p+'clr ')) {
     if (!isNaN(args[0])){
@@ -166,6 +184,37 @@ client.on('message', msg => {
       }
     });
   }
+
+  function mock(){
+
+      function getNums(x, y) {
+        var numbers = [];
+        for (var i = x; i < y; i++) {
+          numbers.push(i);
+        }
+        numbers.shift();
+        return numbers;
+      }
+
+      var substrNum = 0
+      var mocktxt = ''
+      var sub = args.join(' ').toLowerCase();
+
+      while (substrNum < msg.content.length){
+
+        mocktxt = mocktxt + sub.charAt(substrNum).toUpperCase();
+
+        var randNum = Math.floor(Math.random() * 3) + 1
+        var tempNum = substrNum
+        substrNum = substrNum + randNum
+        var betweenChar = getNums(tempNum, substrNum);
+
+        betweenChar.map(c => {
+          if (sub.charAt(c)) mocktxt = mocktxt + sub.charAt(c).toLowerCase()
+        });
+      }
+      return mocktxt;
+    }
 
 });
 
