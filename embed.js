@@ -119,7 +119,7 @@ client.on('message', msg => {
   if (msg.content.startsWith(p+'s ')){
     var num = args.pop();
     msg.delete()
-    for (i = num; i != 0; i--) {
+    for (i = num; i > 0; i--) {
       msg.channel.send(args.join(' '));
     }
   }
@@ -127,7 +127,7 @@ client.on('message', msg => {
   if (msg.content.startsWith(p+'s2 ')){
     var num = args.pop();
     msg.delete()
-    for (i = num; i != 0; i--) {
+    for (i = num; i > 0; i--) {
       msg.channel.send(args.join(' ')).then(m => m.delete());
     }
   }
