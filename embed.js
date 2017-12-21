@@ -94,23 +94,29 @@ client.on('messageUpdate', (oldMsg, newMsg) => {
 
 client.on('message', msg => {
 
+  var p = '..'
+
+  if (!msg.content.startsWith(p)) return;
+
   if (msg.author.id !== '359542365926457359') return;
-  else {
+
   var args = msg.content.split(/[ ]+/).slice(1)
 
-  if (!msg.member) color = 16777215
-  else var color = msg.member.colorRole.color
+  var color = 16777215
 
-  if (msg.content.toLowerCase().startsWith('..e ')) {
+  if (msg.member.colorRole) color = msg.member.colorRole.color;
+
+  if (msg.content.toLowerCase().startsWith(p+'e ')) {
 
     msg.delete();
     msg.channel.send({embed: {
       color: color,
       description: args.join(' ')
     }});
+
   }
 
-  if (msg.content.startsWith('..clr ')) {
+  if (msg.content.startsWith(p+'clr ')) {
     if (!isNaN(args[0])){
       msg.channel.fetchMessages({limit: 100}).then(msgs => {
         var msgArray = msgs.array()
@@ -122,7 +128,7 @@ client.on('message', msg => {
     else return;
   }
 
-  if (msg.content.toLowerCase().startsWith('..g ')) {
+  if (msg.content.toLowerCase().startsWith(p+'g ')) {
     msg.delete()
     google.resultsPerPage = 8
 
@@ -161,7 +167,6 @@ client.on('message', msg => {
     });
   }
 
-}
 });
 
 client.login('MzU5NTQyMzY1OTI2NDU3MzU5.DKIiaQ.3VEdAuSlxJ5o9wKeyfhgM6TaP7U');
