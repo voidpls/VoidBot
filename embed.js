@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const google = require('google')
+const google = require('google');
+const translate = require('google-translate-api')
 var Vibrant = require('node-vibrant')
 
 client.on('ready', () => {
@@ -94,7 +95,7 @@ client.on('messageUpdate', (oldMsg, newMsg) => {
 
 client.on('message', msg => {
 
-  var p = '..'
+  var p = 's.'
 
   if (!msg.content.startsWith(p)) return;
 
@@ -106,6 +107,8 @@ client.on('message', msg => {
 
   if (msg.member.colorRole) color = msg.member.colorRole.color;
 
+
+//embed
   if (msg.content.toLowerCase().startsWith(p+'e ')) {
 
     msg.delete();
@@ -116,6 +119,7 @@ client.on('message', msg => {
   }
 
 
+//spam
   if (msg.content.startsWith(p+'s ')){
     var num = args.pop();
     msg.delete()
@@ -151,7 +155,7 @@ client.on('message', msg => {
   }
 
 
-
+//clr
   if (msg.content.startsWith(p+'clr ')) {
     if (!isNaN(args[0])){
       msg.channel.fetchMessages({limit: 100}).then(msgs => {
@@ -164,6 +168,7 @@ client.on('message', msg => {
     else return;
   }
 
+//google
   if (msg.content.toLowerCase().startsWith(p+'g ')) {
     msg.delete()
     google.resultsPerPage = 8
@@ -202,6 +207,24 @@ client.on('message', msg => {
       }
     });
   }
+
+//translate
+  if (msg.content.toLowerCase().startsWith(p+'tr ')){
+
+    if (!args.length >= 2) {
+      msg.delete();
+      return;
+    }
+    var lang = args.shift()
+
+    translate(args.join(' '), {to: lang}).then(res => {
+      msg.edit(res.text);
+    }).catch(err => {
+      console.error(err);
+    });
+  }
+
+
 
   function mock(){
 
