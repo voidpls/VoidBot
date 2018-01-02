@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const google = require('google');
 const translate = require('google-translate-api')
+var urban = require('urban');
 var Vibrant = require('node-vibrant')
 
 client.on('ready', () => {
@@ -104,8 +105,9 @@ client.on('message', msg => {
   var args = msg.content.split(/[ ]+/).slice(1)
 
   var color = 16777215
-
-  if (msg.member.colorRole) color = msg.member.colorRole.color;
+  if (msg.member){
+    if (msg.member.colorRole) color = msg.member.colorRole.color;
+  }
 
 
 //embed
@@ -224,6 +226,41 @@ client.on('message', msg => {
     });
   }
 
+//pfp
+  if (msg.content.toLowerCase().startsWith(p+'pfp')){
+
+    if (args.length == 0) msg.edit(msg.author.avatarURL.replace('.jpg', '.png'));
+
+    else if (args.length == 1){
+      let user = getUser(args[0]);
+      if (user === undefined) return;
+      msg.edit(user.avatarURL.replace('.jpg', '.png'));
+    }
+
+  }
+
+//urban
+  if (msg.content.toLowerCase().startsWith(p+'ud')){
+    if (args.length == 0){
+      var udRand = urban.random().first(function(json) {
+        msg.delete();
+        urbanMsg(msg, json);
+      });
+    }
+    else if (args.length >= 1) {
+      urban(args.join(' ')).first(function(json) {
+        msg.delete();
+        if (json === undefined) return;
+        urbanMsg(msg, json);
+      });
+    }
+  }
+
+  function getUser(arg) {
+    user = client.users.get(arg.replace(/\D/g,''));
+    if (user === undefined) return;
+    return user;
+  }
 
 
   function mock(){
@@ -257,6 +294,25 @@ client.on('message', msg => {
       return mocktxt;
     }
 
+
+  function urbanMsg(msg, json){
+    msg.channel.send({embed: {
+      author: {
+        name: json.word,
+        icon_url: "http://www.voidpls.tk/files/urban.jpg"
+      },
+      color: color,
+      fields: [
+        {name: "**Definition:**", value: json.definition},
+        {name: "**Example:**", value: json.example},
+        {name: "**Rating:**", value: "**👍 " + json.thumbs_up + " 👎 " + json.thumbs_down + "**"}
+      ],
+      footer: {
+        icon_url: null,
+        text: "Author: " + json.author
+      }}
+    });
+  }
 });
 
 client.login('MzU5NTQyMzY1OTI2NDU3MzU5.DKIiaQ.3VEdAuSlxJ5o9wKeyfhgM6TaP7U');
