@@ -12,3 +12,7 @@
 #node
 
 node_modules
+*.jpg
+npm-debug.log.4015355441
+npm-debug.log.224969017
+*.png
