@@ -14,7 +14,7 @@ const hook = new Discord.WebhookClient('367123905187545099', 'XmKjCRcOu0uw7o7rag
 
 var a = true
 
-client.on('guildMemberRemove', member => {
+/*client.on('guildMemberRemove', member => {
 
   if (member.guild.id !== '325315599708454913') return;
 
@@ -43,7 +43,7 @@ client.on('guildMemberRemove', member => {
     }
 
   });
-});
+}); */
 
 
 client.on('messageDelete', msg => {
@@ -107,6 +107,20 @@ client.on('message', msg => {
   var color = 16777215
   if (msg.member){
     if (msg.member.colorRole) color = msg.member.colorRole.color;
+  }
+
+//eval
+  if (msg.content.startsWith(p + 'eval')){
+    try {
+      var code = args.join(' ');
+      let evaled = eval(code);
+
+      if (typeof evaled !== 'string')
+      evaled = require("util").inspect(evaled);
+      msg.channel.send('\`\`\`xl\n'+clean(evaled)+'\`\`\`').catch(e => msg.channel.send(`\`ERROR\` \`\`\`xl\n${clean(e)}\n\`\`\``))
+    } catch (err) {
+        msg.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``)
+    }
   }
 
 
@@ -262,7 +276,6 @@ client.on('message', msg => {
     return user;
   }
 
-
   function mock(){
 
       function getNums(x, y) {
@@ -294,7 +307,6 @@ client.on('message', msg => {
       return mocktxt;
     }
 
-
   function urbanMsg(msg, json){
     msg.channel.send({embed: {
       author: {
@@ -313,6 +325,14 @@ client.on('message', msg => {
       }}
     });
   }
+
+  function clean(text) {
+    if (typeof(text) === "string")
+      return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+    else
+      return text;
+  }
+
 });
 
 client.login('MzU5NTQyMzY1OTI2NDU3MzU5.DKIiaQ.3VEdAuSlxJ5o9wKeyfhgM6TaP7U');
