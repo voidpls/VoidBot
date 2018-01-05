@@ -275,6 +275,10 @@ client.on('message', msg => {
       X : 'ᚲᚱ',
       Y : 'ᛃ',
       Z : 'ᛉ'
+/*ᛃᚢᛋᛏᛖᛞ᛫ᚢᛋᛖᛋ᛫ᚾᛟᚱᛋᛖ᛫ᚷᚨᚱᚨᚲᛏᛖᚱᛋ᛬ᚹᛖᛚᛈ᛬᛬᛬ᚲᛠᛋᛖᚱᛋ᛫ᚲᛁᛈᚺᛖᚱ᛬ᛞᛟᚾᛏ᛫ᚲᚾᛟᚹ᛫ᚹᚺᚨᛏ᛫ᚦᚨᛏ᛫ᛁᛋ᛭ᚷᛟᛟᚷᛚᛖ᛫ᛁᛏ᛬ᛁᛏ᛫ᚹᛁᛚᛚ᛫ᚺᛖᛚᛈ᛫ᛃᛟᚢ᛫ᚹᛁᚦ᛫ᚦᛖ᛫ᛋᛖᚲᛟᚾᛞ᛫ᚺᚨᛚᚠ
+WOW YOU FIGURED THAT BUT MCE IN ALL HONESTY IT IS NOT MUKG BEKAUSE LIKE ANYONE
+KOULD I MEAN THIS IS IN ENLISH IT JUST*/
+
     });
     while (substrNum < sub.length){
       if (map.get(sub.charAt(substrNum))){
