@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+var StringMap = require('string-map');
 const client = new Discord.Client();
 const google = require('google');
 const translate = require('google-translate-api')
@@ -110,7 +111,7 @@ client.on('message', msg => {
   }
 
 //eval
-  if (msg.content.startsWith(p + 'eval')){
+  if (msg.content.toLowerCase().startsWith(p + 'eval')){
     try {
       var code = args.join(' ');
       let evaled = eval(code);
@@ -136,7 +137,7 @@ client.on('message', msg => {
 
 
 //spam
-  if (msg.content.startsWith(p+'s ')){
+  if (msg.content.toLowerCase().startsWith(p+'s ')){
     var num = args.pop();
     msg.delete()
     for (i = num; i > 0; i--) {
@@ -144,7 +145,7 @@ client.on('message', msg => {
     }
   }
 
-  if (msg.content.startsWith(p+'s2 ')){
+  if (msg.content.toLowerCase().startsWith(p+'s2 ')){
     var num = args.pop();
     msg.delete()
     for (i = num; i > 0; i--) {
@@ -155,17 +156,17 @@ client.on('message', msg => {
 
 
 //mock/clap
-  if (msg.content.startsWith(p+'m ')){
+  if (msg.content.toLowerCase().startsWith(p+'m ')){
     var mocktxt = mock();
     msg.edit(mocktxt);
   }
-  if (msg.content.startsWith(p+'mc ')){
+  if (msg.content.toLowerCase().startsWith(p+'mc ')){
     var mocktxt = mock();
     var claptxt = mocktxt = mocktxt.split(' ');
     claptxt = '👏' + claptxt.join('👏') + '👏';
     msg.edit(claptxt);
   }
-  if (msg.content.startsWith(p+'c ')){
+  if (msg.content.toLowerCase().startsWith(p+'c ')){
     var clap = '👏'+args.join('👏')+'👏'
     msg.edit(clap);
   }
@@ -240,6 +241,53 @@ client.on('message', msg => {
     });
   }
 
+//runes
+  if (msg.content.toLowerCase().startsWith(p+'rune')){
+    var sub = args.join(' ').toUpperCase();
+    var map = new StringMap();
+    var substrNum = 0
+    var data = ''
+    map.set({ ᛃᛟᚢ᛫ᚨᚱᛖ᛫ᛗᛃ᛫ᛒᛁᚷ᛫ᛏᛁᛞᛞᛃ᛫ᚷᛟᚦ᛫ᚷᛁᚱᛚᚠᚱᛠᚾᛞ᛬ᛃᛟᚢ᛫ᚹᛁᛚᛚ᛫ᛚᛠᚱᚾ᛫ᚾᛟᚱᛋᛖ᛫ᛟᚲ᛭
+      TH : 'þ',
+      A : 'ᚨ',
+      B : 'ᛒ',
+      C : 'ᚲ',
+      D : 'ᛞ',
+      E : 'ᛖ',
+      F : 'ᚠ',
+      G : 'ᚷ',
+      H : 'ᚺ',
+      I : 'ᛁ',
+      J : 'ᛃ',
+      K : 'ᚲ',
+      L : 'ᛚ',
+      M : 'ᛗ',
+      N : 'ᚾ',
+      O : 'ᛟ',
+      P : 'ᛈ',
+      Q : 'ᛩ',
+      R : 'ᚱ',
+      S : 'ᛋ',
+      T : 'ᛏ',
+      U : 'ᚢ',
+      V : 'ᚠ',
+      W : 'ᚹ',
+      X : 'ᚲᚱ',
+      Y : 'ᛃ',
+      Z : 'ᛉ'
+    });
+    while (substrNum < sub.length){
+      if (map.get(sub.charAt(substrNum))){
+        data = data + map.get(sub.charAt(substrNum))
+      }
+
+      else {
+        data = data + sub.charAt(substrNum)
+      }
+      substrNum++
+    }
+    msg.edit(data)
+  }
 //pfp
   if (msg.content.toLowerCase().startsWith(p+'pfp')){
 
