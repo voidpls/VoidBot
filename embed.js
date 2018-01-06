@@ -247,7 +247,7 @@ client.on('message', msg => {
     var map = new StringMap();
     var substrNum = 0
     var data = ''
-    map.set({ ᛃᛟᚢ᛫ᚨᚱᛖ᛫ᛗᛃ᛫ᛒᛁᚷ᛫ᛏᛁᛞᛞᛃ᛫ᚷᛟᚦ᛫ᚷᛁᚱᛚᚠᚱᛠᚾᛞ᛬ᛃᛟᚢ᛫ᚹᛁᛚᛚ᛫ᛚᛠᚱᚾ᛫ᚾᛟᚱᛋᛖ᛫ᛟᚲ᛭
+    map.set({ 
       TH : 'þ',
       A : 'ᚨ',
       B : 'ᛒ',
