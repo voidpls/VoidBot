@@ -8,6 +8,7 @@ var Vibrant = require('node-vibrant')
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
+  setTimeout(function(){process.exit()}, 86400000);
 });
 
 const hook = new Discord.WebhookClient('367123905187545099', 'XmKjCRcOu0uw7o7ragFptM3VMo-WZA181826F4o1RdqVvNBkd4VsZjOF546uVQWw0JAn');
@@ -247,7 +248,7 @@ client.on('message', msg => {
     var map = new StringMap();
     var substrNum = 0
     var data = ''
-    map.set({ 
+    map.set({
       TH : 'þ',
       A : 'ᚨ',
       B : 'ᛒ',

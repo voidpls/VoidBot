@@ -98,16 +98,6 @@ client.Dispatcher.on("DISCONNECTED", () => {
   console.log('Disconnected from Discord');
 });
 
-//welcome
-client.Dispatcher.on("GUILD_MEMBER_ADD", e => {
-  function send() {
-    channel.sendMessage(`Welcome to Moon Central, ${e.member.mention}! \nType **..modping** to ping staff!`);
-  }
-  let channel = client.Channels.get('325648252810690570');
-	if (e.guild.id === "325315599708454913") {
-    setTimeout(send, 5000);
-  }
-});
 
 //commands
 client.Dispatcher.on("MESSAGE_CREATE", e => {

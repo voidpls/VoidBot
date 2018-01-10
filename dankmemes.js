@@ -107,7 +107,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
     }
     else channel.sendMessage('<:error:335660275481051136> **Staff Only**"')
   }
-  
+
 
 //name
 
@@ -123,6 +123,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
 //dank
 
   if (passArray.includes(content) && channel.id == '269612335675473921'){
+    if (!author) return;
     if (author.hasRole(passRole)) channel.sendMessage('you already have dank memer stinky')
     else {
       message.delete();
