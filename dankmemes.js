@@ -17,7 +17,7 @@ client.connect({token: "Mzc3NjEyMzk1Mzk0MjM2NDE3.DOUVgg._PU24yBBxHE4MRplJLynAAw5
 client.Dispatcher.on("GATEWAY_READY", e => {
 
   console.log("Connected as: " + client.User.username);
-  setTimeout(function(){process.exit()}, 86400000)
+  //setTimeout(function(){process.exit()}, 86400000)
 
 });
 
@@ -60,6 +60,8 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
   var ownerID = '359542365926457359'
   var dankmemes = client.Guilds.get('235366697249275905')
   var passRole = dankmemes.roles.filter(r => r.id == "268923144935440406")[0]
+  var tempRole = dankmemes.roles.filter(r => r.id == "401622676893859842")[0]
+
 
 //ping
 
@@ -128,6 +130,12 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
     else {
       message.delete();
       channel.sendMessage('​( ͡° ͜ʖ( ͡° ͜ʖ ͡° )ʖ ͡° )╯╲___'+author.mention+' – Don\'t mind me just taking my **'+author.username+'** for a walk');
+      if (author.roles.length == 0) {
+        setTimeout(function(){
+          if(author) author.unassignRole(tempRole);
+        }, 86400000)
+      }
+      author.assignRole(tempRole);
       author.assignRole(passRole);
     }
   }
