@@ -121,7 +121,8 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
     else channel.sendMessage('<:error:335660275481051136> **Owner Only** [Use --nick to change Nickname]')
   }
 
-
+//  var passRole = dankmemes.roles.filter(r => r.id == "268923144935440406")[0]
+//  var tempRole = dankmemes.roles.filter(r => r.id == "401622676893859842")[0]
 //dank
 
   if (passArray.includes(content) && channel.id == '269612335675473921'){
@@ -131,12 +132,12 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
       message.delete();
       channel.sendMessage('​( ͡° ͜ʖ( ͡° ͜ʖ ͡° )ʖ ͡° )╯╲___'+author.mention+' – Don\'t mind me just taking my **'+author.username+'** for a walk');
       if (author.roles.length == 0) {
+        setTimeout(function(){author.assignRole("401622676893859842")}, 2000)
         setTimeout(function(){
-          if(author) author.unassignRole(tempRole);
+          if (author) author.unassignRole("401622676893859842");
         }, 86400000)
       }
-      author.assignRole(tempRole);
-      author.assignRole(passRole);
+      author.assignRole("268923144935440406");
     }
   }
 
@@ -146,7 +147,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
     if (!author.hasRole(passRole)) channel.sendMessage('you dont have dank memer stinky')
     else {
       channel.sendMessage('<:yeet:329344020348272640> *undanked* <:yeet:329344020348272640>');
-      author.unassignRole(passRole);
+      author.unassignRole("268923144935440406");
     }
   }
 
