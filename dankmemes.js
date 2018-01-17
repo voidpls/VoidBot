@@ -2,6 +2,8 @@ var Discordie = require("discordie");
 
 var i2b = require('imageurl-base64');
 
+var bella = require("bella-scheduler")
+
 var client = new Discordie({
 
   messageCacheLimit: 1000,
@@ -15,7 +17,6 @@ client.connect({token: "Mzc3NjEyMzk1Mzk0MjM2NDE3.DOUVgg._PU24yBBxHE4MRplJLynAAw5
 //ready / daily restart
 
 client.Dispatcher.on("GATEWAY_READY", e => {
-
   console.log("Connected as: " + client.User.username);
   //setTimeout(function(){process.exit()}, 86400000)
 
@@ -132,12 +133,14 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
       message.delete();
       channel.sendMessage('​( ͡° ͜ʖ( ͡° ͜ʖ ͡° )ʖ ͡° )╯╲___'+author.mention+' – Don\'t mind me just taking my **'+author.username+'** for a walk');
       if (author.roles.length == 0) {
-        setTimeout(function(){author.assignRole("401622676893859842")}, 2000)
-        setTimeout(function(){
+        author.setRoles(["268923144935440406", "401622676893859842"]);
+        bella.once('1d', () => {
           if (author) author.unassignRole("401622676893859842");
-        }, 86400000)
+        });
       }
-      author.assignRole("268923144935440406");
+      else {
+        author.assignRole("268923144935440406");
+      }
     }
   }
 
