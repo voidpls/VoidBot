@@ -133,10 +133,14 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
       message.delete();
       channel.sendMessage('​( ͡° ͜ʖ( ͡° ͜ʖ ͡° )ʖ ͡° )╯╲___'+author.mention+' – Don\'t mind me just taking my **'+author.username+'** for a walk');
       if (author.roles.length == 0) {
-        author.setRoles(["268923144935440406", "401622676893859842"]).catch(e => console.log(e));
-        bella.once('1d', () => {
-          if (author) author.unassignRole("401622676893859842").catch(e => console.log(e));
-        }).catch(e => console.log(e));
+        try {
+          author.setRoles(["268923144935440406", "401622676893859842"]);
+          bella.once('1d', () => {
+            if (author) author.unassignRole("401622676893859842");
+          });
+        } catch (e) {
+          console.log(e);
+        }
       }
       else if (author.roles.length > 0){
         if (author) author.assignRole("268923144935440406").catch(e => console.log(e));
