@@ -135,17 +135,13 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
       if (author.roles.length == 0) {
           author.setRoles(["268923144935440406", "401622676893859842"]);
           bella.once('1d', () => {
-            try {
-              if (author) author.unassignRole("401622676893859842");
-            } catch (e) {
-              console.log(e);
+            if (author) author.unassignRole("401622676893859842").catch(e => console.log(e));
+            else if (author.roles.length > 0){
+              if (author) author.assignRole("268923144935440406").catch(e => console.log(e));
             }
           });
         }
-      }
-      else if (author.roles.length > 0){
-        if (author) author.assignRole("268923144935440406").catch(e => console.log(e));
-      }
+
     }
   }
 
