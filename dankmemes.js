@@ -14,12 +14,10 @@ var client = new Discordie({
 
 client.connect({token: "Mzc3NjEyMzk1Mzk0MjM2NDE3.DOUVgg._PU24yBBxHE4MRplJLynAAw5Bcg"});
 
-//ready / daily restart
+//ready
 
 client.Dispatcher.on("GATEWAY_READY", e => {
   console.log("Connected as: " + client.User.username);
-  //setTimeout(function(){process.exit()}, 86400000)
-
 });
 
 
@@ -85,7 +83,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
     else channel.sendMessage('<:error:335660275481051136> **Staff Only**"')
   }
 
-//avatar
+//avatar - ratelimit: 2x per hour
 
   if (content.startsWith(p + 'avatar ')){
     if (author.id == ownerID){
@@ -112,7 +110,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
   }
 
 
-//name
+//name - ratelimit: 2x per hour
 
   if (content.startsWith(p + 'name')){
     if (author.id == ownerID){
