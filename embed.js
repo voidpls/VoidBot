@@ -50,7 +50,7 @@ var a = true
 
 client.on('messageDelete', msg => {
   if (msg.guild)
-  if (msg.guild.id == "235366697249275905" && !msg.author.bot){
+  if (msg.guild.id == "385593605479202816" && !msg.author.bot){
     hook.sendSlackMessage({
       'username': msg.author.username,
       'icon_url': msg.author.avatarURL,
@@ -72,7 +72,7 @@ client.on('messageDelete', msg => {
 
 client.on('messageUpdate', (oldMsg, newMsg) => {
   if (oldMsg.guild)
-  if (oldMsg.guild.id == "235366697249275905" && !oldMsg.author.bot){
+  if (oldMsg.guild.id == "385593605479202816" && !oldMsg.author.bot){
     if (oldMsg.cleanContent === newMsg.cleanContent) return;
     else {
       hook.sendSlackMessage({

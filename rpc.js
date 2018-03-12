@@ -8,8 +8,8 @@ const client = new Client({ transport: 'ipc' });
 client.on('ready', () => {
 
   client.setActivity({
-    state: 'files/oldmenporn.mp4',
-    details: 'voidpls.tk/',
+    state: '👌',
+    details: 'gottem',
     startTimestamp: new Date(),
     largeImageKey: 'sexysun',
     smallImageKey: 'odal',
