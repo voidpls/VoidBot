@@ -157,6 +157,11 @@ client.on('message', msg => {
   }
 
 
+//y/n poll
+  if (msg.content.includes('y/n')){
+    msg.react('✅').then(msg.react('❎'));
+  }
+
 
 //mock/clap
   if (msg.content.toLowerCase().startsWith(p+'m ')){
@@ -417,6 +422,7 @@ KOULD I MEAN THIS IS IN ENLISH IT JUST*/
                    {name: "**High/Low:**", value: highLow},
                    {name: "**Condition**:", value: info.item.condition.text+' | **'+info.atmosphere.humidity+'**% humidity'}],
           footer: {text: info.lastBuildDate.replace(/\w+[.!?]?$/, '')},
+          description: 'Search Term: '+loc
         }})
       })
   }
