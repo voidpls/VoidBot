@@ -5,6 +5,8 @@ const google = require('google');
 const translate = require('google-translate-api')
 var urban = require('urban');
 var Vibrant = require('node-vibrant')
+var weather = require("yahoo-weather")
+
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -329,6 +331,15 @@ KOULD I MEAN THIS IS IN ENLISH IT JUST*/
     return user;
   }
 
+//weather
+  if (msg.content.startsWith(p + 'weather')  || msg.content.startsWith(p + 'w')){
+    if (args.length == 0) return;
+    loc = args.join(' ')
+    weatherSearch(loc);
+    msg.delete();
+  }
+
+
   function mock(){
 
       function getNums(x, y) {
@@ -378,6 +389,36 @@ KOULD I MEAN THIS IS IN ENLISH IT JUST*/
       }}
     });
   }
+
+
+
+  function weatherSearch(loc){
+    weather(loc, 'f').then(info => {
+        var ftemp = info.item.condition.temp
+        var ctemp = Math.round((ftemp-32)*5/9)
+        var cwind = Math.round((info.wind.chill-32)*5/9)
+        var forecast = info.item.forecast[0]
+        var cHigh = Math.round((forecast.high-32)*5/9)
+        var cLow = Math.round((forecast.low-32)*5/9)
+        var highLow = '**'+ forecast.high+'**°/**'+forecast.low+
+                '**°F **| '+cHigh+'**°/**'+cLow+'**°C'
+          msg.channel.send({embed: {
+          color: color,
+          author: {
+            name: info.location.city+', '+info.location.region+', '+info.location.country
+          },
+          thumbnail: {url: 'http://www.voidpls.tk/files/weather/'+ info.item.condition.code +'.png'},
+          fields: [{name: "**Temperature:**", value: '**'+ftemp+'**°F/**'+ctemp+'**°C'},
+                   {name: "**High/Low:**", value: highLow},
+                   {name: "**Condition**:", value: info.item.condition.text+' | **'+info.atmosphere.humidity+'**% humidity'}],
+          footer: {text: info.lastBuildDate.replace(/\w+[.!?]?$/, '')},
+        }});
+      }).catch(err => {
+      console.log(err)
+      channel.sendMessage("**<:error:335660275481051136> Could not find weather info for `"+loc+"`**")
+    });
+  }
+
 
   function clean(text) {
     if (typeof(text) === "string")

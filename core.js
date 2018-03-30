@@ -443,7 +443,7 @@ if (content.includes('heil')) e.message.addReaction(":swastika:32290026695976550
             color: 0xD00000,
             author: {
             name: json.word,
-            icon_url: ""
+            icon_url: "http://www.voidpls.tk/files/urban.jpg"
             },
             fields: [ {name: "**Definition:**", value: json.definition},
                       {name: "**Example:**", value: json.example},

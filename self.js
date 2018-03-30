@@ -53,7 +53,7 @@ client.Dispatcher.on("MESSAGE_CREATE", e => {
     }
 
 //vapor
-    if (content.startsWith(prefix+'vapor ')){
+    if (content.startsWith(prefix+'vapor ') || content.startsWith(prefix+'v ')){
       var vaportxt = funcs.vapor(e, args)
       e.message.edit(vaportxt);
     }
