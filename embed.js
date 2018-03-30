@@ -394,6 +394,11 @@ KOULD I MEAN THIS IS IN ENLISH IT JUST*/
 
   function weatherSearch(loc){
     weather(loc, 'f').then(info => {
+        if (info === null) {
+          msg.channel.send("**<:error:335660275481051136> Could not find weather info for `"+loc+"`**");
+          return;
+        }
+
         var ftemp = info.item.condition.temp
         var ctemp = Math.round((ftemp-32)*5/9)
         var cwind = Math.round((info.wind.chill-32)*5/9)
@@ -412,11 +417,8 @@ KOULD I MEAN THIS IS IN ENLISH IT JUST*/
                    {name: "**High/Low:**", value: highLow},
                    {name: "**Condition**:", value: info.item.condition.text+' | **'+info.atmosphere.humidity+'**% humidity'}],
           footer: {text: info.lastBuildDate.replace(/\w+[.!?]?$/, '')},
-        }});
-      }).catch(err => {
-      console.log(err)
-      channel.sendMessage("**<:error:335660275481051136> Could not find weather info for `"+loc+"`**")
-    });
+        }})
+      })
   }
 
 
