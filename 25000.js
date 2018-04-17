@@ -9,7 +9,9 @@ client.on('ready', () => {
 
 client.on('message', msg => {
 
-  if (msg.content.startsWith('24999') && msg.channel.id == '435284910807449610') {
+  if (msg.channel.id !== '435284910807449610') return;
+  
+  if (msg.content.startsWith('24999')) {
 
     msg.channel.send('25000').then(() => {
 
@@ -17,6 +19,7 @@ client.on('message', msg => {
 
     });
   }
+
 
 });
 
