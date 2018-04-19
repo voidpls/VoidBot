@@ -102,6 +102,11 @@ client.on('message', msg => {
 
   var p = 's.'
 
+//y/n poll
+  if (msg.content.includes('y/n')){
+    msg.react('✅').then(msg.react('❎'));
+  }
+
   if (!msg.content.startsWith(p)) return;
 
   if (msg.author.id !== '359542365926457359') return;
@@ -156,11 +161,6 @@ client.on('message', msg => {
     }
   }
 
-
-//y/n poll
-  if (msg.content.includes('y/n')){
-    msg.react('✅').then(msg.react('❎'));
-  }
 
 
 //mock/clap
