@@ -101,6 +101,12 @@ client.on('messageUpdate', (oldMsg, newMsg) => {
 client.on('message', msg => {
 
   var p = 's.'
+  
+  /****************************************/
+  /* DO NOT MAKE COMMANDS ABOVE THIS LINE */
+  /****************************************/
+
+  if (msg.author.id !== '359542365926457359') return;
 
 //y/n poll
   if (msg.content.includes('y/n')){
@@ -109,7 +115,6 @@ client.on('message', msg => {
 
   if (!msg.content.startsWith(p)) return;
 
-  if (msg.author.id !== '359542365926457359') return;
 
   var args = msg.content.split(/[ ]+/).slice(1)
 
