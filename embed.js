@@ -101,7 +101,7 @@ client.on('messageUpdate', (oldMsg, newMsg) => {
 client.on('message', msg => {
 
   var p = 's.'
-  
+
   /****************************************/
   /* DO NOT MAKE COMMANDS ABOVE THIS LINE */
   /****************************************/
@@ -110,7 +110,8 @@ client.on('message', msg => {
 
 //y/n poll
   if (msg.content.includes('y/n')){
-    msg.react('✅').then(msg.react('❎'));
+    msg.react('✅')
+    msg.react('❎')
   }
 
   if (!msg.content.startsWith(p)) return;
