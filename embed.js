@@ -50,7 +50,7 @@ var a = true
 }); */
 
 
-client.on('messageDelete', msg => {
+client.on('messageDelete', async msg => {
   if (msg.guild)
   if (msg.guild.id == "385593605479202816" && !msg.author.bot){
     hook.sendSlackMessage({
@@ -110,9 +110,15 @@ client.on('message', msg => {
 
 //y/n poll
   if (msg.content.includes('y/n')){
-    msg.react('✅')
-    msg.react('❎')
+
+    let react = async () => {
+      await msg.react('✅')
+      await msg.react('❎');
+    }
+    react()
+
   }
+
 
   if (!msg.content.startsWith(p)) return;
 
