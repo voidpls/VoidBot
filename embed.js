@@ -1,6 +1,12 @@
 const Discord = require("discord.js");
 var StringMap = require('string-map');
-const client = new Discord.Client();
+const client = new Discord.Client({
+  messageCacheMaxSize: 100,
+  messageCacheLifetime: 7200,
+  messageSweepInterval: 1800,
+  disabledEvents: ['TYPING_START', 'VOICE_STATE_UPDATE', 'MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE', 'USER_UPDATE']
+
+});
 const google = require('google');
 const translate = require('google-translate-api')
 var urban = require('urban');
