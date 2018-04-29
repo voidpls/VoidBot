@@ -112,7 +112,7 @@ client.on('message', msg => {
   /* DO NOT MAKE COMMANDS ABOVE THIS LINE */
   /****************************************/
 
-  if (msg.author.id !== '359542365926457359') return;
+  if (msg.author.id !== '394413240731435009') return;
 
 //y/n poll
   if (msg.content.includes('y/n')){
