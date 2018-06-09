@@ -20,9 +20,9 @@ var weather = require('yahoo-weather')
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
-  setTimeout(function() {
-    process.exit()
-  }, 86400000)
+  // setTimeout(function() {
+  //   process.exit()
+  // }, 86400000)
 })
 
 const hook = new Discord.WebhookClient(
@@ -63,53 +63,53 @@ var a = true
   });
 }); */
 
-client.on('messageDelete', async msg => {
-  if (msg.guild)
-    if (msg.guild.id == '385593605479202816' && !msg.author.bot) {
-      hook.sendSlackMessage({
-        username: msg.author.username,
-        icon_url: msg.author.avatarURL,
-        attachments: [
-          {
-            color: '#ffffff',
-            author_name: msg.guild.name,
-            author_icon: msg.guild.iconURL,
-            text: '**Message deleted in <#' + msg.channel.id + '>**',
-            fields: [{ title: 'Message:', value: msg.cleanContent }],
-            footer: 'ID (' + msg.author.id + ')',
-            ts: Date.now() / 1000
-          }
-        ]
-      })
-    } else return
-})
-
-client.on('messageUpdate', (oldMsg, newMsg) => {
-  if (oldMsg.guild)
-    if (oldMsg.guild.id == '385593605479202816' && !oldMsg.author.bot) {
-      if (oldMsg.cleanContent === newMsg.cleanContent) return
-      else {
-        hook.sendSlackMessage({
-          username: oldMsg.author.username,
-          icon_url: oldMsg.author.avatarURL,
-          attachments: [
-            {
-              color: '#ffffff',
-              author_name: oldMsg.guild.name,
-              author_icon: oldMsg.guild.iconURL,
-              text: '**Message edited in <#' + oldMsg.channel.id + '>**',
-              fields: [
-                { title: 'Before:', value: oldMsg.cleanContent },
-                { title: 'After:', value: newMsg.cleanContent }
-              ],
-              footer: 'ID (' + oldMsg.author.id + ')',
-              ts: Date.now() / 1000
-            }
-          ]
-        })
-      }
-    } else return
-})
+// client.on('messageDelete', async msg => {
+//   if (msg.guild)
+//     if (msg.guild.id == '385593605479202816' && !msg.author.bot) {
+//       hook.sendSlackMessage({
+//         username: msg.author.username,
+//         icon_url: msg.author.avatarURL,
+//         attachments: [
+//           {
+//             color: '#ffffff',
+//             author_name: msg.guild.name,
+//             author_icon: msg.guild.iconURL,
+//             text: '**Message deleted in <#' + msg.channel.id + '>**',
+//             fields: [{ title: 'Message:', value: msg.cleanContent }],
+//             footer: 'ID (' + msg.author.id + ')',
+//             ts: Date.now() / 1000
+//           }
+//         ]
+//       })
+//     } else return
+// })
+//
+// client.on('messageUpdate', (oldMsg, newMsg) => {
+//   if (oldMsg.guild)
+//     if (oldMsg.guild.id == '385593605479202816' && !oldMsg.author.bot) {
+//       if (oldMsg.cleanContent === newMsg.cleanContent) return
+//       else {
+//         hook.sendSlackMessage({
+//           username: oldMsg.author.username,
+//           icon_url: oldMsg.author.avatarURL,
+//           attachments: [
+//             {
+//               color: '#ffffff',
+//               author_name: oldMsg.guild.name,
+//               author_icon: oldMsg.guild.iconURL,
+//               text: '**Message edited in <#' + oldMsg.channel.id + '>**',
+//               fields: [
+//                 { title: 'Before:', value: oldMsg.cleanContent },
+//                 { title: 'After:', value: newMsg.cleanContent }
+//               ],
+//               footer: 'ID (' + oldMsg.author.id + ')',
+//               ts: Date.now() / 1000
+//             }
+//           ]
+//         })
+//       }
+//     } else return
+// })
 
 client.on('message', msg => {
   var p = 's.'
